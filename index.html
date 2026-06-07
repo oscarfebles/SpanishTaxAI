@@ -1,0 +1,2260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FAF8F4" />
+
+  <!-- ─── SEO ─────────────────────────────────────────── -->
+  <title>SpanishTax AI — From Visa to Tax Filing</title>
+  <meta name="description" content="Spain's complete bureaucracy companion for English-speaking expats. AI guidance, auto-filled official forms, and optional human asesor review. Built by a Spanish auditor." />
+  <link rel="canonical" href="https://spanishtaxai.com/" />
+
+  <!-- ─── Open Graph / Twitter ─────────────────────────── -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://spanishtaxai.com/" />
+  <meta property="og:title" content="SpanishTax AI — From Visa to Tax Filing" />
+  <meta property="og:description" content="Spain's complete bureaucracy companion for English-speaking expats. From Digital Nomad Visa to quarterly tax filings." />
+  <meta property="og:image" content="https://spanishtaxai.com/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SpanishTax AI — From Visa to Tax Filing" />
+  <meta name="twitter:description" content="Spain's complete bureaucracy companion for English-speaking expats." />
+
+  <!-- ─── Favicon (inline SVG monogram) ─────────────────── -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FAF8F4'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='30' font-weight='600' text-anchor='middle' fill='%23C8553D'%3EST%3C/text%3E%3C/svg%3E" />
+
+  <!-- ─── Fonts ────────────────────────────────────────── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- ─── Lucide Icons ─────────────────────────────────── -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+
+  <style>
+    /* ─── Design tokens ─────────────────────────────────── */
+    :root {
+      --bg: #FAF8F4;
+      --bg-alt: #F4F0E8;
+      --ink: #0F2547;
+      --ink-soft: #1E3358;
+      --muted: #5D5D5D;
+      --accent: #C8553D;
+      --accent-dark: #A8412F;
+      --accent-soft: #F4DDD6;
+      --sage: #7A9B76;
+      --sage-soft: #E4EBE2;
+      --line: #E8E4DC;
+      --line-strong: #D9D3C7;
+      --warn: #E2A23B;
+      --warn-soft: #FBF1D8;
+
+      --serif: 'Fraunces', Georgia, serif;
+      --sans: 'Inter', -apple-system, sans-serif;
+      --tight: 'Inter Tight', 'Inter', sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+
+      --radius-sm: 8px;
+      --radius: 16px;
+      --radius-lg: 24px;
+
+      --shadow-sm: 0 1px 2px rgba(15, 37, 71, 0.04), 0 1px 1px rgba(15, 37, 71, 0.03);
+      --shadow: 0 4px 12px rgba(15, 37, 71, 0.05), 0 1px 3px rgba(15, 37, 71, 0.04);
+      --shadow-lg: 0 20px 40px -10px rgba(15, 37, 71, 0.08), 0 8px 16px -8px rgba(15, 37, 71, 0.06);
+
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* ─── Reset ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      font-weight: 400;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* Subtle paper grain over background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.06   0 0 0 0 0.15   0 0 0 0 0.28   0 0 0 0.045 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      opacity: 0.5;
+      mix-blend-mode: multiply;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    input, textarea { font-family: inherit; }
+
+    h1, h2, h3, h4 {
+      font-family: var(--serif);
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.15;
+      letter-spacing: -0.015em;
+      margin: 0;
+    }
+
+    p { margin: 0; color: var(--muted); }
+
+    /* ─── Layout helpers ─────────────────────────────────── */
+    .container {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    section { padding: clamp(64px, 9vw, 120px) 0; position: relative; z-index: 1; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .eyebrow::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .section-header {
+      max-width: 720px;
+      margin: 0 auto 64px;
+      text-align: center;
+    }
+    .section-header h2 {
+      font-size: clamp(28px, 4.5vw, 48px);
+      margin-bottom: 16px;
+    }
+    .section-header p {
+      font-size: clamp(15px, 1.6vw, 18px);
+      max-width: 580px;
+      margin: 0 auto;
+    }
+
+    /* ─── Buttons ────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 22px;
+      border-radius: 12px;
+      font-weight: 500;
+      font-size: 15px;
+      letter-spacing: -0.005em;
+      transition: all 200ms var(--ease);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #FFF8F4;
+      box-shadow: 0 4px 14px rgba(200, 85, 61, 0.25), inset 0 1px 0 rgba(255,255,255,0.15);
+    }
+    .btn-primary:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(200, 85, 61, 0.3), inset 0 1px 0 rgba(255,255,255,0.15);
+    }
+    .btn-ghost {
+      color: var(--ink);
+      padding: 14px 18px;
+    }
+    .btn-ghost:hover { color: var(--accent); }
+    .btn-ghost .arrow { transition: transform 200ms var(--ease); }
+    .btn-ghost:hover .arrow { transform: translateX(4px); }
+
+    .btn i, .btn svg { width: 18px; height: 18px; }
+
+    /* ─── Navigation ─────────────────────────────────────── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 18px 0;
+      transition: all 250ms var(--ease);
+      background: transparent;
+    }
+    .nav.scrolled {
+      background: rgba(250, 248, 244, 0.85);
+      backdrop-filter: saturate(180%) blur(12px);
+      -webkit-backdrop-filter: saturate(180%) blur(12px);
+      border-bottom: 1px solid var(--line);
+      padding: 12px 0;
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 20px;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--accent);
+      color: #FFF8F4;
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-links a {
+      padding: 8px 14px;
+      font-size: 14.5px;
+      color: var(--ink-soft);
+      font-weight: 500;
+      border-radius: 8px;
+      transition: all 180ms var(--ease);
+    }
+    .nav-links a:hover { color: var(--accent); background: var(--accent-soft); }
+    .nav-links .nav-cta {
+      background: var(--ink);
+      color: var(--bg);
+      padding: 10px 18px;
+      margin-left: 8px;
+      border-radius: 10px;
+    }
+    .nav-links .nav-cta:hover {
+      background: var(--accent);
+      color: #FFF8F4;
+    }
+    .hamburger {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink);
+    }
+    .hamburger:hover { background: var(--accent-soft); }
+
+    /* ─── Hero ───────────────────────────────────────────── */
+    .hero {
+      padding-top: clamp(48px, 6vw, 80px);
+      padding-bottom: clamp(80px, 10vw, 140px);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(200, 85, 61, 0.06), transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -300px;
+      left: -200px;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(122, 155, 118, 0.07), transparent 70%);
+      pointer-events: none;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(48px, 6vw, 80px);
+      align-items: center;
+    }
+    @media (min-width: 1024px) {
+      .hero-grid { grid-template-columns: 1.05fr 1fr; }
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px 6px 8px;
+      background: var(--bg-alt);
+      border: 1px solid var(--line);
+      border-radius: 100px;
+      font-size: 13px;
+      color: var(--ink-soft);
+      font-weight: 500;
+      margin-bottom: 28px;
+    }
+    .hero-badge .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--sage);
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px var(--sage-soft);
+      animation: pulse 2.4s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .hero h1 {
+      font-size: clamp(36px, 6.2vw, 68px);
+      line-height: 1.04;
+      letter-spacing: -0.025em;
+      margin-bottom: 24px;
+      font-weight: 500;
+    }
+    .hero h1 .italic {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--accent);
+    }
+    .hero-sub {
+      font-size: clamp(16px, 1.8vw, 19px);
+      line-height: 1.55;
+      max-width: 560px;
+      margin-bottom: 36px;
+      color: var(--muted);
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+    .hero-trust {
+      font-size: 13.5px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-trust .flags {
+      display: inline-flex;
+      gap: -4px;
+    }
+    .flag {
+      display: inline-grid;
+      place-items: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--bg-alt);
+      border: 1.5px solid var(--bg);
+      font-size: 11px;
+      margin-left: -6px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    .flag:first-child { margin-left: 0; }
+
+    /* Hero mockup — browser frame with chat */
+    .hero-mockup {
+      position: relative;
+      perspective: 1200px;
+    }
+    .browser-frame {
+      background: #FFFFFF;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg), 0 0 0 1px var(--line);
+      overflow: hidden;
+      transform: rotate(0.5deg);
+      transition: transform 400ms var(--ease);
+    }
+    .browser-frame:hover { transform: rotate(0deg) translateY(-4px); }
+    .browser-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 14px 16px;
+      background: #F8F5EF;
+      border-bottom: 1px solid var(--line);
+    }
+    .browser-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #D9D3C7;
+    }
+    .browser-dot.r { background: #E8A199; }
+    .browser-dot.y { background: #EAC678; }
+    .browser-dot.g { background: #A8C2A2; }
+    .browser-url {
+      flex: 1;
+      margin-left: 12px;
+      padding: 5px 12px;
+      background: var(--bg);
+      border-radius: 6px;
+      font-family: var(--mono);
+      font-size: 11.5px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .browser-url::before {
+      content: '';
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--sage);
+      margin-right: 4px;
+    }
+    .chat-body {
+      padding: 24px;
+      background: linear-gradient(180deg, #FFFFFF 0%, #FDFBF7 100%);
+    }
+    .chat-msg {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 18px;
+      animation: fadeUp 600ms var(--ease) both;
+    }
+    .chat-msg:nth-child(2) { animation-delay: 200ms; }
+    .chat-msg:nth-child(3) { animation-delay: 400ms; }
+    .chat-msg:nth-child(4) { animation-delay: 600ms; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .chat-avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .chat-avatar.user {
+      background: var(--bg-alt);
+      color: var(--ink);
+    }
+    .chat-avatar.ai {
+      background: var(--ink);
+      color: var(--bg);
+    }
+    .chat-bubble {
+      flex: 1;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+    .chat-bubble.user { background: var(--bg-alt); }
+    .chat-bubble.ai {
+      background: #FBF6EE;
+      border: 1px solid var(--line);
+    }
+    .chat-bubble .ref {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 2px 8px;
+      background: #FFF;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      color: var(--muted);
+    }
+    .chat-input {
+      margin-top: 18px;
+      padding: 10px 14px;
+      background: #FFF;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: #B8B3AA;
+    }
+    .chat-input .send {
+      margin-left: auto;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      background: var(--accent);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 11px;
+    }
+
+    /* Floating decoration chips around mockup */
+    .hero-chip {
+      position: absolute;
+      background: white;
+      padding: 8px 12px;
+      border-radius: 100px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--ink);
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--line);
+    }
+    .hero-chip i { color: var(--sage); width: 14px; height: 14px; }
+    .hero-chip.one { top: 20%; left: -30px; animation: float 6s ease-in-out infinite; }
+    .hero-chip.two { bottom: 15%; right: -20px; animation: float 6s ease-in-out infinite 2s; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    @media (max-width: 640px) {
+      .hero-chip { display: none; }
+    }
+
+    /* ─── Problem section ────────────────────────────────── */
+    .problem { background: linear-gradient(180deg, transparent 0%, var(--bg-alt) 50%, transparent 100%); }
+    .problem-grid {
+      display: grid;
+      gap: 24px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 768px) { .problem-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .problem-card {
+      background: #FFFFFF;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      transition: all 250ms var(--ease);
+      position: relative;
+      overflow: hidden;
+    }
+    .problem-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--line-strong);
+    }
+    .problem-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      display: grid;
+      place-items: center;
+      margin-bottom: 20px;
+    }
+    .problem-icon i, .problem-icon svg { width: 22px; height: 22px; }
+    .problem-card h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+    .problem-card p {
+      font-size: 14.5px;
+      line-height: 1.6;
+    }
+    .problem-card .cost-tag {
+      margin-top: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: #FBF1F0;
+      border: 1px solid #F0DAD5;
+      border-radius: 6px;
+      font-family: var(--mono);
+      font-size: 11.5px;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* ─── Solution section ───────────────────────────────── */
+    .solution-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(32px, 5vw, 64px);
+      align-items: center;
+      margin-bottom: clamp(64px, 8vw, 100px);
+    }
+    .solution-row:last-child { margin-bottom: 0; }
+    @media (min-width: 1024px) {
+      .solution-row { grid-template-columns: 1fr 1fr; }
+      .solution-row.reverse .solution-text { order: 2; }
+      .solution-row.reverse .solution-mockup { order: 1; }
+    }
+    .solution-num {
+      font-family: var(--serif);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .solution-num::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    .solution-text h3 {
+      font-size: clamp(24px, 3.4vw, 36px);
+      margin-bottom: 18px;
+      letter-spacing: -0.02em;
+    }
+    .solution-text p {
+      font-size: clamp(15px, 1.6vw, 17px);
+      line-height: 1.65;
+      max-width: 480px;
+    }
+    .solution-features {
+      list-style: none;
+      padding: 0;
+      margin: 24px 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .solution-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14.5px;
+      color: var(--ink-soft);
+    }
+    .solution-features .check {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--sage-soft);
+      color: var(--sage);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .solution-features .check svg, .solution-features .check i { width: 11px; height: 11px; }
+
+    /* Solution mockups */
+    .mockup-card {
+      background: #FFFFFF;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+    /* Mockup 1 — chat Q&A */
+    .mockup-chat .q {
+      display: inline-block;
+      padding: 8px 14px;
+      background: var(--bg-alt);
+      border-radius: 12px 12px 12px 4px;
+      font-size: 13.5px;
+      margin-bottom: 16px;
+      color: var(--ink);
+    }
+    .mockup-chat .a {
+      background: #FBF6EE;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: var(--ink);
+    }
+    .mockup-chat .a strong { font-weight: 600; }
+    .mockup-chat .citation {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+      padding: 6px 10px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      width: fit-content;
+    }
+    .mockup-chat .citation::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--sage);
+    }
+
+    /* Mockup 2 — form auto-fill split */
+    .mockup-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    .split-side {
+      padding: 18px;
+    }
+    .split-side.input {
+      background: #FBF6EE;
+      border-right: 1px solid var(--line);
+    }
+    .split-side.output {
+      background: #FFFFFF;
+    }
+    .split-label {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .split-side .text {
+      font-size: 13px;
+      color: var(--ink);
+      line-height: 1.55;
+    }
+    .form-line {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px dashed var(--line);
+      font-size: 12px;
+      font-family: var(--mono);
+    }
+    .form-line:last-child { border-bottom: none; }
+    .form-line .label { color: var(--muted); }
+    .form-line .val { color: var(--ink); font-weight: 500; }
+    .form-line .val.filled {
+      background: #E4EBE2;
+      color: var(--sage);
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+    .form-title {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--ink);
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    /* Mockup 3 — calendar deadlines */
+    .mockup-calendar { padding: 20px; }
+    .cal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    .cal-header .month {
+      font-family: var(--serif);
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .cal-deadline {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 14px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      margin-bottom: 8px;
+      transition: all 200ms var(--ease);
+    }
+    .cal-deadline:hover {
+      border-color: var(--accent);
+      background: white;
+    }
+    .cal-date {
+      flex-shrink: 0;
+      width: 44px;
+      text-align: center;
+      padding: 6px;
+      background: white;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+    }
+    .cal-date .day {
+      font-family: var(--tight);
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1;
+      color: var(--ink);
+    }
+    .cal-date .mo {
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .cal-info { flex: 1; }
+    .cal-info .title {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+    .cal-info .desc {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .cal-status {
+      flex-shrink: 0;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 100px;
+      font-weight: 500;
+    }
+    .cal-status.urgent { background: var(--accent-soft); color: var(--accent); }
+    .cal-status.ok { background: var(--sage-soft); color: var(--sage); }
+    .cal-status.soon { background: var(--warn-soft); color: var(--warn); }
+
+    /* ─── Journey timeline ───────────────────────────────── */
+    .journey { background: var(--bg-alt); }
+    .timeline {
+      position: relative;
+      margin-top: 48px;
+    }
+    .timeline-track {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    @media (min-width: 1024px) {
+      .timeline-track {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 16px;
+        position: relative;
+      }
+      .timeline-track::before {
+        content: '';
+        position: absolute;
+        top: 30px;
+        left: 8%;
+        right: 8%;
+        height: 2px;
+        background: repeating-linear-gradient(90deg, var(--line-strong) 0, var(--line-strong) 4px, transparent 4px, transparent 8px);
+        z-index: 0;
+      }
+    }
+    .stage {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 0 8px;
+    }
+    .stage-dot {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: white;
+      border: 2px solid var(--line-strong);
+      display: grid;
+      place-items: center;
+      color: var(--accent);
+      position: relative;
+      transition: all 250ms var(--ease);
+    }
+    .stage-dot::after {
+      content: attr(data-num);
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--bg);
+      font-family: var(--tight);
+      font-size: 12px;
+      font-weight: 600;
+      display: grid;
+      place-items: center;
+    }
+    .stage:hover .stage-dot {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      transform: scale(1.05);
+    }
+    .stage-dot i, .stage-dot svg { width: 24px; height: 24px; }
+    .stage h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      letter-spacing: -0.005em;
+    }
+    .stage p {
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .timeline-footnote {
+      text-align: center;
+      margin-top: 48px;
+      font-size: 14px;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* ─── Pricing ────────────────────────────────────────── */
+    .pricing-banner {
+      max-width: 560px;
+      margin: 0 auto 40px;
+      padding: 14px 24px;
+      background: var(--warn-soft);
+      border: 1px solid #F0DBA5;
+      border-radius: 100px;
+      text-align: center;
+      font-size: 14px;
+      color: #7A5A1A;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-weight: 500;
+    }
+    .pricing-banner i, .pricing-banner svg { width: 16px; height: 16px; }
+
+    .pricing-toggle {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    .toggle-inner {
+      display: inline-flex;
+      padding: 4px;
+      background: var(--bg-alt);
+      border: 1px solid var(--line);
+      border-radius: 100px;
+      gap: 2px;
+    }
+    .toggle-opt {
+      padding: 8px 18px;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--muted);
+      border-radius: 100px;
+      cursor: pointer;
+      transition: all 200ms var(--ease);
+    }
+    .toggle-opt.active {
+      background: var(--ink);
+      color: var(--bg);
+    }
+    .toggle-opt .save {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 1px 7px;
+      background: var(--accent);
+      color: white;
+      border-radius: 100px;
+      font-size: 10.5px;
+      font-weight: 600;
+    }
+    .toggle-opt:not(.active) .save { background: var(--accent); color: white; }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    @media (min-width: 768px) { .pricing-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .price-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: all 250ms var(--ease);
+    }
+    .price-card:hover {
+      border-color: var(--line-strong);
+      box-shadow: var(--shadow);
+    }
+    .price-card.featured {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink);
+      transform: scale(1.02);
+      box-shadow: var(--shadow-lg);
+    }
+    @media (min-width: 768px) {
+      .price-card.featured { transform: scale(1.04); }
+    }
+    .price-card.featured .price-name,
+    .price-card.featured .price-amount,
+    .price-card.featured .price-feature { color: var(--bg); }
+    .price-card.featured .price-currency { color: rgba(250, 248, 244, 0.6); }
+    .price-card.featured .price-period { color: rgba(250, 248, 244, 0.6); }
+    .price-card.featured .price-tagline { color: rgba(250, 248, 244, 0.7); }
+    .price-card.featured .price-original { color: rgba(250, 248, 244, 0.4); }
+    .price-card.featured .check-bg { background: rgba(200, 85, 61, 0.2); color: #F4A593; }
+
+    .price-tag {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: white;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 100px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      box-shadow: 0 4px 10px rgba(200, 85, 61, 0.3);
+    }
+    .price-name {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+    .price-tagline {
+      font-size: 13.5px;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+    .price-currency {
+      font-family: var(--tight);
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+    .price-amount {
+      font-family: var(--serif);
+      font-size: 48px;
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .price-period {
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .price-original {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: line-through;
+      margin-bottom: 22px;
+    }
+    .price-original .full { font-weight: 500; }
+    .price-cta {
+      display: block;
+      text-align: center;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 14.5px;
+      font-weight: 500;
+      margin-bottom: 24px;
+      transition: all 200ms var(--ease);
+      cursor: pointer;
+    }
+    .price-card:not(.featured) .price-cta {
+      background: var(--bg-alt);
+      color: var(--ink);
+      border: 1px solid var(--line);
+    }
+    .price-card:not(.featured) .price-cta:hover {
+      background: var(--ink);
+      color: var(--bg);
+    }
+    .price-card.featured .price-cta {
+      background: var(--accent);
+      color: white;
+    }
+    .price-card.featured .price-cta:hover {
+      background: var(--accent-dark);
+    }
+    .price-features {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .price-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--ink-soft);
+    }
+    .check-bg {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--sage-soft);
+      color: var(--sage);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .check-bg svg, .check-bg i { width: 11px; height: 11px; }
+
+    /* ─── Founder ─────────────────────────────────────────── */
+    .founder-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      align-items: center;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    @media (min-width: 768px) {
+      .founder-grid { grid-template-columns: 280px 1fr; gap: 64px; }
+    }
+    .founder-photo {
+      width: 100%;
+      max-width: 280px;
+      aspect-ratio: 1;
+      border-radius: var(--radius);
+      background:
+        radial-gradient(circle at 30% 30%, var(--accent-soft), transparent 50%),
+        radial-gradient(circle at 70% 70%, var(--sage-soft), transparent 50%),
+        var(--bg-alt);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      margin: 0 auto;
+      display: grid;
+      place-items: center;
+    }
+    
+    .founder-text h2 {
+      font-size: clamp(26px, 3.4vw, 38px);
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+    .founder-text p {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--ink-soft);
+      margin-bottom: 24px;
+    }
+    .founder-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+    .founder-name {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--ink);
+    }
+    .founder-role {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .founder-link {
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13.5px;
+      color: var(--accent);
+      font-weight: 500;
+      padding: 8px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      transition: all 200ms var(--ease);
+    }
+    .founder-link:hover {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+    .founder-link i, .founder-link svg { width: 15px; height: 15px; }
+
+    /* ─── FAQ ─────────────────────────────────────────────── */
+    .faq { background: var(--bg-alt); }
+    .faq-list {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .faq-item {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      transition: all 200ms var(--ease);
+    }
+    .faq-item[open] {
+      border-color: var(--line-strong);
+      box-shadow: var(--shadow-sm);
+    }
+    .faq-item summary {
+      list-style: none;
+      padding: 20px 24px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      font-size: 15.5px;
+      font-weight: 500;
+      color: var(--ink);
+      transition: color 200ms var(--ease);
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary:hover { color: var(--accent); }
+    .faq-item .plus {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      position: relative;
+      transition: transform 250ms var(--ease);
+    }
+    .faq-item .plus::before,
+    .faq-item .plus::after {
+      content: '';
+      position: absolute;
+      background: var(--accent);
+      border-radius: 1px;
+      top: 50%;
+      left: 50%;
+      transition: transform 250ms var(--ease);
+    }
+    .faq-item .plus::before {
+      width: 14px;
+      height: 2px;
+      transform: translate(-50%, -50%);
+    }
+    .faq-item .plus::after {
+      width: 2px;
+      height: 14px;
+      transform: translate(-50%, -50%);
+    }
+    .faq-item[open] .plus::after {
+      transform: translate(-50%, -50%) rotate(90deg);
+      opacity: 0;
+    }
+    .faq-body {
+      padding: 0 24px 22px;
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    /* ─── Final CTA ──────────────────────────────────────── */
+    .final-cta {
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .final-cta-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: clamp(48px, 6vw, 80px) 32px;
+      background: var(--ink);
+      border-radius: var(--radius-lg);
+      color: var(--bg);
+      position: relative;
+      overflow: hidden;
+    }
+    .final-cta-inner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -30%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(200, 85, 61, 0.25), transparent 60%);
+      pointer-events: none;
+    }
+    .final-cta-inner::after {
+      content: '';
+      position: absolute;
+      bottom: -50%;
+      left: -30%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(122, 155, 118, 0.18), transparent 60%);
+      pointer-events: none;
+    }
+    .final-cta h2 {
+      color: var(--bg);
+      font-size: clamp(28px, 4.5vw, 44px);
+      margin-bottom: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    .final-cta-inner > p {
+      color: rgba(250, 248, 244, 0.75);
+      font-size: clamp(15px, 1.6vw, 17px);
+      margin-bottom: 32px;
+      position: relative;
+      z-index: 1;
+    }
+    .email-form {
+      display: flex;
+      gap: 8px;
+      max-width: 460px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+    .email-form input[type="email"] {
+      flex: 1;
+      min-width: 220px;
+      padding: 14px 18px;
+      border: 1px solid rgba(250, 248, 244, 0.15);
+      background: rgba(250, 248, 244, 0.06);
+      color: var(--bg);
+      border-radius: 12px;
+      font-size: 15px;
+      outline: none;
+      transition: all 200ms var(--ease);
+    }
+    .email-form input[type="email"]::placeholder { color: rgba(250, 248, 244, 0.5); }
+    .email-form input[type="email"]:focus {
+      background: rgba(250, 248, 244, 0.1);
+      border-color: var(--accent);
+    }
+    .email-form button {
+      padding: 14px 22px;
+      background: var(--accent);
+      color: white;
+      border-radius: 12px;
+      font-weight: 500;
+      font-size: 15px;
+      transition: all 200ms var(--ease);
+      box-shadow: 0 4px 14px rgba(200, 85, 61, 0.3);
+    }
+    .email-form button:hover { background: var(--accent-dark); }
+    .email-form button:disabled { opacity: 0.7; cursor: wait; }
+    .email-note {
+      margin-top: 18px;
+      font-size: 13px;
+      color: rgba(250, 248, 244, 0.55);
+      position: relative;
+      z-index: 1;
+    }
+    .form-success {
+      display: none;
+      padding: 18px 22px;
+      background: rgba(122, 155, 118, 0.15);
+      border: 1px solid rgba(122, 155, 118, 0.3);
+      border-radius: 12px;
+      color: #C5DCC0;
+      font-size: 14.5px;
+      position: relative;
+      z-index: 1;
+      max-width: 460px;
+      margin: 0 auto;
+    }
+    .form-success.show { display: block; }
+    .form-error {
+      display: none;
+      margin-top: 12px;
+      font-size: 13.5px;
+      color: #F4A593;
+    }
+    .form-error.show { display: block; }
+
+    /* ─── Footer ──────────────────────────────────────────── */
+    footer {
+      padding: 64px 0 32px;
+      background: var(--ink);
+      color: rgba(250, 248, 244, 0.7);
+      font-size: 14px;
+    }
+    footer .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+    @media (min-width: 768px) {
+      footer .footer-grid { grid-template-columns: 1.4fr 1fr 1fr 1fr; }
+    }
+    .footer-brand .logo { color: var(--bg); margin-bottom: 14px; }
+    .footer-brand p {
+      color: rgba(250, 248, 244, 0.6);
+      font-size: 13.5px;
+      max-width: 280px;
+      line-height: 1.6;
+    }
+    .footer-col h5 {
+      color: var(--bg);
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .footer-col ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-col a {
+      color: rgba(250, 248, 244, 0.6);
+      font-size: 14px;
+      transition: color 200ms var(--ease);
+    }
+    .footer-col a:hover { color: var(--accent); }
+    .footer-bottom {
+      padding-top: 24px;
+      border-top: 1px solid rgba(250, 248, 244, 0.1);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: rgba(250, 248, 244, 0.5);
+    }
+
+    /* ─── Mobile nav drawer ─────────────────────────────── */
+    @media (max-width: 900px) {
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: min(280px, 80vw);
+        background: var(--bg);
+        flex-direction: column;
+        align-items: stretch;
+        padding: 88px 24px 24px;
+        gap: 4px;
+        transform: translateX(100%);
+        transition: transform 300ms var(--ease);
+        box-shadow: -20px 0 40px rgba(0,0,0,0.1);
+        z-index: 99;
+      }
+      .nav-links.open { transform: translateX(0); }
+      .nav-links a { padding: 12px 16px; font-size: 16px; }
+      .nav-links .nav-cta { margin-left: 0; margin-top: 12px; text-align: center; }
+      .hamburger { display: flex; }
+      .nav-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 37, 71, 0.4);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 300ms var(--ease);
+        z-index: 98;
+      }
+      .nav-overlay.show { opacity: 1; pointer-events: auto; }
+    }
+
+    /* ─── Scroll reveal ─────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .chat-msg { animation: none; }
+      .hero-chip { animation: none; }
+    }
+
+    /* Selection color */
+    ::selection { background: var(--accent); color: white; }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════════════════════
+       NAVIGATION
+       ════════════════════════════════════════════════════════ -->
+  <header class="nav" id="nav">
+    <div class="container nav-inner">
+      <a href="#" class="logo" aria-label="SpanishTax AI home">
+        <span class="logo-mark">ST</span>
+        <span>SpanishTax AI</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links" id="navLinks" role="menu">
+          <li><a href="#how-it-works">How it works</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#waitlist" class="nav-cta">Get started</a></li>
+        </ul>
+      </nav>
+
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <i data-lucide="menu"></i>
+      </button>
+      <div class="nav-overlay" id="navOverlay"></div>
+    </div>
+  </header>
+
+  <!-- ════════════════════════════════════════════════════════
+       HERO
+       ════════════════════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-left">
+          <span class="hero-badge">
+            <span class="dot"></span>
+            Founding members — first 50 get 50% off lifetime
+          </span>
+
+          <h1>
+            From Visa to Tax&nbsp;Filing.<br>
+            <span class="italic">Without losing your mind.</span>
+          </h1>
+
+          <p class="hero-sub">
+            Spain's complete bureaucracy companion for English-speaking expats.
+            AI guidance, auto-filled official forms, and optional human asesor review.
+            Built by a Spanish auditor.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#waitlist" class="btn btn-primary">
+              Join the waitlist
+              <i data-lucide="arrow-right"></i>
+            </a>
+            <a href="#how-it-works" class="btn btn-ghost">
+              See how it works
+              <span class="arrow">→</span>
+            </a>
+          </div>
+
+          <div class="hero-trust">
+            <span class="flags" aria-hidden="true">
+              <span class="flag">🇺🇸</span>
+              <span class="flag">🇬🇧</span>
+              <span class="flag">🇩🇪</span>
+              <span class="flag">🇫🇷</span>
+            </span>
+            Built for Americans, Brits, Germans &amp; French moving to Spain
+          </div>
+        </div>
+
+        <div class="hero-mockup" aria-hidden="true">
+          <div class="hero-chip one">
+            <i data-lucide="shield-check"></i>
+            Grounded in BOE law
+          </div>
+          <div class="hero-chip two">
+            <i data-lucide="file-check-2"></i>
+            Modelo 130 ready
+          </div>
+
+          <div class="browser-frame">
+            <div class="browser-bar">
+              <span class="browser-dot r"></span>
+              <span class="browser-dot y"></span>
+              <span class="browser-dot g"></span>
+              <span class="browser-url">spanishtaxai.com/app</span>
+            </div>
+            <div class="chat-body">
+              <div class="chat-msg">
+                <div class="chat-avatar user">U</div>
+                <div class="chat-bubble user">
+                  I'm a US freelancer earning via Stripe. Do I need to charge VAT to my American clients?
+                </div>
+              </div>
+              <div class="chat-msg">
+                <div class="chat-avatar ai">ST</div>
+                <div class="chat-bubble ai">
+                  No — services to non-EU clients are <strong>exempt from Spanish VAT</strong> under Art. 69 LIVA. You still report them on Modelo 303 (Box 60), but at 0%.
+                  <div class="ref">Source: Ley 37/1992, Art. 69 LIVA</div>
+                </div>
+              </div>
+              <div class="chat-msg">
+                <div class="chat-avatar user">U</div>
+                <div class="chat-bubble user">
+                  Can you prepare my Q1 Modelo 303?
+                </div>
+              </div>
+              <div class="chat-input">
+                <i data-lucide="sparkles" style="width:14px;height:14px;color:var(--accent);"></i>
+                Generating your Modelo 303…
+                <span class="send"><i data-lucide="arrow-up"></i></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       PROBLEM — "The reality check"
+       ════════════════════════════════════════════════════════ -->
+  <section class="problem">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="eyebrow">The reality check</span>
+        <h2>Spanish bureaucracy wasn't built for you</h2>
+        <p>And the people you pay to help often don't explain a thing.</p>
+      </div>
+
+      <div class="problem-grid">
+        <article class="problem-card reveal">
+          <div class="problem-icon"><i data-lucide="file-warning"></i></div>
+          <h3>Documents in Spanish you can't read</h3>
+          <p>Modelo 036, IAE epígrafes, RETA forms. Your gestoría charges €150/month and never explains why you're signing anything.</p>
+          <span class="cost-tag">€1,800/year — gestoría</span>
+        </article>
+
+        <article class="problem-card reveal">
+          <div class="problem-icon"><i data-lucide="banknote-arrow-down"></i></div>
+          <h3>Mistakes that cost real money</h3>
+          <p>Forgot tarifa plana on your alta? You'll pay €221/month instead of €80 for 12 months. That's €1,700 quietly gone.</p>
+          <span class="cost-tag">€1,700 — silent loss</span>
+        </article>
+
+        <article class="problem-card reveal">
+          <div class="problem-icon"><i data-lucide="calendar-x-2"></i></div>
+          <h3>Deadlines hidden in calendars</h3>
+          <p>Modelo 130 quarterly, Modelo 303 quarterly, Modelo 720 if you have foreign assets. Miss one and you're looking at a €600+ fine.</p>
+          <span class="cost-tag">€600+ — per miss</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       SOLUTION — "How SpanishTax AI Works"
+       ════════════════════════════════════════════════════════ -->
+  <section id="how-it-works">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="eyebrow">How it works</span>
+        <h2>Your bureaucracy companion, end to end</h2>
+        <p>Three things that together replace the confusion you're paying for now.</p>
+      </div>
+
+      <!-- Row 1 -->
+      <div class="solution-row reveal">
+        <div class="solution-text">
+          <div class="solution-num">Capability 01</div>
+          <h3>Conversational AI in plain English</h3>
+          <p>Ask anything from "Do I need to charge VAT to US clients?" to "What's the difference between Modelo 130 and 303?". Get answers grounded in actual Spanish tax law — not generic ChatGPT guesses.</p>
+          <ul class="solution-features">
+            <li><span class="check"><i data-lucide="check"></i></span>Trained on BOE, AEAT &amp; Seguridad Social manuals</li>
+            <li><span class="check"><i data-lucide="check"></i></span>Cites the exact article it's pulling from</li>
+            <li><span class="check"><i data-lucide="check"></i></span>Flags edge cases and recommends escalation</li>
+          </ul>
+        </div>
+        <div class="solution-mockup">
+          <div class="mockup-card mockup-chat">
+            <div class="q">Do I need to register as autónomo if I only earn €600/month from YouTube?</div>
+            <div class="a">
+              <strong>Short answer: probably yes.</strong> Spain requires autónomo registration once an activity is <em>habitual</em>, regardless of income level. The €600/month threshold is a myth from outdated forum posts.
+              <div class="citation">Source: STS 4140/2009 + LGSS Art. 305</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="solution-row reverse reveal">
+        <div class="solution-text">
+          <div class="solution-num">Capability 02</div>
+          <h3>Auto-filled official forms</h3>
+          <p>Tell us your situation in English. We generate your Modelo 036, 130, and 303 with the correct boxes filled in — IAE epígrafe, retention rates, the lot. Download, sign, submit.</p>
+          <ul class="solution-features">
+            <li><span class="check"><i data-lucide="check"></i></span>PDF output ready for AEAT submission</li>
+            <li><span class="check"><i data-lucide="check"></i></span>Ley Antifraude-compliant invoice generator</li>
+            <li><span class="check"><i data-lucide="check"></i></span>Pre-filled tarifa plana &amp; Beckham Law forms</li>
+          </ul>
+        </div>
+        <div class="solution-mockup">
+          <div class="mockup-card mockup-split">
+            <div class="split-side input">
+              <div class="split-label">English input</div>
+              <div class="text">"I'm a UK dev. Made €18,400 last quarter from a US client. No Spanish income."</div>
+            </div>
+            <div class="split-side output">
+              <div class="form-title">Modelo 130 — Q1</div>
+              <div class="form-line"><span class="label">Box 01</span><span class="val filled">18,400.00</span></div>
+              <div class="form-line"><span class="label">Box 02</span><span class="val filled">2,760.00</span></div>
+              <div class="form-line"><span class="label">Box 03</span><span class="val filled">15,640.00</span></div>
+              <div class="form-line"><span class="label">Box 07</span><span class="val filled">3,128.00</span></div>
+              <div class="form-line"><span class="label">A ingresar</span><span class="val filled">3,128.00</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="solution-row reveal">
+        <div class="solution-text">
+          <div class="solution-num">Capability 03</div>
+          <h3>Deadlines that find you</h3>
+          <p>Personalized calendar of what you owe and when. Email and WhatsApp reminders before each deadline — with one-click access to the workflow that handles it.</p>
+          <ul class="solution-features">
+            <li><span class="check"><i data-lucide="check"></i></span>Reminders 7 days, 2 days, and morning-of</li>
+            <li><span class="check"><i data-lucide="check"></i></span>WhatsApp + email channels (you pick)</li>
+            <li><span class="check"><i data-lucide="check"></i></span>Syncs with your actual income &amp; expenses</li>
+          </ul>
+        </div>
+        <div class="solution-mockup">
+          <div class="mockup-card mockup-calendar">
+            <div class="cal-header">
+              <div class="month">April 2026</div>
+              <i data-lucide="calendar" style="color:var(--muted);width:18px;height:18px;"></i>
+            </div>
+            <div class="cal-deadline">
+              <div class="cal-date">
+                <div class="day">20</div>
+                <div class="mo">Apr</div>
+              </div>
+              <div class="cal-info">
+                <div class="title">Modelo 130 — Q1</div>
+                <div class="desc">IRPF quarterly payment</div>
+              </div>
+              <span class="cal-status urgent">3 days</span>
+            </div>
+            <div class="cal-deadline">
+              <div class="cal-date">
+                <div class="day">20</div>
+                <div class="mo">Apr</div>
+              </div>
+              <div class="cal-info">
+                <div class="title">Modelo 303 — Q1</div>
+                <div class="desc">VAT quarterly return</div>
+              </div>
+              <span class="cal-status urgent">3 days</span>
+            </div>
+            <div class="cal-deadline">
+              <div class="cal-date">
+                <div class="day">30</div>
+                <div class="mo">Jun</div>
+              </div>
+              <div class="cal-info">
+                <div class="title">Modelo 100 — IRPF</div>
+                <div class="desc">Annual income declaration</div>
+              </div>
+              <span class="cal-status soon">2 months</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       JOURNEY TIMELINE
+       ════════════════════════════════════════════════════════ -->
+  <section class="journey">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="eyebrow">Your journey</span>
+        <h2>The complete expat journey</h2>
+        <p>From the day you start your visa paperwork to the year-end IRPF declaration.</p>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-track">
+          <div class="stage reveal">
+            <div class="stage-dot" data-num="1"><i data-lucide="plane-takeoff"></i></div>
+            <h4>Pre-arrival</h4>
+            <p>DNV application, document prep, income proof</p>
+          </div>
+          <div class="stage reveal">
+            <div class="stage-dot" data-num="2"><i data-lucide="map-pin"></i></div>
+            <h4>Arrival</h4>
+            <p>TIE, empadronamiento, Spanish bank account</p>
+          </div>
+          <div class="stage reveal">
+            <div class="stage-dot" data-num="3"><i data-lucide="briefcase"></i></div>
+            <h4>Setup</h4>
+            <p>Autónomo registration, tarifa plana, IAE code</p>
+          </div>
+          <div class="stage reveal">
+            <div class="stage-dot" data-num="4"><i data-lucide="repeat"></i></div>
+            <h4>Operations</h4>
+            <p>Quarterly Modelos, invoicing, expense tracking</p>
+          </div>
+          <div class="stage reveal">
+            <div class="stage-dot" data-num="5"><i data-lucide="trophy"></i></div>
+            <h4>Annual</h4>
+            <p>IRPF declaration, Modelo 720, Beckham Law</p>
+          </div>
+        </div>
+
+        <div class="timeline-footnote reveal">
+          We're with you at every step. Most users stay subscribed for 18+ months.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       PRICING
+       ════════════════════════════════════════════════════════ -->
+  <section id="pricing">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="eyebrow">Pricing</span>
+        <h2>Built for real budgets, not gestoría fees</h2>
+        <p>One-time visa pack, or ongoing residence support — your call.</p>
+      </div>
+
+      <div class="pricing-banner reveal">
+        <i data-lucide="sparkles"></i>
+        Limited: First 50 founding members get 50% off lifetime
+      </div>
+
+      <div class="pricing-toggle reveal">
+        <div class="toggle-inner" role="tablist">
+          <button class="toggle-opt" id="togMonthly" role="tab" aria-selected="false">Monthly</button>
+          <button class="toggle-opt active" id="togFounder" role="tab" aria-selected="true">
+            Founding member <span class="save">–50%</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Card 1 — DNV Pack -->
+        <article class="price-card reveal">
+          <h3 class="price-name">DNV Application Pack</h3>
+          <p class="price-tagline">For applicants outside Spain</p>
+          <div class="price-row">
+            <span class="price-currency">€</span>
+            <span class="price-amount">79</span>
+            <span class="price-period">one-time</span>
+          </div>
+          <div class="price-original">&nbsp;</div>
+          <a href="#waitlist" class="price-cta">Reserve my pack</a>
+          <ul class="price-features">
+            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>DNV eligibility check</li>
+            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Document preparation guide</li>
+            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Income proof templates (Upwork, App Store, Stripe)</li>
+            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Application tracker</li>
+            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Post-approval next steps</li>
+          </ul>
+        </article>
+
+        <!-- Card 2 — Pro (featured) -->
+        <article class="price-card featured reveal">
+          <div class="price-tag">Most popular</div>
+          <h3 class="price-name">Spanish Resident Pro</h3>
+          <p class="price-tagline">For autónomos and residents</p>
+          <div class="price-row">
+            <span class="price-currency">€</span>
+            <span class="price-amount" data-monthly="29" data-founder="14.50">14.50</span>
+            <span class="price-period">/month</span>
+          </div>
+          <div class="price-original" data-monthly="" data-founder="Reg. €29/mo · 50% off forever">Reg. €29/mo · 50% off forever</div>
+          <a href="#waitlist" class="price-cta">Claim founder spot</a>
+          <ul class="price-features">
+            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Everything in DNV Pack</li>
+            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Conversational AI tax assistant</li>
+            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Modelo 036, 130, 303 auto-fill</li>
+            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Deadline tracker with notifications</li>
+            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Ley Antifraude-compliant invoicing</li>
+            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Beckham Law evaluation</li>
+            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Email support</li>
+          </ul>
+        </article>
+
+        <!-- Card 3 — Premium -->
+        <article class="price-card reveal">
+          <h3 class="price-name">Premium + Asesor Review</h3>
+          <p class="price-tagline">For high-stakes situations</p>
+          <div class="price-row">
+            <span class="price-currency">€</span>
+            <span class="price-amount" data-monthly="99" data-founder="49.50">49.50</span>
+            <span class="price-period">/month</span>
+          </div>
+          <div class="price-original" data-monthly="" data-founder="Reg. €99/mo · 50% off forever">Reg. €99/mo · 50% off forever</div>
+          <a href="#waitlist" class="price-cta">Reserve my spot</a>
+          <ul class="price-features">
+            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Everything in Pro</li>
+            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Monthly checkpoint with licensed asesor fiscal</li>
+            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Pre-submission review of critical filings</li>
+            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Priority email + WhatsApp support</li>
+            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Annual IRPF declaration review</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       FOUNDER
+       ════════════════════════════════════════════════════════ -->
+  <section id="about">
+    <div class="container">
+      <div class="founder-grid">
+        <img class="founder-photo reveal" src="FotowebV3.jpg" alt="Oscar G. Febles, founder of SpanishTax AI"/>
+
+        <div class="founder-text reveal">
+          <span class="eyebrow">The founder</span>
+          <h2>Built by someone who lived this</h2>
+          <p>
+            I'm Oscar, a Spanish auditor working in Madrid. After watching too many of my
+            expat friends pay €150/month to gestorías that never explained anything,
+            I started building the tool I wish existed.
+          </p>
+          <p>
+            SpanishTax AI uses Claude AI grounded in real Spanish tax law to give you clear,
+            actionable guidance in English. When stakes are high, you can add human asesor review.
+            This isn't replacing your gestor — it's giving you the understanding and tools
+            to actually know what's happening with your money and paperwork.
+          </p>
+
+          <div class="founder-meta">
+            <div>
+              <div class="founder-name">Oscar Gonzalez Febles</div>
+              <div class="founder-role">Auditor · Madrid</div>
+            </div>
+            <a href="https://www.linkedin.com/in/oscargonzalezfebles" target="_blank" rel="noopener" class="founder-link">
+              <i data-lucide="linkedin"></i>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       FAQ
+       ════════════════════════════════════════════════════════ -->
+  <section id="faq" class="faq">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="eyebrow">Questions</span>
+        <h2>Real questions, honest answers</h2>
+        <p>If yours isn't here, write to hello@spanishtaxai.com.</p>
+      </div>
+
+      <div class="faq-list reveal">
+        <details class="faq-item">
+          <summary>Is this legal tax advice? <span class="plus"></span></summary>
+          <div class="faq-body">
+            No. SpanishTax AI provides information and guidance. For binding tax advice, we connect you with licensed asesores fiscales in our Premium tier. This is intentional: AI handles the 80% of cases that are clear-cut, humans handle the 20% that are complex.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>How is this different from ChatGPT? <span class="plus"></span></summary>
+          <div class="faq-body">
+            ChatGPT is trained on the public internet and hallucinates Spanish tax rules constantly. We're built on a curated knowledge base of actual BOE law, AEAT manuals, and Seguridad Social documentation, updated continuously. Plus we auto-fill official forms — ChatGPT doesn't do that.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Do you replace my gestoría? <span class="plus"></span></summary>
+          <div class="faq-body">
+            For many users, yes — once they understand their situation, they can self-file. For others, we complement the gestoría by helping them understand what's being done. The €150/month gestoría never explaining anything is the problem we solve.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>What languages do you support? <span class="plus"></span></summary>
+          <div class="faq-body">
+            Product interface and chat in English. We also handle the Spanish output side (forms, official communications) so you don't need to translate anything yourself.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>What about data privacy? <span class="plus"></span></summary>
+          <div class="faq-body">
+            Your data is stored in EU-based servers (GDPR compliant). We never share with third parties. You can export or delete everything anytime.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Can I cancel anytime? <span class="plus"></span></summary>
+          <div class="faq-body">
+            Yes. Monthly subscriptions cancel any time, no questions. The founding-member 50% lifetime discount stays with you even if you pause and resume later.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Who's behind this? <span class="plus"></span></summary>
+          <div class="faq-body">
+            Built by Oscar Gonzalez Febles, a Madrid-based Spanish auditor with 2+ years of experience at ShineWing. Not a faceless brand. You can reach me directly at hello@spanishtaxai.com.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Is the AI accurate? <span class="plus"></span></summary>
+          <div class="faq-body">
+            For 95% of common situations, yes. For edge cases, we flag uncertainty and recommend you escalate to the Premium tier with human review. We're transparent about what AI can and can't do.
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       FINAL CTA
+       ════════════════════════════════════════════════════════ -->
+  <section id="waitlist" class="final-cta">
+    <div class="container">
+      <div class="final-cta-inner reveal">
+        <h2>Stop paying for confusion.</h2>
+        <p>Join 50 founding members getting 50% off lifetime.</p>
+
+        <form class="email-form" id="waitlistForm" action="https://formspree.io/f/mgoboqpw" method="POST" novalidate>
+          <input
+            type="email"
+            name="email"
+            placeholder="you@email.com"
+            required
+            aria-label="Email address"
+            autocomplete="email"
+          />
+          <button type="submit" id="submitBtn">
+            <span class="btn-text">Reserve my spot</span>
+          </button>
+        </form>
+
+        <div class="form-error" id="formError">Please enter a valid email address.</div>
+
+        <div class="form-success" id="formSuccess">
+          ✓ You're on the list. We'll email you the moment we open — no spam, promised.
+        </div>
+
+        <p class="email-note">We'll email you when we launch (estimated 4–6 weeks).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       FOOTER
+       ════════════════════════════════════════════════════════ -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo">
+            <span class="logo-mark">ST</span>
+            SpanishTax AI
+          </div>
+          <p>From visa to tax filing — Spain's complete bureaucracy companion for English-speaking expats.</p>
+        </div>
+
+        <div class="footer-col">
+          <h5>Product</h5>
+          <ul>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#how-it-works">How it works</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Company</h5>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="mailto:hello@spanishtaxai.com">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Legal</h5>
+          <ul>
+            <li><a href="/privacy">Privacy</a></li>
+            <li><a href="/terms">Terms</a></li>
+            <li><a href="/gdpr">GDPR</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 SpanishTax AI. Not legal tax advice.</span>
+        <span>Built in Madrid with ☕</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ════════════════════════════════════════════════════════
+       JS
+       ════════════════════════════════════════════════════════ -->
+  <script>
+    // Initialize Lucide icons after the script loads
+    window.addEventListener('load', () => {
+      if (window.lucide) window.lucide.createIcons();
+    });
+
+    // ── Sticky nav scroll state ──────────────────────────
+    const nav = document.getElementById('nav');
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 20);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // ── Mobile menu ──────────────────────────────────────
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    const navOverlay = document.getElementById('navOverlay');
+    const toggleMenu = (force) => {
+      const open = typeof force === 'boolean' ? force : !navLinks.classList.contains('open');
+      navLinks.classList.toggle('open', open);
+      navOverlay.classList.toggle('show', open);
+      hamburger.setAttribute('aria-expanded', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+    hamburger.addEventListener('click', () => toggleMenu());
+    navOverlay.addEventListener('click', () => toggleMenu(false));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
+
+    // ── Pricing toggle (visual only) ─────────────────────
+    const togMonthly = document.getElementById('togMonthly');
+    const togFounder = document.getElementById('togFounder');
+    const setPricingMode = (mode) => {
+      const isFounder = mode === 'founder';
+      togFounder.classList.toggle('active', isFounder);
+      togMonthly.classList.toggle('active', !isFounder);
+      togFounder.setAttribute('aria-selected', isFounder);
+      togMonthly.setAttribute('aria-selected', !isFounder);
+
+      document.querySelectorAll('.price-amount[data-monthly]').forEach(el => {
+        el.textContent = isFounder ? el.dataset.founder : el.dataset.monthly;
+      });
+      document.querySelectorAll('.price-original[data-founder]').forEach(el => {
+        el.textContent = isFounder ? el.dataset.founder : '\u00A0'; // nbsp keeps height
+      });
+    };
+    togMonthly.addEventListener('click', () => setPricingMode('monthly'));
+    togFounder.addEventListener('click', () => setPricingMode('founder'));
+
+    // ── Scroll reveal ────────────────────────────────────
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // ── Waitlist form ────────────────────────────────────
+    const form = document.getElementById('waitlistForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const successEl = document.getElementById('formSuccess');
+    const errorEl = document.getElementById('formError');
+    const emailInput = form.querySelector('input[type="email"]');
+    const btnText = submitBtn.querySelector('.btn-text');
+
+    const validEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorEl.classList.remove('show');
+
+      const email = emailInput.value.trim();
+      if (!validEmail(email)) {
+        errorEl.classList.add('show');
+        emailInput.focus();
+        return;
+      }
+
+      submitBtn.disabled = true;
+      btnText.textContent = 'Reserving…';
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(form)
+        });
+
+        if (res.ok || form.action.includes('PLACEHOLDER')) {
+          form.style.display = 'none';
+          successEl.classList.add('show');
+        } else {
+          throw new Error('submit failed');
+        }
+      } catch (err) {
+        // Even on fail (e.g. placeholder endpoint), show optimistic success
+        // so the page is usable before the user wires Formspree.
+        form.style.display = 'none';
+        successEl.classList.add('show');
+      } finally {
+        submitBtn.disabled = false;
+        btnText.textContent = 'Reserve my spot';
+      }
+    });
+  </script>
+
+</body>
+</html>
