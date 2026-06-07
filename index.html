@@ -6,19 +6,19 @@
   <meta name="theme-color" content="#FAF8F4" />
 
   <!-- ─── SEO ─────────────────────────────────────────── -->
-  <title>SpanishTax AI — From Visa to Tax Filing</title>
-  <meta name="description" content="Spain's complete bureaucracy companion for English-speaking expats. AI guidance, auto-filled official forms, and optional human asesor review. Built by a Spanish auditor." />
+  <title>SpanishTax AI — Built for Expats Moving to Spain</title>
+  <meta name="description" content="Skip the €1,200 lawyer. Spain's complete bureaucracy companion for English-speaking expats. Built primarily for Americans, plus Brits and other nationalities. AI guidance + optional human asesor review by a Spanish auditor in Madrid." />
   <link rel="canonical" href="https://spanishtaxai.com/" />
 
-  <!-- ─── Open Graph / Twitter ─────────────────────────── -->
+  <!-- ─── Open Graph / Twitter ─────────────────────────── --> 
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://spanishtaxai.com/" />
-  <meta property="og:title" content="SpanishTax AI — From Visa to Tax Filing" />
-  <meta property="og:description" content="Spain's complete bureaucracy companion for English-speaking expats. From Digital Nomad Visa to quarterly tax filings." />
+  <meta property="og:title" content="SpanishTax AI — Built for Expats Moving to Spain" />
+  <meta property="og:description" content="Skip the €1,200 lawyer. AI guidance + human asesor review for English-speaking expats. Built primarily for Americans." />
   <meta property="og:image" content="https://spanishtaxai.com/og.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="SpanishTax AI — From Visa to Tax Filing" />
-  <meta name="twitter:description" content="Spain's complete bureaucracy companion for English-speaking expats." />
+  <meta name="twitter:title" content="SpanishTax AI — Built for Expats Moving to Spain" />
+  <meta name="twitter:description" content="Skip the €1,200 lawyer. AI + human asesor review for English-speaking expats in Spain." />
 
   <!-- ─── Favicon (inline SVG monogram) ─────────────────── -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FAF8F4'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='30' font-weight='600' text-anchor='middle' fill='%23C8553D'%3EST%3C/text%3E%3C/svg%3E" />
@@ -858,6 +858,119 @@
     .cal-status.ok { background: var(--sage-soft); color: var(--sage); }
     .cal-status.soon { background: var(--warn-soft); color: var(--warn); }
 
+    /* ─── Country Section (NEW) ──────────────────────────── */
+    .country { background: var(--bg-alt); }
+    .country-grid {
+      display: grid;
+      gap: 24px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 768px) {
+      .country-grid {
+        grid-template-columns: 1.4fr 1fr 1fr;
+      }
+    }
+    .country-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      transition: all 250ms var(--ease);
+      display: flex;
+      flex-direction: column;
+    }
+    .country-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--line-strong);
+    }
+    .country-card.featured {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink);
+      position: relative;
+    }
+    .country-card.featured .country-title,
+    .country-card.featured .country-tagline {
+      color: var(--bg);
+    }
+    .country-card.featured .country-feature {
+      color: rgba(250, 248, 244, 0.85);
+    }
+    .country-card.featured .country-check {
+      background: rgba(200, 85, 61, 0.2);
+      color: #F4A593;
+    }
+    .country-flag {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: var(--bg-alt);
+      display: grid;
+      place-items: center;
+      font-size: 32px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+    .country-card.featured .country-flag {
+      background: rgba(250, 248, 244, 0.08);
+    }
+    .country-tag {
+      position: absolute;
+      top: -12px;
+      right: 24px;
+      background: var(--accent);
+      color: white;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 100px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      box-shadow: 0 4px 10px rgba(200, 85, 61, 0.3);
+    }
+    .country-title {
+      font-family: var(--serif);
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+    .country-tagline {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 22px;
+      font-weight: 500;
+    }
+    .country-features {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .country-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--ink-soft);
+    }
+    .country-check {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--sage-soft);
+      color: var(--sage);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .country-check svg, .country-check i { width: 11px; height: 11px; }
+
     /* ─── Journey timeline ───────────────────────────────── */
     .journey { background: var(--bg-alt); }
     .timeline {
@@ -947,7 +1060,7 @@
 
     /* ─── Pricing ────────────────────────────────────────── */
     .pricing-banner {
-      max-width: 560px;
+      max-width: 620px;
       margin: 0 auto 40px;
       padding: 14px 24px;
       background: var(--warn-soft);
@@ -964,44 +1077,27 @@
     }
     .pricing-banner i, .pricing-banner svg { width: 16px; height: 16px; }
 
-    .pricing-toggle {
+    /* Pricing sub-section header */
+    .pricing-subhead {
+      max-width: 1080px;
+      margin: 0 auto 24px;
       display: flex;
-      justify-content: center;
-      margin-bottom: 40px;
+      align-items: center;
+      gap: 16px;
     }
-    .toggle-inner {
-      display: inline-flex;
-      padding: 4px;
-      background: var(--bg-alt);
-      border: 1px solid var(--line);
-      border-radius: 100px;
-      gap: 2px;
-    }
-    .toggle-opt {
-      padding: 8px 18px;
-      font-size: 13.5px;
-      font-weight: 500;
-      color: var(--muted);
-      border-radius: 100px;
-      cursor: pointer;
-      transition: all 200ms var(--ease);
-    }
-    .toggle-opt.active {
-      background: var(--ink);
-      color: var(--bg);
-    }
-    .toggle-opt .save {
-      display: inline-block;
-      margin-left: 6px;
-      padding: 1px 7px;
-      background: var(--accent);
-      color: white;
-      border-radius: 100px;
-      font-size: 10.5px;
+    .pricing-subhead h3 {
+      font-family: var(--serif);
+      font-size: 22px;
       font-weight: 600;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      white-space: nowrap;
     }
-    .toggle-opt:not(.active) .save { background: var(--accent); color: white; }
-
+    .pricing-subhead .line {
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
     .pricing-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -1009,7 +1105,11 @@
       max-width: 1080px;
       margin: 0 auto;
     }
-    @media (min-width: 768px) { .pricing-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 768px) { .pricing-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .pricing-section + .pricing-section {
+      margin-top: 56px;
+    }
 
     .price-card {
       background: white;
@@ -1029,11 +1129,7 @@
       background: var(--ink);
       color: var(--bg);
       border-color: var(--ink);
-      transform: scale(1.02);
       box-shadow: var(--shadow-lg);
-    }
-    @media (min-width: 768px) {
-      .price-card.featured { transform: scale(1.04); }
     }
     .price-card.featured .price-name,
     .price-card.featured .price-amount,
@@ -1058,6 +1154,7 @@
       letter-spacing: 0.05em;
       text-transform: uppercase;
       box-shadow: 0 4px 10px rgba(200, 85, 61, 0.3);
+      white-space: nowrap;
     }
     .price-name {
       font-family: var(--serif);
@@ -1099,6 +1196,7 @@
       color: var(--muted);
       text-decoration: line-through;
       margin-bottom: 22px;
+      min-height: 18px;
     }
     .price-original .full { font-weight: 500; }
     .price-cta {
@@ -1108,7 +1206,7 @@
       border-radius: 10px;
       font-size: 14.5px;
       font-weight: 500;
-      margin-bottom: 24px;
+      margin-bottom: 14px;
       transition: all 200ms var(--ease);
       cursor: pointer;
     }
@@ -1128,10 +1226,29 @@
     .price-card.featured .price-cta:hover {
       background: var(--accent-dark);
     }
+    .price-cta-secondary {
+      display: block;
+      text-align: center;
+      padding: 8px 20px;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 14px;
+      transition: color 200ms var(--ease);
+      border-bottom: 1px solid transparent;
+    }
+    .price-card.featured .price-cta-secondary {
+      color: rgba(250, 248, 244, 0.6);
+    }
+    .price-cta-secondary:hover {
+      color: var(--accent);
+    }
+    .price-card.featured .price-cta-secondary:hover {
+      color: #F4A593;
+    }
     .price-features {
       list-style: none;
       padding: 0;
-      margin: 0;
+      margin: 8px 0 0;
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -1186,7 +1303,7 @@
       display: grid;
       place-items: center;
     }
-    
+
     .founder-text h2 {
       font-size: clamp(26px, 3.4vw, 38px);
       margin-bottom: 24px;
@@ -1358,72 +1475,37 @@
       position: relative;
       z-index: 1;
     }
-    .email-form {
+    .final-cta-actions {
       display: flex;
-      gap: 8px;
-      max-width: 460px;
-      margin: 0 auto;
       flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
       position: relative;
       z-index: 1;
     }
-    .email-form input[type="email"] {
-      flex: 1;
-      min-width: 220px;
-      padding: 14px 18px;
-      border: 1px solid rgba(250, 248, 244, 0.15);
-      background: rgba(250, 248, 244, 0.06);
+    .final-cta-actions .btn-primary {
+      box-shadow: 0 4px 14px rgba(200, 85, 61, 0.35), inset 0 1px 0 rgba(255,255,255,0.15);
+    }
+    .final-cta-actions .btn-outline {
       color: var(--bg);
-      border-radius: 12px;
-      font-size: 15px;
-      outline: none;
-      transition: all 200ms var(--ease);
-    }
-    .email-form input[type="email"]::placeholder { color: rgba(250, 248, 244, 0.5); }
-    .email-form input[type="email"]:focus {
-      background: rgba(250, 248, 244, 0.1);
-      border-color: var(--accent);
-    }
-    .email-form button {
+      border: 1px solid rgba(250, 248, 244, 0.25);
       padding: 14px 22px;
-      background: var(--accent);
-      color: white;
       border-radius: 12px;
       font-weight: 500;
       font-size: 15px;
       transition: all 200ms var(--ease);
-      box-shadow: 0 4px 14px rgba(200, 85, 61, 0.3);
     }
-    .email-form button:hover { background: var(--accent-dark); }
-    .email-form button:disabled { opacity: 0.7; cursor: wait; }
-    .email-note {
-      margin-top: 18px;
-      font-size: 13px;
+    .final-cta-actions .btn-outline:hover {
+      background: rgba(250, 248, 244, 0.08);
+      border-color: rgba(250, 248, 244, 0.45);
+    }
+    .final-cta-note {
+      margin-top: 28px;
+      font-size: 13.5px;
       color: rgba(250, 248, 244, 0.55);
       position: relative;
       z-index: 1;
     }
-    .form-success {
-      display: none;
-      padding: 18px 22px;
-      background: rgba(122, 155, 118, 0.15);
-      border: 1px solid rgba(122, 155, 118, 0.3);
-      border-radius: 12px;
-      color: #C5DCC0;
-      font-size: 14.5px;
-      position: relative;
-      z-index: 1;
-      max-width: 460px;
-      margin: 0 auto;
-    }
-    .form-success.show { display: block; }
-    .form-error {
-      display: none;
-      margin-top: 12px;
-      font-size: 13.5px;
-      color: #F4A593;
-    }
-    .form-error.show { display: block; }
 
     /* ─── Footer ──────────────────────────────────────────── */
     footer {
@@ -1552,9 +1634,11 @@
       <nav>
         <ul class="nav-links" id="navLinks" role="menu">
           <li><a href="#how-it-works">How it works</a></li>
+          <li><a href="#for-your-country">For your country</a></li>
           <li><a href="#pricing">Pricing</a></li>
-          <li><a href="#faq">FAQ</a></li>
-          <li><a href="#waitlist" class="nav-cta">Get started</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+          <li><a href="#pricing" class="nav-cta">Get started</a></li>
         </ul>
       </nav>
 
@@ -1566,7 +1650,7 @@
   </header>
 
   <!-- ════════════════════════════════════════════════════════
-       HERO
+       HERO — Updated: Expat-first H1, mistake-avoidance angle
        ════════════════════════════════════════════════════════ -->
   <section class="hero">
     <div class="container">
@@ -1574,23 +1658,21 @@
         <div class="hero-left">
           <span class="hero-badge">
             <span class="dot"></span>
-            Founding members — first 50 get 50% off lifetime
+            Founding members — 50% off lifetime, hard cap of 10 spots
           </span>
 
           <h1>
-            From Visa to Tax&nbsp;Filing.<br>
-            <span class="italic">Without losing your mind.</span>
+            Built for Expats moving to Spain.<br>
+            <span class="italic">Skip the €1,200 lawyer.</span>
           </h1>
 
           <p class="hero-sub">
-            Spain's complete bureaucracy companion for English-speaking expats.
-            AI guidance, auto-filled official forms, and optional human asesor review.
-            Built by a Spanish auditor.
+            Spain's complete bureaucracy companion — built primarily for Americans (1099, W-2, S-Corp, LLC), plus Brits and other nationalities. AI guidance grounded in BOE law, auto-filled official forms, and optional human asesor review by a Spanish auditor in Madrid.
           </p>
 
           <div class="hero-actions">
-            <a href="#waitlist" class="btn btn-primary">
-              Join the waitlist
+            <a href="#pricing" class="btn btn-primary">
+              Get started
               <i data-lucide="arrow-right"></i>
             </a>
             <a href="#how-it-works" class="btn btn-ghost">
@@ -1603,10 +1685,9 @@
             <span class="flags" aria-hidden="true">
               <span class="flag">🇺🇸</span>
               <span class="flag">🇬🇧</span>
-              <span class="flag">🇩🇪</span>
-              <span class="flag">🇫🇷</span>
+              <span class="flag">🌍</span>
             </span>
-            Built for Americans, Brits, Germans &amp; French moving to Spain
+            Built primarily for Americans, plus Brits and other nationalities
           </div>
         </div>
 
@@ -1631,7 +1712,7 @@
               <div class="chat-msg">
                 <div class="chat-avatar user">U</div>
                 <div class="chat-bubble user">
-                  I'm a US freelancer earning via Stripe. Do I need to charge VAT to my American clients?
+                  I'm a US 1099 contractor. Just moved to Madrid. Do I charge VAT to my American clients?
                 </div>
               </div>
               <div class="chat-msg">
@@ -1660,7 +1741,7 @@
   </section>
 
   <!-- ════════════════════════════════════════════════════════
-       PROBLEM — "The reality check"
+       PROBLEM — Updated: Card 3 → subsanación day 20
        ════════════════════════════════════════════════════════ -->
   <section class="problem">
     <div class="container">
@@ -1681,15 +1762,15 @@
         <article class="problem-card reveal">
           <div class="problem-icon"><i data-lucide="banknote-arrow-down"></i></div>
           <h3>Mistakes that cost real money</h3>
-          <p>Forgot tarifa plana on your alta? You'll pay €221/month instead of €80 for 12 months. That's €1,700 quietly gone.</p>
-          <span class="cost-tag">€1,700 — silent loss</span>
+          <p>Forget Tarifa Plana on your alta or file it late, and you pay €299/month instead of €88.64 for 12 months. That's €2,500 quietly gone.</p>
+          <span class="cost-tag">€2,500 — silent loss</span>
         </article>
 
         <article class="problem-card reveal">
-          <div class="problem-icon"><i data-lucide="calendar-x-2"></i></div>
-          <h3>Deadlines hidden in calendars</h3>
-          <p>Modelo 130 quarterly, Modelo 303 quarterly, Modelo 720 if you have foreign assets. Miss one and you're looking at a €600+ fine.</p>
-          <span class="cost-tag">€600+ — per miss</span>
+          <div class="problem-icon"><i data-lucide="file-x"></i></div>
+          <h3>One rejection costs months</h3>
+          <p>A DNV subsanación on day 20 means 10 days of panic finding documents that don't exist in your home country. Wrong guesses = rejection + 3-6 months lost.</p>
+          <span class="cost-tag">3-6 months — lost time</span>
         </article>
       </div>
     </div>
@@ -1697,6 +1778,7 @@
 
   <!-- ════════════════════════════════════════════════════════
        SOLUTION — "How SpanishTax AI Works"
+       Updated: Mockup 02 changed to US 1099 contractor
        ════════════════════════════════════════════════════════ -->
   <section id="how-it-works">
     <div class="container">
@@ -1729,7 +1811,7 @@
         </div>
       </div>
 
-      <!-- Row 2 -->
+      <!-- Row 2 — Updated to US 1099 contractor -->
       <div class="solution-row reverse reveal">
         <div class="solution-text">
           <div class="solution-num">Capability 02</div>
@@ -1738,14 +1820,14 @@
           <ul class="solution-features">
             <li><span class="check"><i data-lucide="check"></i></span>PDF output ready for AEAT submission</li>
             <li><span class="check"><i data-lucide="check"></i></span>Ley Antifraude-compliant invoice generator</li>
-            <li><span class="check"><i data-lucide="check"></i></span>Pre-filled tarifa plana &amp; Beckham Law forms</li>
+            <li><span class="check"><i data-lucide="check"></i></span>Pre-filled Tarifa Plana &amp; Beckham Law forms</li>
           </ul>
         </div>
         <div class="solution-mockup">
           <div class="mockup-card mockup-split">
             <div class="split-side input">
               <div class="split-label">English input</div>
-              <div class="text">"I'm a UK dev. Made €18,400 last quarter from a US client. No Spanish income."</div>
+              <div class="text">"I'm a US 1099 contractor. Made €18,400 last quarter from a US client. Just moved to Madrid."</div>
             </div>
             <div class="split-side output">
               <div class="form-title">Modelo 130 — Q1</div>
@@ -1817,6 +1899,66 @@
   </section>
 
   <!-- ════════════════════════════════════════════════════════
+       FOR YOUR COUNTRY — NEW SECTION
+       US featured, UK secondary, Other tertiary
+       ════════════════════════════════════════════════════════ -->
+  <section id="for-your-country" class="country">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="eyebrow">Built for your paperwork</span>
+        <h2>Your country, your income type</h2>
+        <p>We handle the documentation puzzle the Spanish system creates for foreign earners.</p>
+      </div>
+
+      <div class="country-grid">
+        <!-- US — FEATURED -->
+        <article class="country-card featured reveal">
+          <div class="country-tag">Most served</div>
+          <div class="country-flag">🇺🇸</div>
+          <h3 class="country-title">For US citizens</h3>
+          <p class="country-tagline">1099, W-2, S-Corp, LLC — handled.</p>
+          <ul class="country-features">
+            <li class="country-feature"><span class="country-check"><i data-lucide="check"></i></span>1099 income proof without state self-employment registry</li>
+            <li class="country-feature"><span class="country-check"><i data-lucide="check"></i></span>W-2 to DNV: US-Spain Certificate of Coverage (24 months)</li>
+            <li class="country-feature"><span class="country-check"><i data-lucide="check"></i></span>S-Corp owners: structure optimization for the application</li>
+            <li class="country-feature"><span class="country-check"><i data-lucide="check"></i></span>CPA letter templates in UGE-CE-accepted format</li>
+            <li class="country-feature"><span class="country-check"><i data-lucide="check"></i></span>Beckham Law evaluation specific to US tax residents</li>
+            <li class="country-feature"><span class="country-check"><i data-lucide="check"></i></span>US LLC and transparencia fiscal internacional considerations</li>
+          </ul>
+        </article>
+
+        <!-- UK -->
+        <article class="country-card reveal">
+          <div class="country-flag">🇬🇧</div>
+          <h3 class="country-title">For UK citizens</h3>
+          <p class="country-tagline">Limited company or sole trader.</p>
+          <ul class="country-features">
+            <li class="country-feature"><span class="country-check"><i data-lucide="check"></i></span>UK Limited company proof (Companies House)</li>
+            <li class="country-feature"><span class="country-check"><i data-lucide="check"></i></span>Sole trader documentation pathway</li>
+            <li class="country-feature"><span class="country-check"><i data-lucide="check"></i></span>A1 form holders: timing and renewal interactions</li>
+            <li class="country-feature"><span class="country-check"><i data-lucide="check"></i></span>Post-Brexit residency mechanics</li>
+            <li class="country-feature"><span class="country-check"><i data-lucide="check"></i></span>UK-Spain Double Tax Treaty optimization</li>
+          </ul>
+        </article>
+
+        <!-- Other -->
+        <article class="country-card reveal">
+          <div class="country-flag">🌍</div>
+          <h3 class="country-title">Other nationalities</h3>
+          <p class="country-tagline">Latam, MENA, Asia &amp; beyond.</p>
+          <ul class="country-features">
+            <li class="country-feature"><span class="country-check"><i data-lucide="check"></i></span>Country-of-origin documentation equivalents</li>
+            <li class="country-feature"><span class="country-check"><i data-lucide="check"></i></span>Apostille requirements by country</li>
+            <li class="country-feature"><span class="country-check"><i data-lucide="check"></i></span>Consular strategy (where to apply from)</li>
+            <li class="country-feature"><span class="country-check"><i data-lucide="check"></i></span>Sworn translation guidance</li>
+            <li class="country-feature"><span class="country-check"><i data-lucide="check"></i></span>Embassy-specific timing expectations</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
        JOURNEY TIMELINE
        ════════════════════════════════════════════════════════ -->
   <section class="journey">
@@ -1842,7 +1984,7 @@
           <div class="stage reveal">
             <div class="stage-dot" data-num="3"><i data-lucide="briefcase"></i></div>
             <h4>Setup</h4>
-            <p>Autónomo registration, tarifa plana, IAE code</p>
+            <p>Autónomo registration, Tarifa Plana, IAE code</p>
           </div>
           <div class="stage reveal">
             <div class="stage-dot" data-num="4"><i data-lucide="repeat"></i></div>
@@ -1864,7 +2006,12 @@
   </section>
 
   <!-- ════════════════════════════════════════════════════════
-       PRICING
+       PRICING — Updated: 4 tiers, split in 2 subsections,
+       Stripe Payment Links direct, founding 50% lifetime cap 10
+
+       ⚠️  STRIPE LINKS BELOW ARE IN TEST MODE
+       ⚠️  Replace `buy.stripe.com/test_...` with live URLs
+       ⚠️  (no `test_` prefix) BEFORE going to production.
        ════════════════════════════════════════════════════════ -->
   <section id="pricing">
     <div class="container">
@@ -1876,87 +2023,122 @@
 
       <div class="pricing-banner reveal">
         <i data-lucide="sparkles"></i>
-        Limited: First 50 founding members get 50% off lifetime
+        First 10 founding members — 50% off lifetime, hard cap
       </div>
 
-      <div class="pricing-toggle reveal">
-        <div class="toggle-inner" role="tablist">
-          <button class="toggle-opt" id="togMonthly" role="tab" aria-selected="false">Monthly</button>
-          <button class="toggle-opt active" id="togFounder" role="tab" aria-selected="true">
-            Founding member <span class="save">–50%</span>
-          </button>
+      <!-- ───── ONE-TIME VISA SUPPORT ───── -->
+      <div class="pricing-section">
+        <div class="pricing-subhead reveal">
+          <h3>One-time visa support</h3>
+          <span class="line"></span>
+        </div>
+
+        <div class="pricing-grid">
+          <!-- DNV Application Pack -->
+          <article class="price-card reveal">
+            <h4 class="price-name">DNV Application Pack</h4>
+            <p class="price-tagline">Self-serve, AI-powered. For applicants who want to do it themselves.</p>
+            <div class="price-row">
+              <span class="price-currency">€</span>
+              <span class="price-amount">199</span>
+              <span class="price-period">one-time</span>
+            </div>
+            <div class="price-original">&nbsp;</div>
+            <!-- TEST MODE — replace before production -->
+            <a href="https://buy.stripe.com/test_8x2dR38Bb7Aq3kX68KdnW03" target="_blank" rel="noopener" class="price-cta">Get the DNV Pack</a>
+            <ul class="price-features">
+              <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>DNV eligibility check (income, qualifications, employer setup)</li>
+              <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Country-specific document checklist (US, UK, others)</li>
+              <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Income proof templates (Upwork, App Store, Stripe, 1099)</li>
+              <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Subsanación response templates (day-20 rejection survival)</li>
+              <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Application tracker + post-approval next steps</li>
+            </ul>
+          </article>
+
+          <!-- DNV Pro Review — NEW TIER -->
+          <article class="price-card featured reveal">
+            <div class="price-tag">Best for complex cases</div>
+            <h4 class="price-name">DNV Pro Review</h4>
+            <p class="price-tagline">DNV Pack + human asesor review of your full application before submission.</p>
+            <div class="price-row">
+              <span class="price-currency">€</span>
+              <span class="price-amount">499</span>
+              <span class="price-period">one-time</span>
+            </div>
+            <div class="price-original">vs. €1,200+ at a typical DNV lawyer</div>
+            <!-- TEST MODE — replace before production -->
+            <a href="https://buy.stripe.com/test_00w8wJ5oZf2S6x91SudnW02" target="_blank" rel="noopener" class="price-cta">Book Pro Review</a>
+            <a href="https://calendly.com/spanishtaxai" target="_blank" rel="noopener" class="price-cta-secondary">Or book a free consultation first →</a>
+            <ul class="price-features">
+              <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Everything in DNV Application Pack</li>
+              <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Full application review by a Spanish auditor</li>
+              <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Pre-submission risk audit (UGE-CE common rejection points)</li>
+              <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>One 45-min consultation call (Beckham, Tarifa Plana, timing)</li>
+              <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Subsanación support if a follow-up request lands</li>
+            </ul>
+          </article>
         </div>
       </div>
 
-      <div class="pricing-grid">
-        <!-- Card 1 — DNV Pack -->
-        <article class="price-card reveal">
-          <h3 class="price-name">DNV Application Pack</h3>
-          <p class="price-tagline">For applicants outside Spain</p>
-          <div class="price-row">
-            <span class="price-currency">€</span>
-            <span class="price-amount">79</span>
-            <span class="price-period">one-time</span>
-          </div>
-          <div class="price-original">&nbsp;</div>
-          <a href="#waitlist" class="price-cta">Reserve my pack</a>
-          <ul class="price-features">
-            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>DNV eligibility check</li>
-            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Document preparation guide</li>
-            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Income proof templates (Upwork, App Store, Stripe)</li>
-            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Application tracker</li>
-            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Post-approval next steps</li>
-          </ul>
-        </article>
+      <!-- ───── ONGOING RESIDENCE SUPPORT ───── -->
+      <div class="pricing-section">
+        <div class="pricing-subhead reveal">
+          <h3>Ongoing residence support</h3>
+          <span class="line"></span>
+        </div>
 
-        <!-- Card 2 — Pro (featured) -->
-        <article class="price-card featured reveal">
-          <div class="price-tag">Most popular</div>
-          <h3 class="price-name">Spanish Resident Pro</h3>
-          <p class="price-tagline">For autónomos and residents</p>
-          <div class="price-row">
-            <span class="price-currency">€</span>
-            <span class="price-amount" data-monthly="29" data-founder="14.50">14.50</span>
-            <span class="price-period">/month</span>
-          </div>
-          <div class="price-original" data-monthly="" data-founder="Reg. €29/mo · 50% off forever">Reg. €29/mo · 50% off forever</div>
-          <a href="#waitlist" class="price-cta">Claim founder spot</a>
-          <ul class="price-features">
-            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Everything in DNV Pack</li>
-            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Conversational AI tax assistant</li>
-            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Modelo 036, 130, 303 auto-fill</li>
-            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Deadline tracker with notifications</li>
-            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Ley Antifraude-compliant invoicing</li>
-            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Beckham Law evaluation</li>
-            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Email support</li>
-          </ul>
-        </article>
+        <div class="pricing-grid">
+          <!-- Spanish Resident Pro -->
+          <article class="price-card reveal">
+            <h4 class="price-name">Spanish Resident Pro</h4>
+            <p class="price-tagline">For autónomos and residents — your year-round tax companion.</p>
+            <div class="price-row">
+              <span class="price-currency">€</span>
+              <span class="price-amount">14.50</span>
+              <span class="price-period">/month</span>
+            </div>
+            <div class="price-original">Reg. €29/mo · Founding price — lifetime</div>
+            <!-- TEST MODE — replace before production -->
+            <a href="https://buy.stripe.com/test_cNi5kxbNn3ka5t5fJkdnW01" target="_blank" rel="noopener" class="price-cta">Claim founding spot</a>
+            <ul class="price-features">
+              <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Conversational AI tax assistant (BOE-grounded)</li>
+              <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Modelo 036, 130, 303 auto-fill</li>
+              <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Deadline tracker with email + WhatsApp reminders</li>
+              <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Ley Antifraude-compliant invoicing</li>
+              <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Beckham Law evaluation + Modelo 149 timing</li>
+              <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Email support</li>
+            </ul>
+          </article>
 
-        <!-- Card 3 — Premium -->
-        <article class="price-card reveal">
-          <h3 class="price-name">Premium + Asesor Review</h3>
-          <p class="price-tagline">For high-stakes situations</p>
-          <div class="price-row">
-            <span class="price-currency">€</span>
-            <span class="price-amount" data-monthly="99" data-founder="49.50">49.50</span>
-            <span class="price-period">/month</span>
-          </div>
-          <div class="price-original" data-monthly="" data-founder="Reg. €99/mo · 50% off forever">Reg. €99/mo · 50% off forever</div>
-          <a href="#waitlist" class="price-cta">Reserve my spot</a>
-          <ul class="price-features">
-            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Everything in Pro</li>
-            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Monthly checkpoint with licensed asesor fiscal</li>
-            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Pre-submission review of critical filings</li>
-            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Priority email + WhatsApp support</li>
-            <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Annual IRPF declaration review</li>
-          </ul>
-        </article>
+          <!-- Premium + Asesor -->
+          <article class="price-card featured reveal">
+            <div class="price-tag">For high-stakes situations</div>
+            <h4 class="price-name">Premium + Asesor</h4>
+            <p class="price-tagline">Everything in Pro, plus a licensed asesor fiscal on your side every month.</p>
+            <div class="price-row">
+              <span class="price-currency">€</span>
+              <span class="price-amount">49.50</span>
+              <span class="price-period">/month</span>
+            </div>
+            <div class="price-original">Reg. €99/mo · Founding price — lifetime</div>
+            <!-- TEST MODE — replace before production -->
+            <a href="https://buy.stripe.com/test_14AbIV9Ff3kag7J68KdnW00" target="_blank" rel="noopener" class="price-cta">Claim founding spot</a>
+            <ul class="price-features">
+              <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Everything in Spanish Resident Pro</li>
+              <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Monthly checkpoint with licensed asesor fiscal</li>
+              <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Pre-submission review of critical filings</li>
+              <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Priority email + WhatsApp support</li>
+              <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Annual IRPF declaration review</li>
+              <li class="price-feature"><span class="check-bg"><i data-lucide="check"></i></span>Modelo 720 / 721 (foreign asset) compliance</li>
+            </ul>
+          </article>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ════════════════════════════════════════════════════════
-       FOUNDER
+       FOUNDER — Updated: added US-first positioning paragraph
        ════════════════════════════════════════════════════════ -->
   <section id="about">
     <div class="container">
@@ -1965,23 +2147,21 @@
 
         <div class="founder-text reveal">
           <span class="eyebrow">The founder</span>
-          <h2>Built by someone who lived this</h2>
+          <h2>Built by someone who sits at exactly the right intersection</h2>
           <p>
-            I'm Oscar, a Spanish auditor working in Madrid. After watching too many of my
-            expat friends pay €150/month to gestorías that never explained anything,
-            I started building the tool I wish existed.
+            I'm Oscar, a Spanish auditor working in Madrid (ex-ShineWing). After watching too many of my expat friends pay €150/month to gestorías that never explained anything, I started building the tool I wish existed.
           </p>
           <p>
-            SpanishTax AI uses Claude AI grounded in real Spanish tax law to give you clear,
-            actionable guidance in English. When stakes are high, you can add human asesor review.
-            This isn't replacing your gestor — it's giving you the understanding and tools
-            to actually know what's happening with your money and paperwork.
+            <strong>Why primarily for Americans?</strong> Because the US-Spain documentation gap is the largest and least well-served. Spanish gestorías don't understand 1099, W-2 vs S-Corp, or the Certificate of Coverage. American CPAs don't understand UGE-CE, Modelo 149, or Beckham Law. I sit at exactly that intersection — Madrid-based Spanish auditor + C1 English + working knowledge of the US tax stack.
+          </p>
+          <p>
+            SpanishTax AI uses Claude AI grounded in real Spanish tax law to give you clear, actionable guidance in English. When stakes are high, you can add human asesor review. This isn't replacing your gestor — it's giving you the understanding and tools to actually know what's happening with your money and paperwork.
           </p>
 
           <div class="founder-meta">
             <div>
               <div class="founder-name">Oscar Gonzalez Febles</div>
-              <div class="founder-role">Auditor · Madrid</div>
+              <div class="founder-role">Spanish auditor · Madrid · ex-ShineWing</div>
             </div>
             <a href="https://www.linkedin.com/in/oscargonzalezfebles" target="_blank" rel="noopener" class="founder-link">
               <i data-lucide="linkedin"></i>
@@ -1994,35 +2174,63 @@
   </section>
 
   <!-- ════════════════════════════════════════════════════════
-       FAQ
+       FAQ — Updated: 4 new questions added
        ════════════════════════════════════════════════════════ -->
   <section id="faq" class="faq">
     <div class="container">
       <div class="section-header reveal">
         <span class="eyebrow">Questions</span>
         <h2>Real questions, honest answers</h2>
-        <p>If yours isn't here, write to hello@spanishtaxai.com.</p>
+        <p>If yours isn't here, drop me a line via the contact page.</p>
       </div>
 
       <div class="faq-list reveal">
         <details class="faq-item">
+          <summary>How does this compare to a €1,200 DNV lawyer? <span class="plus"></span></summary>
+          <div class="faq-body">
+            DNV lawyers and immigration firms charge €495–€1,200+ for the same application work. Our DNV Application Pack covers ~90% of what they do at €199 (self-serve, AI-powered). For high-stakes cases — complex income, family applications, prior rejections — our DNV Pro Review at €499 includes human asesor review by a Spanish auditor, still about 60% cheaper than a top-tier immigration lawyer.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>I'm a US 1099 contractor — do you handle this? <span class="plus"></span></summary>
+          <div class="faq-body">
+            Yes — US documentation is our specialty. The Spanish system doesn't recognize 1099 as a registered self-employment status the way Spain treats <em>alta autónomo</em>. We provide CPA letter templates, alternative proof-of-self-employment workflows, and the exact document combination UGE-CE accepts. Same for W-2 employees (Certificate of Coverage workflow under the US-Spain treaty) and S-Corp owners (structure optimization for the application).
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>What if my DNV gets rejected? <span class="plus"></span></summary>
+          <div class="faq-body">
+            Outright rejection is rare. Far more common is a "subsanación" — a UGE-CE request for additional documents within 10 days, typically arriving on day 20 of the procedure. Our system includes pre-written subsanación response templates for the most common requests (bank statements not stamped, self-employment proof, income gap with savings), plus AI-assisted analysis of your specific case. The DNV Pro Review tier includes asesor review of your subsanación response before submission.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Is the €88.64 Tarifa Plana automatic? <span class="plus"></span></summary>
+          <div class="faq-body">
+            No. The Tarifa Plana (€88.64/month for the first 12 months instead of ~€299.56) must be <strong>explicitly requested</strong> when you register with RETA. It is not applied by default. It also requires that your RETA registration is filed on or before the day your activity begins — late filing under RD 84/1996 art. 35.1 can disqualify you from Tarifa Plana even if you tick the box, because the registration may be treated as forced rather than voluntary. This is the single most common preventable mistake: €2,500 quietly lost over the first 12 months.
+          </div>
+        </details>
+
+        <details class="faq-item">
           <summary>Is this legal tax advice? <span class="plus"></span></summary>
           <div class="faq-body">
-            No. SpanishTax AI provides information and guidance. For binding tax advice, we connect you with licensed asesores fiscales in our Premium tier. This is intentional: AI handles the 80% of cases that are clear-cut, humans handle the 20% that are complex.
+            No. SpanishTax AI provides information and guidance. For binding tax advice, we connect you with licensed asesores fiscales in the Premium tier and the DNV Pro Review. This is intentional: AI handles the ~80% of cases that are clear-cut; humans handle the 20% that are complex.
           </div>
         </details>
 
         <details class="faq-item">
           <summary>How is this different from ChatGPT? <span class="plus"></span></summary>
           <div class="faq-body">
-            ChatGPT is trained on the public internet and hallucinates Spanish tax rules constantly. We're built on a curated knowledge base of actual BOE law, AEAT manuals, and Seguridad Social documentation, updated continuously. Plus we auto-fill official forms — ChatGPT doesn't do that.
+            ChatGPT is trained on the public internet and routinely hallucinates Spanish tax rules — citing repealed laws, wrong rates, or forum myths. We're built on a curated knowledge base of actual BOE law, AEAT manuals, and Seguridad Social documentation, updated continuously by a Spanish auditor. Plus we auto-fill official forms — ChatGPT doesn't do that.
           </div>
         </details>
 
         <details class="faq-item">
           <summary>Do you replace my gestoría? <span class="plus"></span></summary>
           <div class="faq-body">
-            For many users, yes — once they understand their situation, they can self-file. For others, we complement the gestoría by helping them understand what's being done. The €150/month gestoría never explaining anything is the problem we solve.
+            For many users, yes — once they understand their situation, they can self-file. For others, we complement the gestoría by helping them understand what's being done. The €150/month gestoría that never explains anything is the problem we solve.
           </div>
         </details>
 
@@ -2036,7 +2244,7 @@
         <details class="faq-item">
           <summary>What about data privacy? <span class="plus"></span></summary>
           <div class="faq-body">
-            Your data is stored in EU-based servers (GDPR compliant). We never share with third parties. You can export or delete everything anytime.
+            Your data is stored on EU-based servers (GDPR compliant). We never share with third parties. You can export or delete everything at any time.
           </div>
         </details>
 
@@ -2050,14 +2258,7 @@
         <details class="faq-item">
           <summary>Who's behind this? <span class="plus"></span></summary>
           <div class="faq-body">
-            Built by Oscar Gonzalez Febles, a Madrid-based Spanish auditor with 2+ years of experience at ShineWing. Not a faceless brand. You can reach me directly at hello@spanishtaxai.com.
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary>Is the AI accurate? <span class="plus"></span></summary>
-          <div class="faq-body">
-            For 95% of common situations, yes. For edge cases, we flag uncertainty and recommend you escalate to the Premium tier with human review. We're transparent about what AI can and can't do.
+            Built by Oscar Gonzalez Febles, a Madrid-based Spanish auditor (ex-ShineWing). Not a faceless brand. You can reach me through the <a href="/contact.html" style="color:var(--accent);">contact page</a>.
           </div>
         </details>
       </div>
@@ -2065,41 +2266,33 @@
   </section>
 
   <!-- ════════════════════════════════════════════════════════
-       FINAL CTA
+       FINAL CTA — Updated: removed waitlist form,
+       direct pricing CTA + Calendly secondary
        ════════════════════════════════════════════════════════ -->
-  <section id="waitlist" class="final-cta">
+  <section class="final-cta">
     <div class="container">
       <div class="final-cta-inner reveal">
         <h2>Stop paying for confusion.</h2>
-        <p>Join 50 founding members getting 50% off lifetime.</p>
+        <p>10 founding members · 50% off lifetime · No waitlist — get started today.</p>
 
-        <form class="email-form" id="waitlistForm" action="https://formspree.io/f/mgoboqpw" method="POST" novalidate>
-          <input
-            type="email"
-            name="email"
-            placeholder="you@email.com"
-            required
-            aria-label="Email address"
-            autocomplete="email"
-          />
-          <button type="submit" id="submitBtn">
-            <span class="btn-text">Reserve my spot</span>
-          </button>
-        </form>
-
-        <div class="form-error" id="formError">Please enter a valid email address.</div>
-
-        <div class="form-success" id="formSuccess">
-          ✓ You're on the list. We'll email you the moment we open — no spam, promised.
+        <div class="final-cta-actions">
+          <a href="#pricing" class="btn btn-primary">
+            See pricing &amp; get started
+            <i data-lucide="arrow-right"></i>
+          </a>
+          <a href="https://calendly.com/spanishtaxai" target="_blank" rel="noopener" class="btn-outline">
+            Book a free 15-min call
+          </a>
         </div>
 
-        <p class="email-note">We'll email you when we launch (estimated 4–6 weeks).</p>
+        <p class="final-cta-note">Not sure which tier fits? Book a free call — we'll figure it out together.</p>
       </div>
     </div>
   </section>
 
   <!-- ════════════════════════════════════════════════════════
-       FOOTER
+       FOOTER — Updated: Contact link to /contact.html,
+       no visible email, Blog added
        ════════════════════════════════════════════════════════ -->
   <footer>
     <div class="container">
@@ -2109,7 +2302,7 @@
             <span class="logo-mark">ST</span>
             SpanishTax AI
           </div>
-          <p>From visa to tax filing — Spain's complete bureaucracy companion for English-speaking expats.</p>
+          <p>Built primarily for Americans moving to Spain, plus Brits and other nationalities. AI guidance + optional human asesor by a Spanish auditor in Madrid.</p>
         </div>
 
         <div class="footer-col">
@@ -2117,6 +2310,7 @@
           <ul>
             <li><a href="#pricing">Pricing</a></li>
             <li><a href="#how-it-works">How it works</a></li>
+            <li><a href="#for-your-country">For your country</a></li>
             <li><a href="#faq">FAQ</a></li>
           </ul>
         </div>
@@ -2125,7 +2319,8 @@
           <h5>Company</h5>
           <ul>
             <li><a href="#about">About</a></li>
-            <li><a href="mailto:hello@spanishtaxai.com">Contact</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/contact.html">Contact</a></li>
           </ul>
         </div>
 
@@ -2140,14 +2335,14 @@
       </div>
 
       <div class="footer-bottom">
-        <span>© 2026 SpanishTax AI. Not legal tax advice.</span>
+        <span>© 2026 SpanishTax AI. Not legal or tax advice.</span>
         <span>Built in Madrid with ☕</span>
       </div>
     </div>
   </footer>
 
   <!-- ════════════════════════════════════════════════════════
-       JS
+       JS — Simplified: removed waitlist form logic
        ════════════════════════════════════════════════════════ -->
   <script>
     // Initialize Lucide icons after the script loads
@@ -2176,26 +2371,6 @@
     navOverlay.addEventListener('click', () => toggleMenu(false));
     navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
 
-    // ── Pricing toggle (visual only) ─────────────────────
-    const togMonthly = document.getElementById('togMonthly');
-    const togFounder = document.getElementById('togFounder');
-    const setPricingMode = (mode) => {
-      const isFounder = mode === 'founder';
-      togFounder.classList.toggle('active', isFounder);
-      togMonthly.classList.toggle('active', !isFounder);
-      togFounder.setAttribute('aria-selected', isFounder);
-      togMonthly.setAttribute('aria-selected', !isFounder);
-
-      document.querySelectorAll('.price-amount[data-monthly]').forEach(el => {
-        el.textContent = isFounder ? el.dataset.founder : el.dataset.monthly;
-      });
-      document.querySelectorAll('.price-original[data-founder]').forEach(el => {
-        el.textContent = isFounder ? el.dataset.founder : '\u00A0'; // nbsp keeps height
-      });
-    };
-    togMonthly.addEventListener('click', () => setPricingMode('monthly'));
-    togFounder.addEventListener('click', () => setPricingMode('founder'));
-
     // ── Scroll reveal ────────────────────────────────────
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
@@ -2206,54 +2381,6 @@
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-    // ── Waitlist form ────────────────────────────────────
-    const form = document.getElementById('waitlistForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const successEl = document.getElementById('formSuccess');
-    const errorEl = document.getElementById('formError');
-    const emailInput = form.querySelector('input[type="email"]');
-    const btnText = submitBtn.querySelector('.btn-text');
-
-    const validEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      errorEl.classList.remove('show');
-
-      const email = emailInput.value.trim();
-      if (!validEmail(email)) {
-        errorEl.classList.add('show');
-        emailInput.focus();
-        return;
-      }
-
-      submitBtn.disabled = true;
-      btnText.textContent = 'Reserving…';
-
-      try {
-        const res = await fetch(form.action, {
-          method: 'POST',
-          headers: { 'Accept': 'application/json' },
-          body: new FormData(form)
-        });
-
-        if (res.ok || form.action.includes('PLACEHOLDER')) {
-          form.style.display = 'none';
-          successEl.classList.add('show');
-        } else {
-          throw new Error('submit failed');
-        }
-      } catch (err) {
-        // Even on fail (e.g. placeholder endpoint), show optimistic success
-        // so the page is usable before the user wires Formspree.
-        form.style.display = 'none';
-        successEl.classList.add('show');
-      } finally {
-        submitBtn.disabled = false;
-        btnText.textContent = 'Reserve my spot';
-      }
-    });
   </script>
 
 </body>
