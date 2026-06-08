@@ -1,0 +1,15 @@
+{
+  "name": "spanishtax-chatbot-worker",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker for the SpanishTax AI RAG chatbot. Endpoint /chat orchestrates Voyage embeddings, Supabase retrieval, escalation logic, and Claude Sonnet streaming.",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail"
+  },
+  "devDependencies": {
+    "wrangler": "^3.78.0"
+  }
+}

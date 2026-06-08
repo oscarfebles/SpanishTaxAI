@@ -1,0 +1,12 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# SpanishTax AI Worker — Local development credentials
+# ═══════════════════════════════════════════════════════════════════════════
+# Copy this file to .dev.vars (no extension difference, just the name).
+# .dev.vars is gitignored — it's for `wrangler dev` local testing.
+#
+# In production, use `wrangler secret put` for each variable.
+
+SUPABASE_URL=https://your-project-ref.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key-here
+VOYAGE_API_KEY=your-voyage-api-key-here
+ANTHROPIC_API_KEY=your-anthropic-api-key-here

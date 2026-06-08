@@ -152,5 +152,8 @@
     const observer = new IntersectionObserver((entries) => { entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')); }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
+   <!-- Widget del chat (añade esto) -->
+  <script src="/spanishtax-chatbot.js" defer></script>
+
 </body>
 </html>
