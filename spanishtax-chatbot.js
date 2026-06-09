@@ -19,7 +19,7 @@
   // ─── Config (edit these if needed) ────────────────────────────────────
   const CONFIG = {
     // Worker endpoint. Change to your actual deployed URL.
-    API_URL: 'https://spanishtax-chatbot.oscargonzalezfebles.workers.dev/chat',
+    API_URL: 'https://api.spanishtaxai.com/chat',
 
     // localStorage keys
     STORAGE_KEY_SESSION: 'spanishtax_chat_session_id',
@@ -32,13 +32,13 @@
     HEADER_SUBTITLE: 'Built on the knowledge base of Oscar Gonzalez Febles, Spanish auditor in Madrid.',
     PLACEHOLDER: 'Ask about your DNV, autónomo, Beckham Law…',
     DISCLAIMER:
-      "I'm an AI assistant trained on Oscar's knowledge base. I provide information, not binding legal or tax advice. For your specific case, book a free 15-min call.",
+      "I'm an AI assistant trained on Oscar's knowledge base. I provide information, not binding legal or tax advice. For your specific case, email Oscar at support@spanishtaxai.com.",
     GREETING:
       "Hi 👋 I can help with Spain's Digital Nomad Visa, autónomo registration, Beckham Law, quarterly tax filings, and related paperwork. What's your situation?",
-    ERROR_GENERIC: 'Something went wrong on our end. Please try again, or book a call: https://calendly.com/spanishtaxai',
+    ERROR_GENERIC: 'Something went wrong on our end. Please try again, or email Oscar at support@spanishtaxai.com.',
     ERROR_RATE_LIMIT: "You're sending messages too fast. Wait a moment and try again.",
     ERROR_HARD_LIMIT:
-      "We've reached the end of this chat session. For deeper help, book a free 15-min call: https://calendly.com/spanishtaxai",
+      "We've reached the end of this chat session. For deeper help, email Oscar at support@spanishtaxai.com.",
 
     // History length sent to server (last N message pairs)
     MAX_HISTORY_TURNS: 10,
@@ -472,6 +472,97 @@
         color: var(--stx-accent);
       }
 
+      /* ─── Paywall (tier cards after gate hit) ──────────────────────── */
+      .stx-paywall {
+        max-width: 100%;
+        background: #FBF6EE;
+        border: 1px solid var(--stx-line);
+      }
+      .stx-paywall-heading {
+        font-family: var(--stx-serif);
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--stx-ink);
+        margin-bottom: 4px;
+        letter-spacing: -0.005em;
+      }
+      .stx-paywall-sub {
+        font-size: 13px;
+        color: var(--stx-muted);
+        margin-bottom: 12px;
+      }
+      .stx-tiers {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+      .stx-tier {
+        display: block;
+        position: relative;
+        padding: 10px 12px;
+        background: white;
+        border: 1px solid var(--stx-line);
+        border-radius: 10px;
+        text-decoration: none;
+        color: var(--stx-ink);
+        transition: all 180ms var(--stx-ease);
+      }
+      .stx-tier:hover {
+        border-color: var(--stx-accent);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(200, 85, 61, 0.10);
+      }
+      .stx-tier.is-recommended {
+        border-color: var(--stx-accent);
+        background: #FFFBF7;
+      }
+      .stx-tier-badge {
+        position: absolute;
+        top: -7px;
+        right: 10px;
+        background: var(--stx-accent);
+        color: white;
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        padding: 2px 6px;
+        border-radius: 100px;
+        text-transform: uppercase;
+      }
+      .stx-tier-name {
+        font-family: var(--stx-serif);
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--stx-ink);
+        margin-bottom: 2px;
+      }
+      .stx-tier-price {
+        font-size: 13px;
+        margin-bottom: 3px;
+      }
+      .stx-tier-amount {
+        font-weight: 600;
+        color: var(--stx-accent);
+      }
+      .stx-tier-billing {
+        color: var(--stx-muted);
+        font-size: 11px;
+        margin-left: 2px;
+      }
+      .stx-tier-tagline {
+        font-size: 11px;
+        color: var(--stx-muted);
+        line-height: 1.45;
+      }
+      .stx-paywall-footer {
+        font-size: 11px;
+        color: var(--stx-muted);
+        text-align: center;
+        padding-top: 8px;
+        border-top: 1px solid var(--stx-line);
+      }
+
       /* ─── Mobile adjustments ──────────────────────────────────────── */
       @media (max-width: 480px) {
         .stx-btn {
@@ -673,6 +764,19 @@
       typingEl.remove();
 
       if (!res.ok) {
+        // Special case: HTTP 402 = paywall payload (not an error, render tier cards)
+        if (res.status === 402) {
+          try {
+            const paywallData = await res.json();
+            if (paywallData?.type === 'paywall') {
+              renderPaywall(paywallData);
+              return;
+            }
+          } catch (_) {
+            // fall through to generic error
+          }
+        }
+
         // Try to parse JSON error
         let code = 'unknown';
         try {
@@ -788,6 +892,48 @@
     `;
     messagesEl.appendChild(msg);
     scrollToBottom();
+  }
+
+  /**
+   * Renders the paywall payload as tier cards.
+   * Called when Worker returns HTTP 402 with {type: 'paywall', tiers: [...]}
+   */
+  function renderPaywall(paywallData) {
+    const messagesEl = document.getElementById('stx-messages');
+    const wrapper = document.createElement('div');
+    wrapper.className = 'stx-msg is-assistant';
+
+    const tiersHtml = paywallData.tiers.map((tier) => `
+      <a class="stx-tier ${tier.recommended ? 'is-recommended' : ''}" href="${tier.url}" target="_blank" rel="noopener">
+        ${tier.recommended ? '<div class="stx-tier-badge">Most chosen</div>' : ''}
+        <div class="stx-tier-name">${escapeHtml(tier.name)}</div>
+        <div class="stx-tier-price">
+          <span class="stx-tier-amount">${escapeHtml(tier.price)}</span>
+          <span class="stx-tier-billing">${escapeHtml(tier.billing)}</span>
+        </div>
+        <div class="stx-tier-tagline">${escapeHtml(tier.tagline)}</div>
+      </a>
+    `).join('');
+
+    wrapper.innerHTML = `
+      <div class="stx-avatar">ST</div>
+      <div class="stx-bubble stx-paywall">
+        <div class="stx-paywall-heading">${escapeHtml(paywallData.message)}</div>
+        <div class="stx-paywall-sub">Choose a plan to continue chatting:</div>
+        <div class="stx-tiers">
+          ${tiersHtml}
+        </div>
+        <div class="stx-paywall-footer">${escapeHtml(paywallData.footer)}</div>
+      </div>
+    `;
+
+    messagesEl.appendChild(wrapper);
+    scrollToBottom();
+  }
+
+  function escapeHtml(s) {
+    if (typeof s !== 'string') return '';
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
   function updateBubble(bubbleEl, text) {

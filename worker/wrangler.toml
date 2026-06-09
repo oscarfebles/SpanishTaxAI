@@ -1,0 +1,28 @@
+name = "spanishtax-chatbot"
+main = "src/index.js"
+compatibility_date = "2024-12-18"
+compatibility_flags = ["nodejs_compat"]
+
+# ─── KV namespace for rate limiting ───────────────────────────────────────
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id = "940a9910528044548371ac26a1edc463"
+
+# ─── Non-secret variables ─────────────────────────────────────────────────
+[vars]
+ALLOWED_ORIGINS = "https://spanishtaxai.com,https://www.spanishtaxai.com,http://localhost:3000"
+ANTHROPIC_MODEL = "claude-sonnet-4-6"
+VOYAGE_MODEL = "voyage-3-large"
+RATE_LIMIT_PER_MIN = "10"
+
+# Gating model v1.1: 3 anonymous → email gate at turn 3 → 3 more with email → paywall at turn 7
+ANONYMOUS_TURN_LIMIT = "3"
+WITH_EMAIL_TURN_LIMIT = "6"
+EMAIL_CAPTURE_TURN = "3"
+
+# ─── Secrets (NOT defined here) ───────────────────────────────────────────
+# Already set via Cloudflare Dashboard UI:
+#   ANTHROPIC_API_KEY
+#   SUPABASE_URL
+#   SUPABASE_SERVICE_ROLE_KEY
+#   VOYAGE_API_KEY
