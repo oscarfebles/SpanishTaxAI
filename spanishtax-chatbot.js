@@ -19,7 +19,7 @@
   // ─── Config (edit these if needed) ────────────────────────────────────
   const CONFIG = {
     // Worker endpoint. Change to your actual deployed URL.
-    API_URL: 'https://api.spanishtaxai.com/chat',
+    API_URL: 'https://spanishtax-chatbot.oscargonzalezfebles.workers.dev/chat',
 
     // localStorage keys
     STORAGE_KEY_SESSION: 'spanishtax_chat_session_id',
