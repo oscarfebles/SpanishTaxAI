@@ -474,93 +474,99 @@
 
       /* ─── Paywall (tier cards after gate hit) ──────────────────────── */
       .stx-paywall {
-        max-width: 100%;
-        background: #FBF6EE;
-        border: 1px solid var(--stx-line);
+        max-width: 100% !important;
+        background: #FBF6EE !important;
+        border: 1px solid var(--stx-line) !important;
+        padding: 16px !important;
       }
-      .stx-paywall-heading {
-        font-family: var(--stx-serif);
-        font-size: 15px;
-        font-weight: 600;
-        color: var(--stx-ink);
-        margin-bottom: 4px;
+      .stx-paywall .stx-paywall-heading {
+        font-family: var(--stx-serif) !important;
+        font-size: 15px !important;
+        font-weight: 600 !important;
+        color: var(--stx-ink) !important;
+        margin-bottom: 4px !important;
         letter-spacing: -0.005em;
+        text-decoration: none !important;
       }
-      .stx-paywall-sub {
-        font-size: 13px;
-        color: var(--stx-muted);
-        margin-bottom: 12px;
+      .stx-paywall .stx-paywall-sub {
+        font-size: 13px !important;
+        color: var(--stx-muted) !important;
+        margin-bottom: 12px !important;
+        text-decoration: none !important;
       }
-      .stx-tiers {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        margin-bottom: 10px;
+      .stx-paywall .stx-tiers {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+        margin-bottom: 10px !important;
       }
-      .stx-tier {
-        display: block;
-        position: relative;
-        padding: 10px 12px;
-        background: white;
-        border: 1px solid var(--stx-line);
-        border-radius: 10px;
-        text-decoration: none;
-        color: var(--stx-ink);
-        transition: all 180ms var(--stx-ease);
+      .stx-paywall a.stx-tier {
+        display: block !important;
+        position: relative !important;
+        padding: 10px 12px !important;
+        background: white !important;
+        border: 1px solid var(--stx-line) !important;
+        border-radius: 10px !important;
+        text-decoration: none !important;
+        color: var(--stx-ink) !important;
+        transition: all 180ms var(--stx-ease) !important;
+        cursor: pointer !important;
       }
-      .stx-tier:hover {
-        border-color: var(--stx-accent);
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(200, 85, 61, 0.10);
+      .stx-paywall a.stx-tier:hover {
+        border-color: var(--stx-accent) !important;
+        transform: translateY(-1px) !important;
+        box-shadow: 0 4px 12px rgba(200, 85, 61, 0.10) !important;
       }
-      .stx-tier.is-recommended {
-        border-color: var(--stx-accent);
-        background: #FFFBF7;
+      .stx-paywall a.stx-tier.is-recommended {
+        border-color: var(--stx-accent) !important;
+        background: #FFFBF7 !important;
       }
-      .stx-tier-badge {
-        position: absolute;
-        top: -7px;
-        right: 10px;
-        background: var(--stx-accent);
-        color: white;
-        font-size: 9px;
-        font-weight: 600;
+      .stx-paywall .stx-tier-badge {
+        position: absolute !important;
+        top: -7px !important;
+        right: 10px !important;
+        background: var(--stx-accent) !important;
+        color: white !important;
+        font-size: 9px !important;
+        font-weight: 600 !important;
         letter-spacing: 0.04em;
-        padding: 2px 6px;
-        border-radius: 100px;
+        padding: 2px 6px !important;
+        border-radius: 100px !important;
         text-transform: uppercase;
       }
-      .stx-tier-name {
-        font-family: var(--stx-serif);
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--stx-ink);
-        margin-bottom: 2px;
+      .stx-paywall .stx-tier-name {
+        font-family: var(--stx-serif) !important;
+        font-size: 13px !important;
+        font-weight: 600 !important;
+        color: var(--stx-ink) !important;
+        margin-bottom: 2px !important;
+        text-decoration: none !important;
       }
-      .stx-tier-price {
-        font-size: 13px;
-        margin-bottom: 3px;
+      .stx-paywall .stx-tier-price {
+        font-size: 13px !important;
+        margin-bottom: 3px !important;
       }
-      .stx-tier-amount {
-        font-weight: 600;
-        color: var(--stx-accent);
+      .stx-paywall .stx-tier-amount {
+        font-weight: 600 !important;
+        color: var(--stx-accent) !important;
       }
-      .stx-tier-billing {
-        color: var(--stx-muted);
-        font-size: 11px;
+      .stx-paywall .stx-tier-billing {
+        color: var(--stx-muted) !important;
+        font-size: 11px !important;
         margin-left: 2px;
       }
-      .stx-tier-tagline {
-        font-size: 11px;
-        color: var(--stx-muted);
-        line-height: 1.45;
+      .stx-paywall .stx-tier-tagline {
+        font-size: 11px !important;
+        color: var(--stx-muted) !important;
+        line-height: 1.45 !important;
+        text-decoration: none !important;
       }
-      .stx-paywall-footer {
-        font-size: 11px;
-        color: var(--stx-muted);
-        text-align: center;
-        padding-top: 8px;
-        border-top: 1px solid var(--stx-line);
+      .stx-paywall .stx-paywall-footer {
+        font-size: 11px !important;
+        color: var(--stx-muted) !important;
+        text-align: center !important;
+        padding-top: 8px !important;
+        border-top: 1px solid var(--stx-line) !important;
       }
 
       /* ─── Mobile adjustments ──────────────────────────────────────── */
@@ -770,6 +776,8 @@
             const paywallData = await res.json();
             if (paywallData?.type === 'paywall') {
               renderPaywall(paywallData);
+              isStreaming = false;
+              sendBtn.disabled = true; // Keep disabled — they're behind paywall
               return;
             }
           } catch (_) {
