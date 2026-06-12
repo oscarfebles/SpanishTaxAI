@@ -1,0 +1,264 @@
+/* SpanishTax AI — Legal pages stylesheet */
+
+:root {
+  --stx-bg: #FAF8F4;
+  --stx-bg-alt: #F4F0E8;
+  --stx-ink: #0F2547;
+  --stx-ink-soft: #1E3358;
+  --stx-muted: #5D5D5D;
+  --stx-accent: #C8553D;
+  --stx-accent-dark: #A8412F;
+  --stx-line: #E8E4DC;
+  --stx-serif: 'Fraunces', Georgia, serif;
+  --stx-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--stx-bg);
+  color: var(--stx-ink);
+  font-family: var(--stx-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Paper grain texture — matches landing */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.06   0 0 0 0 0.15   0 0 0 0 0.28   0 0 0 0.045 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  opacity: 0.4;
+  mix-blend-mode: multiply;
+}
+
+main, header, footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Header ─────────────────────────────────────────────────────── */
+header {
+  padding: 28px 32px;
+  border-bottom: 1px solid var(--stx-line);
+}
+
+.header-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  font-family: var(--stx-serif);
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--stx-ink);
+  text-decoration: none;
+}
+
+.brand::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--stx-accent);
+  border-radius: 50%;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.back-link {
+  font-size: 14px;
+  color: var(--stx-muted);
+  text-decoration: none;
+  transition: color 180ms;
+}
+
+.back-link:hover {
+  color: var(--stx-accent);
+}
+
+/* ─── Main content ────────────────────────────────────────────────── */
+main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 56px 32px 80px;
+}
+
+h1 {
+  font-family: var(--stx-serif);
+  font-size: clamp(32px, 5vw, 44px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--stx-ink);
+  margin-bottom: 12px;
+}
+
+.last-updated {
+  font-size: 13px;
+  color: var(--stx-muted);
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--stx-line);
+}
+
+h2 {
+  font-family: var(--stx-serif);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--stx-ink);
+  margin-top: 44px;
+  margin-bottom: 16px;
+}
+
+h3 {
+  font-family: var(--stx-sans);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--stx-ink);
+  margin-top: 28px;
+  margin-bottom: 10px;
+}
+
+p {
+  margin-bottom: 18px;
+  color: var(--stx-ink-soft);
+}
+
+ul, ol {
+  margin-bottom: 18px;
+  padding-left: 24px;
+  color: var(--stx-ink-soft);
+}
+
+li {
+  margin-bottom: 8px;
+}
+
+a {
+  color: var(--stx-accent);
+  text-decoration: underline;
+  text-decoration-color: rgba(200, 85, 61, 0.3);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 180ms;
+}
+
+a:hover {
+  text-decoration-color: var(--stx-accent);
+}
+
+strong {
+  font-weight: 600;
+  color: var(--stx-ink);
+}
+
+em {
+  font-style: italic;
+}
+
+code {
+  font-family: 'SF Mono', Consolas, monospace;
+  font-size: 14px;
+  background: var(--stx-bg-alt);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--stx-ink);
+}
+
+/* Callout boxes */
+.callout {
+  background: var(--stx-bg-alt);
+  border-left: 3px solid var(--stx-accent);
+  padding: 16px 20px;
+  border-radius: 6px;
+  margin: 20px 0;
+}
+
+.callout p {
+  margin-bottom: 0;
+}
+
+.callout-icon {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 14px;
+}
+
+th, td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--stx-line);
+}
+
+th {
+  font-weight: 600;
+  background: var(--stx-bg-alt);
+  color: var(--stx-ink);
+}
+
+/* ─── Footer ─────────────────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--stx-line);
+  padding: 32px;
+  font-size: 13px;
+  color: var(--stx-muted);
+}
+
+.footer-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-links a {
+  color: var(--stx-muted);
+  text-decoration: none;
+  margin-right: 18px;
+}
+
+.footer-links a:hover {
+  color: var(--stx-accent);
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  main {
+    padding: 32px 20px 60px;
+  }
+  header {
+    padding: 20px;
+  }
+  footer {
+    padding: 24px 20px;
+  }
+}
