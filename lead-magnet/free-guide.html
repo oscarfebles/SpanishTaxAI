@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Spain DNV Checklist 2026 — Download PDF</title>
+  <meta name="description" content="Free 16-page guide to applying for the Spanish Digital Nomad Visa in 2026. Eligibility, documents, timeline, and the 7 most expensive mistakes.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0F2547;
+      --ink-soft: #1E3358;
+      --muted: #5D5D5D;
+      --accent: #C8553D;
+      --accent-dark: #A8412F;
+      --accent-soft: #FBF1F0;
+      --line: #E8E4DC;
+      --bg: #FAF8F4;
+      --bg-alt: #F4F0E8;
+      --serif: 'Fraunces', Georgia, serif;
+      --sans: 'Inter', -apple-system, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--sans);
+      color: var(--ink-soft);
+      background: var(--bg);
+      font-size: 16px;
+      line-height: 1.6;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Paper grain — matches landing */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.06   0 0 0 0 0.15   0 0 0 0 0.28   0 0 0 0.045 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      opacity: 0.4;
+      mix-blend-mode: multiply;
+    }
+
+    main { position: relative; z-index: 1; }
+
+    /* Header */
+    header {
+      padding: 24px 32px;
+      border-bottom: 1px solid var(--line);
+    }
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      font-family: var(--serif);
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .brand::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+    .header-link {
+      font-size: 14px;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    /* Hero section */
+    .hero {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 32px 60px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-content h1 {
+      font-family: var(--serif);
+      font-size: clamp(36px, 5vw, 52px);
+      color: var(--ink);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    .hero-content .tagline {
+      font-size: 18px;
+      color: var(--muted);
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    .hero-content ul {
+      list-style: none;
+      margin-bottom: 36px;
+    }
+
+    .hero-content ul li {
+      padding: 8px 0 8px 32px;
+      position: relative;
+      font-size: 15px;
+      color: var(--ink-soft);
+    }
+
+    .hero-content ul li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      top: 6px;
+      color: var(--accent);
+      font-weight: 700;
+      width: 22px;
+      height: 22px;
+      background: var(--accent-soft);
+      border-radius: 50%;
+      text-align: center;
+      line-height: 22px;
+      font-size: 13px;
+    }
+
+    /* Form */
+    .form-card {
+      background: white;
+      padding: 36px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      box-shadow: 0 8px 28px rgba(15, 37, 71, 0.08);
+    }
+
+    .form-card h2 {
+      font-family: var(--serif);
+      font-size: 22px;
+      color: var(--ink);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .form-card .form-sub {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      color: var(--ink);
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--ink);
+      background: var(--bg);
+      transition: border-color 180ms, box-shadow 180ms;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(200, 85, 61, 0.12);
+    }
+
+    .form-group .helper {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 14px 20px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 180ms;
+      margin-top: 8px;
+    }
+
+    .form-submit:hover {
+      background: var(--accent-dark);
+    }
+
+    .form-submit:disabled {
+      background: var(--muted);
+      cursor: not-allowed;
+    }
+
+    .form-footer {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 16px;
+      line-height: 1.5;
+    }
+
+    .form-footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* Success state */
+    .success-state {
+      display: none;
+      text-align: center;
+    }
+    .success-state.is-visible { display: block; }
+
+    .success-icon {
+      width: 56px;
+      height: 56px;
+      background: #E8F5E9;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: #2E7D32;
+      font-size: 24px;
+    }
+
+    .success-state h2 {
+      font-family: var(--serif);
+      font-size: 22px;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+
+    .success-state p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .download-btn {
+      display: inline-block;
+      padding: 12px 28px;
+      background: var(--ink);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 14px;
+      transition: background 180ms;
+    }
+
+    .download-btn:hover {
+      background: var(--ink-soft);
+    }
+
+    /* What's inside section */
+    .preview {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 32px 80px;
+    }
+
+    .preview h2 {
+      font-family: var(--serif);
+      font-size: 32px;
+      color: var(--ink);
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 40px;
+      letter-spacing: -0.01em;
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .preview-card {
+      background: white;
+      padding: 24px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+    }
+
+    .preview-card .preview-num {
+      font-family: var(--serif);
+      font-size: 24px;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .preview-card h3 {
+      font-family: var(--serif);
+      font-size: 17px;
+      color: var(--ink);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .preview-card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 32px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      margin-right: 18px;
+    }
+
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 40px 24px 30px;
+        gap: 30px;
+      }
+      .form-card { padding: 24px; }
+      header { padding: 16px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="/" class="brand">SpanishTax AI</a>
+    <a href="/" class="header-link">← Back to home</a>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Spain DNV Checklist 2026</h1>
+      <p class="tagline">
+        The complete 16-page roadmap for English-speaking digital nomads. Eligibility, documents, timeline, and the 7 most expensive mistakes that delay applications and cost €2,500+.
+      </p>
+      <ul>
+        <li>Pre-arrival checklist with 12-week timeline</li>
+        <li>Documents required by nationality (US, UK, etc.)</li>
+        <li>Income proof rules for 1099, W-2, LLC, S-Corp</li>
+        <li>Beckham Law decision tree (when to elect, when to skip)</li>
+        <li>Post-arrival 30-day checklist for autónomo setup</li>
+        <li>Quarterly tax filing calendar with all deadlines</li>
+      </ul>
+    </div>
+
+    <div class="form-card">
+      <div class="form-state" id="form-state">
+        <h2>Get the free guide</h2>
+        <p class="form-sub">No credit card. Instant access. Unsubscribe anytime.</p>
+
+        <form id="lead-form">
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" id="email" name="email" required placeholder="you@example.com" autocomplete="email">
+          </div>
+
+          <div class="form-group">
+            <label for="situation">Your situation (optional)</label>
+            <select id="situation" name="situation">
+              <option value="">— Choose one —</option>
+              <option value="pre_application">Pre-application research</option>
+              <option value="documents_phase">Gathering documents</option>
+              <option value="submitted_waiting">Application submitted, waiting</option>
+              <option value="recently_arrived">Recently arrived in Spain</option>
+              <option value="autonomo_setup">Setting up autónomo</option>
+              <option value="renewal">Approaching renewal</option>
+            </select>
+            <div class="helper">Helps us personalize the follow-up emails. Not shared.</div>
+          </div>
+
+          <button type="submit" class="form-submit" id="submit-btn">Send me the guide →</button>
+
+          <p class="form-footer">
+            By submitting, you agree to receive the guide and occasional emails about Spanish DNV / tax updates.
+            See our <a href="/privacy.html">Privacy Policy</a>. Unsubscribe anytime.
+          </p>
+        </form>
+      </div>
+
+      <div class="success-state" id="success-state">
+        <div class="success-icon">✓</div>
+        <h2>Check your email</h2>
+        <p>We've sent the guide to <strong id="success-email">your email</strong>. If it doesn't arrive in 5 minutes, check spam/promotions.</p>
+        <p style="margin-bottom:24px;">Or download directly now:</p>
+        <a href="/lead-magnet/spain-dnv-checklist-2026.html" class="download-btn" target="_blank">Open the guide →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="preview">
+    <h2>What's inside</h2>
+    <div class="preview-grid">
+      <div class="preview-card">
+        <div class="preview-num">01</div>
+        <h3>Eligibility checklist</h3>
+        <p>8-point self-assessment so you know in 60 seconds whether you qualify.</p>
+      </div>
+      <div class="preview-card">
+        <div class="preview-num">02</div>
+        <h3>Documents matrix</h3>
+        <p>Exactly what you need from your country, employer, and Spain — by nationality.</p>
+      </div>
+      <div class="preview-card">
+        <div class="preview-num">03</div>
+        <h3>Income proof by work type</h3>
+        <p>W-2 employees, 1099 contractors, S-Corp owners, LLC members — different requirements for each.</p>
+      </div>
+      <div class="preview-card">
+        <div class="preview-num">04</div>
+        <h3>12-week timeline</h3>
+        <p>Working backwards from your target arrival date. With the bottleneck steps highlighted.</p>
+      </div>
+      <div class="preview-card">
+        <div class="preview-num">05</div>
+        <h3>Cost summary</h3>
+        <p>Realistic budget for apostilles, translations, fees, insurance, and post-arrival costs.</p>
+      </div>
+      <div class="preview-card">
+        <div class="preview-num">06</div>
+        <h3>Top 7 mistakes</h3>
+        <p>Ranked by what they actually cost — from the €2,500 Tarifa Plana loss to subsanación responses gone wrong.</p>
+      </div>
+      <div class="preview-card">
+        <div class="preview-num">07</div>
+        <h3>Beckham Law decision tree</h3>
+        <p>When to elect, when to skip. With the €100k and €600k thresholds explained clearly.</p>
+      </div>
+      <div class="preview-card">
+        <div class="preview-num">08</div>
+        <h3>Post-arrival checklist</h3>
+        <p>NIE, empadronamiento, TIE, bank account, autónomo setup — in the right order so you don't lose Tarifa Plana.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>&copy; 2026 SpanishTax AI · Built in Madrid by Oscar Gonzalez Febles</div>
+    <div class="footer-links">
+      <a href="/terms.html">Terms</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/refund.html">Refunds</a>
+      <a href="/cookies.html">Cookies</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /**
+   * Lead capture form handler
+   *
+   * Sends to: https://spanishtax-chatbot.oscargonzalezfebles.workers.dev/lead-capture
+   * Expected response: 200 OK on success, or error JSON
+   *
+   * Falls back to direct download if endpoint fails (UX safety net).
+   */
+  (function () {
+    const form = document.getElementById('lead-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const formState = document.getElementById('form-state');
+    const successState = document.getElementById('success-state');
+    const successEmail = document.getElementById('success-email');
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value.trim();
+      const situation = document.getElementById('situation').value;
+
+      if (!email || !email.includes('@')) {
+        alert('Please enter a valid email.');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'Sending...';
+
+      try {
+        const res = await fetch('https://spanishtax-chatbot.oscargonzalezfebles.workers.dev/lead-capture', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email,
+            situation,
+            source: 'free_guide',
+            timestamp: new Date().toISOString(),
+            user_agent: navigator.userAgent,
+          }),
+        });
+
+        // Show success state regardless of API result — even if the lead
+        // capture endpoint fails, we let user download immediately.
+        // (Email nurture sequence may not fire, but at least they get the PDF.)
+        successEmail.innerText = email;
+        formState.style.display = 'none';
+        successState.classList.add('is-visible');
+      } catch (err) {
+        console.error('Lead capture failed:', err);
+        // Still show success — UX safety net
+        successEmail.innerText = email;
+        formState.style.display = 'none';
+        successState.classList.add('is-visible');
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>

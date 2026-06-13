@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spain DNV Checklist 2026 — SpanishTax AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0F2547;
+      --ink-soft: #1E3358;
+      --muted: #5D5D5D;
+      --accent: #C8553D;
+      --accent-soft: #FBF1F0;
+      --line: #E8E4DC;
+      --bg: #FAF8F4;
+      --bg-alt: #F4F0E8;
+      --serif: 'Fraunces', Georgia, serif;
+      --sans: 'Inter', -apple-system, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--sans);
+      color: var(--ink-soft);
+      background: var(--bg);
+      font-size: 11pt;
+      line-height: 1.55;
+    }
+
+    .toolbar {
+      max-width: 720px;
+      margin: 20px auto;
+      padding: 14px 18px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .toolbar strong { color: var(--ink); }
+    .toolbar button {
+      background: var(--ink);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-family: inherit;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .page {
+      background: white;
+      max-width: 720px;
+      margin: 0 auto 20px;
+      padding: 56px 64px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      page-break-after: always;
+      min-height: 980px;
+      position: relative;
+    }
+
+    .page-number {
+      position: absolute;
+      bottom: 24px;
+      right: 32px;
+      font-size: 10pt;
+      color: var(--muted);
+    }
+
+    .page-footer-brand {
+      position: absolute;
+      bottom: 24px;
+      left: 32px;
+      font-size: 10pt;
+      color: var(--muted);
+    }
+
+    /* Cover page */
+    .cover {
+      text-align: center;
+      padding-top: 120px;
+    }
+    .cover .brand {
+      font-family: var(--serif);
+      font-size: 24pt;
+      color: var(--ink);
+      font-weight: 600;
+      margin-bottom: 40px;
+    }
+    .cover .brand::before {
+      content: '';
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin-right: 12px;
+      vertical-align: middle;
+    }
+    .cover h1 {
+      font-family: var(--serif);
+      font-size: 48pt;
+      color: var(--ink);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+    .cover .subtitle {
+      font-size: 16pt;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 60px;
+      line-height: 1.4;
+    }
+    .cover .meta {
+      font-size: 11pt;
+      color: var(--muted);
+    }
+    .cover .accent-bar {
+      width: 60px;
+      height: 4px;
+      background: var(--accent);
+      margin: 30px auto;
+      border-radius: 2px;
+    }
+
+    /* Content typography */
+    h1 {
+      font-family: var(--serif);
+      font-size: 28pt;
+      color: var(--ink);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+      line-height: 1.1;
+    }
+    h1 + .subtitle {
+      color: var(--muted);
+      font-size: 12pt;
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+    h2 {
+      font-family: var(--serif);
+      font-size: 18pt;
+      color: var(--ink);
+      font-weight: 600;
+      margin: 28px 0 12px;
+    }
+    h3 {
+      font-family: var(--sans);
+      font-size: 13pt;
+      color: var(--ink);
+      font-weight: 600;
+      margin: 20px 0 8px;
+    }
+    p { margin-bottom: 14px; }
+    p strong { color: var(--ink); font-weight: 600; }
+
+    ul, ol { margin: 0 0 16px 24px; }
+    li { margin-bottom: 6px; }
+
+    /* Checklist styling */
+    .checklist {
+      list-style: none;
+      margin-left: 0;
+    }
+    .checklist li {
+      padding-left: 32px;
+      position: relative;
+      margin-bottom: 12px;
+    }
+    .checklist li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 3px;
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--ink);
+      border-radius: 3px;
+    }
+
+    /* Callouts */
+    .callout {
+      background: var(--accent-soft);
+      border-left: 4px solid var(--accent);
+      padding: 14px 18px;
+      margin: 16px 0;
+      border-radius: 0 6px 6px 0;
+    }
+    .callout p { margin-bottom: 0; }
+    .callout strong { color: #8B3A2C; }
+
+    .note {
+      background: var(--bg-alt);
+      border-left: 4px solid var(--ink);
+      padding: 14px 18px;
+      margin: 16px 0;
+      border-radius: 0 6px 6px 0;
+      font-size: 10.5pt;
+    }
+    .note p { margin-bottom: 6px; }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 10.5pt;
+    }
+    th {
+      background: var(--bg-alt);
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 2px solid var(--ink);
+      font-weight: 600;
+      color: var(--ink);
+    }
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    /* Timeline */
+    .timeline {
+      margin: 20px 0;
+      position: relative;
+      padding-left: 24px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: var(--line);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 16px;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -23px;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      border: 2px solid white;
+    }
+    .timeline-week {
+      font-weight: 600;
+      color: var(--ink);
+      font-size: 11pt;
+      margin-bottom: 4px;
+    }
+
+    /* Decision tree */
+    .decision-tree {
+      background: var(--bg-alt);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    .decision-node {
+      padding: 10px 14px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      margin: 6px 0;
+    }
+    .decision-yes {
+      border-left: 3px solid #2E7D32;
+      color: #1B5E20;
+    }
+    .decision-no {
+      border-left: 3px solid var(--accent);
+      color: #8B3A2C;
+    }
+
+    /* CTA */
+    .cta-block {
+      background: var(--ink);
+      color: white;
+      padding: 32px;
+      border-radius: 10px;
+      margin: 30px 0;
+      text-align: center;
+    }
+    .cta-block h2 {
+      color: white;
+      margin-top: 0;
+    }
+    .cta-block p {
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 8px;
+    }
+    .cta-block a {
+      color: #FFD4C5;
+      font-weight: 600;
+    }
+
+    @media print {
+      .toolbar { display: none !important; }
+      body { background: white; }
+      .page {
+        box-shadow: none;
+        margin: 0;
+        padding: 30px 50px;
+        min-height: auto;
+        page-break-after: always;
+      }
+      @page {
+        size: A4;
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div>
+    <strong>Spain DNV Checklist 2026</strong> · 16-page printable guide
+  </div>
+  <button onclick="window.print()">Print / Save as PDF</button>
+</div>
+
+<!-- PAGE 1 — COVER -->
+<div class="page cover">
+  <div class="brand">SpanishTax AI</div>
+  <h1>Spain DNV<br>Checklist 2026</h1>
+  <div class="accent-bar"></div>
+  <div class="subtitle">The complete pre-arrival roadmap for English-speaking digital nomads relocating to Spain</div>
+  <div style="margin-top: 80px;" class="meta">
+    By Oscar Gonzalez Febles<br>
+    <em>Spanish auditor, Madrid</em><br><br>
+    Free guide · 2026 edition · Updated June 2026
+  </div>
+</div>
+
+<!-- PAGE 2 — INTRODUCTION -->
+<div class="page">
+  <h1>What this guide is for</h1>
+  <p class="subtitle">A 25-minute read that saves you 25 hours of research and €2,500 of avoidable mistakes.</p>
+
+  <p>
+    The Spanish Digital Nomad Visa (DNV) is the cleanest path for English-speaking remote workers to legally live and work in Spain. But the process is bureaucratic, fragmented across multiple Spanish agencies, and full of small procedural rules that — if missed — cost real money or cause application denial.
+  </p>
+
+  <p>
+    This guide is the condensed roadmap I wish I'd had when I started helping expats with their DNV applications. It covers eligibility, documentation by nationality, the application procedure, post-arrival logistics, and the most expensive mistakes I see applicants make.
+  </p>
+
+  <h2>Who this is for</h2>
+  <ul>
+    <li><strong>Non-EU citizens</strong> (Americans, Brits, Canadians, Australians, Latin Americans, etc.) working remotely as employees, freelancers, or business owners</li>
+    <li><strong>Earning above €2,849/month gross</strong> (the 2026 solo applicant threshold)</li>
+    <li><strong>Planning to spend &gt;183 days/year in Spain</strong> (becoming Spanish tax resident)</li>
+    <li><strong>Comfortable navigating English-language documentation</strong> with some Spanish bureaucracy</li>
+  </ul>
+
+  <h2>What this is NOT</h2>
+  <p>
+    This guide is informational, not legal advice. Spanish administrative practice evolves and individual cases vary. For complex situations (S-Corps, LLCs, dual residency, high net worth, family applications), you'll want professional review — see the back of the guide.
+  </p>
+
+  <div class="callout">
+    <p><strong>Disclaimer:</strong> Information current as of June 2026. Spanish tax and immigration rules change 2-4 times per year via Royal Decrees and budget laws. Always verify the latest before submitting your application.</p>
+  </div>
+
+  <div class="page-number">2</div>
+  <div class="page-footer-brand">SpanishTax AI · spanishtaxai.com</div>
+</div>
+
+<!-- PAGE 3 — WHAT IS THE DNV -->
+<div class="page">
+  <h1>What is the DNV?</h1>
+  <p class="subtitle">The legal framework, who it's for, and how long it lasts.</p>
+
+  <h2>Legal basis</h2>
+  <p>
+    The DNV (formally: Visado y Autorización de Residencia para Teletrabajador de Carácter Internacional) is regulated by:
+  </p>
+  <ul>
+    <li><strong>Ley 14/2013</strong> de apoyo a los emprendedores, Articles 71-72 (the foundational framework)</li>
+    <li><strong>Ley 28/2022</strong> "Startups Law" (which amended Ley 14/2013 to create the DNV in 2023)</li>
+    <li><strong>Real Decreto 1155/2024</strong> (the current implementing regulation)</li>
+  </ul>
+
+  <h2>Who can apply?</h2>
+  <p>You must be a non-EU/EEA/Swiss citizen (EU citizens fall under free movement rules) and one of the following:</p>
+  <ol>
+    <li><strong>Employee working remotely</strong> for a non-Spanish employer (W-2 in US terminology, PAYE in UK)</li>
+    <li><strong>Self-employed freelancer / contractor</strong> with multiple foreign clients</li>
+    <li><strong>Sole owner of a foreign company</strong> (LLC, S-Corp, Ltd) operating remotely</li>
+  </ol>
+
+  <h2>Duration and renewal</h2>
+  <table>
+    <thead><tr><th>Stage</th><th>Duration</th><th>Where applied</th></tr></thead>
+    <tbody>
+      <tr><td>Initial (Route A — consular)</td><td>1 year</td><td>From country of origin</td></tr>
+      <tr><td>Initial (Route B — UGE-CE)</td><td>3 years</td><td>From Spain (recommended)</td></tr>
+      <tr><td>First renewal</td><td>2 years</td><td>From Spain</td></tr>
+      <tr><td>Long-term residence (RLD)</td><td>5 years (renewable)</td><td>After 5 years of legal residence</td></tr>
+      <tr><td>Spanish nationality</td><td>—</td><td>After 10 years of legal residence (specific countries: 2 years)</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Special tax regime: Beckham Law</h2>
+  <p>
+    DNV holders can elect a special tax regime ("Beckham Law", Art. 93 LIRPF) for 6 years that taxes employment and professional income at a flat <strong>24% rate</strong> up to €600,000 (47% above), bypassing the standard progressive IRPF brackets that go up to 47%.
+  </p>
+  <p>
+    Whether Beckham is advantageous depends on your income level and composition. <strong>The election is irreversible for 6 years</strong> — getting it wrong is expensive.
+  </p>
+
+  <div class="page-number">3</div>
+  <div class="page-footer-brand">SpanishTax AI · spanishtaxai.com</div>
+</div>
+
+<!-- PAGE 4 — ELIGIBILITY CHECKLIST -->
+<div class="page">
+  <h1>Eligibility checklist</h1>
+  <p class="subtitle">Check each box. If you can't honestly check all 8, you're not eligible (yet).</p>
+
+  <ul class="checklist">
+    <li><strong>I am not a citizen of an EU country, EEA country (Norway, Iceland, Liechtenstein), or Switzerland.</strong> If you are, you don't need a DNV — you have free movement rights.</li>
+
+    <li><strong>I have not been a Spanish tax resident in the past 5 years.</strong> Required for Beckham Law eligibility. (Reduced from 10 to 5 years by Ley 28/2022.)</li>
+
+    <li><strong>At least 80% of my income comes from non-Spanish sources.</strong> The "80/20 rule" — you can have up to 20% of income from Spanish clients, but the bulk must be foreign.</li>
+
+    <li><strong>I have a continuous professional relationship with my employer / clients for ≥ 3 months.</strong> The "3-month relationship" requirement.</li>
+
+    <li><strong>My gross monthly income is ≥ €2,849 (2026 figure) on a recurring basis.</strong> Equivalent to 200% of the annualized SMI: €17,094 × 2 / 12. With dependents: spouse +€1,068/month, each child +€356/month.</li>
+
+    <li><strong>I have professional qualifications</strong> (university degree, professional certification, or 3+ years of demonstrable experience in the field).</li>
+
+    <li><strong>I have a clean criminal record</strong> from countries I've lived in for 5+ years (FBI check for US, ACRO for UK, etc.) — apostilled and within the 90-day validity window.</li>
+
+    <li><strong>I have private health insurance valid in Spain</strong> — 100% coverage, no copayments, minimum 1 year duration, no geographic exclusions. (NOT EHIC/GHIC — those don't qualify for residence purposes.)</li>
+  </ul>
+
+  <div class="callout">
+    <p><strong>If you ticked all 8:</strong> you're DNV-eligible. The next pages cover what to actually do about it.</p>
+    <p style="margin-top:8px;"><strong>If you couldn't tick one:</strong> common solutions exist for most issues (e.g., increasing income, building 3-month client history, dealing with prior Spanish residency). The chatbot at spanishtaxai.com can help triage your specific case.</p>
+  </div>
+
+  <div class="page-number">4</div>
+  <div class="page-footer-brand">SpanishTax AI · spanishtaxai.com</div>
+</div>
+
+<!-- PAGE 5 — DOCUMENTATION MATRIX -->
+<div class="page">
+  <h1>Documents required</h1>
+  <p class="subtitle">What you'll need from your country of origin, your employer, and Spain.</p>
+
+  <h2>From your country of origin</h2>
+  <table>
+    <thead><tr><th>Document</th><th>Detail</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Passport</td>
+        <td>Valid for ≥ 1 year. Copy of all pages with stamps/visas.</td>
+      </tr>
+      <tr>
+        <td>Criminal record certificate</td>
+        <td>From every country lived in 5+ years. <strong>Apostilled</strong> + sworn-translated. Issued within 90 days of submission.</td>
+      </tr>
+      <tr>
+        <td>Birth certificate</td>
+        <td>Long-form, with parents' names. Apostilled + sworn-translated.</td>
+      </tr>
+      <tr>
+        <td>Marriage certificate (if applicable)</td>
+        <td>Same: apostilled + sworn-translated. Required if applying with spouse.</td>
+      </tr>
+      <tr>
+        <td>Proof of professional qualifications</td>
+        <td>Degree or 3+ years experience evidence. Apostilled if relying on a degree.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>From your employer or clients</h2>
+  <table>
+    <thead><tr><th>Document</th><th>Detail</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Employer letter</td>
+        <td>Confirming remote work, salary, position, ≥ 3-month relationship.</td>
+      </tr>
+      <tr>
+        <td>Employment contract</td>
+        <td>Or service contracts (B2B) if self-employed.</td>
+      </tr>
+      <tr>
+        <td>Company registration certificate</td>
+        <td>Of your employer. Confirms the company has been operating ≥ 1 year.</td>
+      </tr>
+      <tr>
+        <td>Social security certificate of coverage</td>
+        <td>US Form CoC (24-month coverage), UK A1 form, or equivalent.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>From Spain</h2>
+  <table>
+    <thead><tr><th>Document</th><th>Detail</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Modelo 790-038</td>
+        <td>The €89.96 application fee. (Confused with 790-052 — that's for Oficinas de Extranjería, not UGE-CE.)</td>
+      </tr>
+      <tr>
+        <td>Health insurance policy</td>
+        <td>Spanish or international policy meeting requirements above.</td>
+      </tr>
+      <tr>
+        <td>Empadronamiento (after arrival)</td>
+        <td>Town hall registration. Required for TIE card and most subsequent procedures.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-number">5</div>
+  <div class="page-footer-brand">SpanishTax AI · spanishtaxai.com</div>
+</div>
+
+<!-- PAGE 6 — INCOME PROOF BY WORK TYPE -->
+<div class="page">
+  <h1>Income proof by work type</h1>
+  <p class="subtitle">The hardest part of the application. Here's what UGE-CE expects depending on how you earn.</p>
+
+  <h2>1. Salaried W-2 employees (US) / PAYE (UK)</h2>
+  <p>Easiest path. Required:</p>
+  <ul>
+    <li>Employer letter confirming salary, remote work, ≥ 3-month tenure</li>
+    <li>Last 6 months of pay stubs or equivalent</li>
+    <li>Last 6 months of bank statements showing recurring deposits</li>
+    <li>Employment contract</li>
+  </ul>
+
+  <h2>2. US 1099 freelancers / sole proprietors</h2>
+  <p>The most common DNV applicant profile. Required:</p>
+  <ul>
+    <li><strong>CPA letter on firm letterhead</strong> (apostilled + sworn-translated) confirming Schedule C filing, average monthly income, and recurring nature</li>
+    <li>Last 2 years of Schedule C from your 1040 returns</li>
+    <li>Active B2B contracts or client agreements</li>
+    <li>Invoices issued over the past 6 months</li>
+    <li>Bank statements showing receipts matching invoices</li>
+  </ul>
+  <p>
+    <strong>The CPA letter is the workaround for the US not having a self-employment registry.</strong> It substitutes for what Spain calls <em>alta autónomo</em>. Templates available at spanishtaxai.com/templates/.
+  </p>
+
+  <h2>3. US S-Corp owners</h2>
+  <p>More complex. Lead with W-2 salary as primary income, K-1 distributions as supporting:</p>
+  <ul>
+    <li>CPA letter explicitly distinguishing salary (recurring monthly W-2) from K-1 distributions</li>
+    <li>Last 2 years of Form 1120-S corporate returns</li>
+    <li>Personal 1040 with Schedule E showing pass-through income</li>
+    <li>S-Corp's certificate of formation</li>
+  </ul>
+  <div class="callout">
+    <p><strong>S-Corp + Spain triggers CFC analysis</strong> under Art. 91 LIRPF (transparencia fiscal internacional). The Beckham Law election interacts with this — must be modeled before filing Modelo 149. Get this wrong and you pay 6 years of suboptimal tax. Mandatory escalation.</p>
+  </div>
+
+  <h2>4. Single-member LLCs</h2>
+  <p>The most legally complex. Same CFC concern as S-Corp:</p>
+  <ul>
+    <li>CPA letter confirming LLC ownership, disregarded entity status, Schedule C reporting</li>
+    <li>LLC certificate of organization</li>
+    <li>Banking documentation showing both LLC operating account and your personal draws</li>
+  </ul>
+
+  <h2>5. Online platform earnings (Stripe, App Store, YouTube, etc.)</h2>
+  <ul>
+    <li>Direct payout reports from the platform (Stripe Dashboard, Apple iTunes Connect, etc.)</li>
+    <li>Tax forms issued by the platform (1099-K, etc.)</li>
+    <li>Bank statements showing deposits</li>
+  </ul>
+
+  <div class="page-number">6</div>
+  <div class="page-footer-brand">SpanishTax AI · spanishtaxai.com</div>
+</div>
+
+<!-- PAGE 7 — TIMELINE -->
+<div class="page">
+  <h1>Your 12-week timeline</h1>
+  <p class="subtitle">Working backwards from "boots on Spanish soil."</p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-week">Week -12 (3 months before)</div>
+      <p>Request criminal record certificate. Email your CPA requesting the apostilled letter. Start researching health insurance.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-week">Week -10</div>
+      <p>Receive FBI/ACRO check. Submit for apostille (6-8 weeks for US Dept of State, faster for state-level documents).</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-week">Week -9</div>
+      <p>CPA letter signed and notarized. Submit for apostille via Secretary of State.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-week">Week -6</div>
+      <p>Purchase Spanish-valid health insurance policy. Get employer letter and confirmation of remote-work arrangement.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-week">Week -3</div>
+      <p>All apostilled documents arrive. Send to Spanish <em>traductor jurado</em> for sworn translation. Cost: €30-60/page.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-week">Week -2</div>
+      <p>Pay Modelo 790-038 fee online. Compile final application package. Decide Route A (consular) vs. Route B (in-Spain via UGE-CE).</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-week">Week -1</div>
+      <p>Submit application via UGE-CE sede electrónica (Route B) or schedule consular appointment (Route A).</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-week">Week 0 (Day 0)</div>
+      <p>Arrive in Spain (Route B path). UGE-CE has 20 working days to respond. Positive silence applies if no response.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-week">Week +2</div>
+      <p>Empadronamiento at town hall. Apply for NIE. Open Spanish bank account.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-week">Week +4</div>
+      <p>Book TIE card appointment (Policía Nacional). Photo + fingerprints. Card arrives 4-6 weeks later.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-week">Week +6</div>
+      <p>If becoming autónomo: file Modelo 036 (Hacienda) BEFORE alta RETA (Seguridad Social). Order matters.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-week">Week +24 (6 months)</div>
+      <p>Beckham Law election deadline: 6 months from your <em>alta autónomo</em> or 6 months from becoming tax resident, whichever applies. <strong>Miss this and lose 6 years of tax savings.</strong></p>
+    </div>
+  </div>
+
+  <div class="page-number">7</div>
+  <div class="page-footer-brand">SpanishTax AI · spanishtaxai.com</div>
+</div>
+
+<!-- PAGE 8 — COST SUMMARY -->
+<div class="page">
+  <h1>What it actually costs</h1>
+  <p class="subtitle">Realistic budget for a solo applicant.</p>
+
+  <h2>Pre-arrival costs</h2>
+  <table>
+    <thead><tr><th>Item</th><th>Cost (USD/EUR)</th></tr></thead>
+    <tbody>
+      <tr><td>FBI background check (US)</td><td>$18-68</td></tr>
+      <tr><td>US Dept of State apostille (FBI)</td><td>$20 (std) — $300 (expedited)</td></tr>
+      <tr><td>CPA letter preparation</td><td>$100-300</td></tr>
+      <tr><td>Notarization + Secretary of State apostille</td><td>$30-100</td></tr>
+      <tr><td>Sworn translation (Spanish)</td><td>€100-300 (multiple docs)</td></tr>
+      <tr><td>Modelo 790-038 application fee</td><td>€89.96</td></tr>
+      <tr><td>Annual health insurance (private, Spain)</td><td>€600-1,500/year</td></tr>
+      <tr><td>One-way flight</td><td>$600-1,500</td></tr>
+      <tr><td><strong>Total pre-arrival estimate</strong></td><td><strong>$1,500 - $4,500</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h2>Post-arrival recurring costs (autónomo path)</h2>
+  <table>
+    <thead><tr><th>Item</th><th>Cost</th></tr></thead>
+    <tbody>
+      <tr><td>RETA cuota (year 1, Tarifa Plana)</td><td>€88.64/month</td></tr>
+      <tr><td>RETA cuota (year 2+, standard)</td><td>~€299.56/month</td></tr>
+      <tr><td>Gestoría / tax filing assistance</td><td>€100-200/month (or DIY via SpanishTax AI)</td></tr>
+      <tr><td>TIE card renewal (Modelo 790-012)</td><td>€16.08 every 2-3 years</td></tr>
+      <tr><td>Beckham Law special filing (if elected)</td><td>Modelo 151 instead of Modelo 100</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <p><strong>The Tarifa Plana €88.64/month is the single biggest financial decision in your first year.</strong> It saves you ~€2,500 vs the standard €299.56/month rate, but only if you don't lose it (see next page).</p>
+  </div>
+
+  <div class="page-number">8</div>
+  <div class="page-footer-brand">SpanishTax AI · spanishtaxai.com</div>
+</div>
+
+<!-- PAGE 9 — TOP 7 MISTAKES -->
+<div class="page">
+  <h1>The 7 most expensive mistakes</h1>
+  <p class="subtitle">Ranked by what they cost — combined real-world impact.</p>
+
+  <h2>#1 — Missing the Tarifa Plana window</h2>
+  <p>
+    <strong>Cost: €2,500</strong>. If you file your RETA registration even one day late after starting activity, TGSS can deny Tarifa Plana entirely. You pay €299.56/month from month 1 instead of €88.64. RD 84/1996 (the relevant regulation) is strict.
+  </p>
+
+  <h2>#2 — Missing the Beckham Law election deadline</h2>
+  <p>
+    <strong>Cost: €5,000-50,000+ over 6 years</strong> depending on income. The deadline is 6 months from your <em>alta autónomo</em> date. Modelo 149 must be filed on time. The election is irreversible — once you miss the window, you can't elect Beckham retroactively.
+  </p>
+
+  <h2>#3 — Travel insurance instead of resident health insurance</h2>
+  <p>
+    <strong>Cost: application denial + reapplication</strong>. UGE-CE rejects travel insurance policies and EHIC/GHIC cards. You need a real residence-grade Spanish or international policy with 100% coverage and no copayments.
+  </p>
+
+  <h2>#4 — Not declaring foreign assets on Modelo 720/721</h2>
+  <p>
+    <strong>Cost: €1,500-5,000 in sanctions</strong>. The €150% sanctions were struck down by TJUE C-788/19 in 2022, but proportional sanctions remain. Required if you hold ≥ €50,000 in foreign accounts, securities, or real estate. Crypto: Modelo 721.
+  </p>
+
+  <h2>#5 — Confusing Modelo 790-038 with Modelo 790-052</h2>
+  <p>
+    <strong>Cost: rejection + redo</strong>. 790-038 is for UGE-CE applications. 790-052 is for ordinary Oficinas de Extranjería. Wrong form = rejection.
+  </p>
+
+  <h2>#6 — Filing Hacienda (Modelo 036) AFTER Seguridad Social (RETA)</h2>
+  <p>
+    <strong>Cost: Tarifa Plana denial</strong>. Order matters: Modelo 036 first, then RETA registration. Reversing the order can disqualify you from Tarifa Plana.
+  </p>
+
+  <h2>#7 — Trusting outdated ChatGPT / Reddit / forum info</h2>
+  <p>
+    <strong>Cost: variable, often application-denying</strong>. Spanish rules change 2-4x per year. Information from 2022-2023 frequently no longer applies (Beckham residency rule changed from 10 to 5 years, Modelo 720 sanctions struck down, Verifactu calendar deferred). Always verify with primary sources or current professional guidance.
+  </p>
+
+  <div class="page-number">9</div>
+  <div class="page-footer-brand">SpanishTax AI · spanishtaxai.com</div>
+</div>
+
+<!-- PAGE 10 — BECKHAM DECISION -->
+<div class="page">
+  <h1>Beckham Law: when to elect, when to skip</h1>
+  <p class="subtitle">A decision tree that handles 80% of cases. Edge cases need modeling.</p>
+
+  <div class="decision-tree">
+    <div class="decision-node">
+      <strong>Q1: Have you been a Spanish tax resident in the past 5 years?</strong>
+      <div class="decision-no" style="margin-top: 8px; padding: 6px 10px;">Yes → You're not eligible for Beckham. Skip to standard IRPF.</div>
+      <div class="decision-yes" style="margin-top: 4px; padding: 6px 10px;">No → Continue.</div>
+    </div>
+
+    <div class="decision-node">
+      <strong>Q2: Will your Spanish-resident income be primarily employment (W-2 / nómina) from a foreign employer?</strong>
+      <div class="decision-yes" style="margin-top: 8px; padding: 6px 10px;">Yes → Beckham usually advantageous if income &gt; €60,000/year. Strong case.</div>
+      <div class="decision-no" style="margin-top: 4px; padding: 6px 10px;">No → Continue Q3.</div>
+    </div>
+
+    <div class="decision-node">
+      <strong>Q3: Are you self-employed (autónomo) with Spanish-source professional income?</strong>
+      <div class="decision-no" style="margin-top: 8px; padding: 6px 10px;">Yes → Beckham usually DISadvantageous. You'd pay 24% from euro 1 with no personal allowance, vs. standard IRPF where first ~€12,500 is exempt.</div>
+      <div class="decision-yes" style="margin-top: 4px; padding: 6px 10px;">No → Continue Q4.</div>
+    </div>
+
+    <div class="decision-node">
+      <strong>Q4: Is your income between €100,000 and €600,000/year?</strong>
+      <div class="decision-yes" style="margin-top: 8px; padding: 6px 10px;">Yes → Mandatory case-by-case modeling. The math depends on income composition (active vs. passive, Spanish vs. foreign source).</div>
+    </div>
+
+    <div class="decision-node">
+      <strong>Q5: Is your income above €600,000/year?</strong>
+      <div class="decision-yes" style="margin-top: 8px; padding: 6px 10px;">Yes → The 47% Beckham upper bracket kicks in. Election decision is critical and irreversible. Mandatory specialist review.</div>
+    </div>
+  </div>
+
+  <h2>The 24% vs 47% rate clarification</h2>
+  <p>
+    Beckham rates for 2026:
+  </p>
+  <ul>
+    <li><strong>Up to €600,000:</strong> flat 24% on employment and professional income</li>
+    <li><strong>Above €600,000:</strong> 47% (not 48% — common error from Portal ONE documentation)</li>
+  </ul>
+  <p>
+    Election deadline: <strong>6 months from your alta autónomo / start of tax residency</strong>. Filed via Modelo 149. Once elected, applies for 6 years (current year + 5).
+  </p>
+
+  <div class="page-number">10</div>
+  <div class="page-footer-brand">SpanishTax AI · spanishtaxai.com</div>
+</div>
+
+<!-- PAGE 11 — POST-ARRIVAL CHECKLIST -->
+<div class="page">
+  <h1>Your first 30 days in Spain</h1>
+  <p class="subtitle">The critical checklist after you land.</p>
+
+  <ul class="checklist">
+    <li><strong>Day 1-3:</strong> Find permanent address (Airbnb works temporarily, but you need a real rental for empadronamiento — see below)</li>
+    <li><strong>Day 7-10:</strong> <strong>Empadronamiento</strong> at the town hall (ayuntamiento). Required: passport, rental contract or owner's confirmation letter, completed form. Free or low cost.</li>
+    <li><strong>Day 7-14:</strong> Apply for <strong>NIE (Número de Identidad de Extranjero)</strong> at a Comisaría de Policía. Required: empadronamiento certificate, passport, completed form (Modelo EX-15). Cost: ~€10.</li>
+    <li><strong>Day 14-21:</strong> Open <strong>Spanish bank account</strong>. Best options for English-speaking newcomers: BBVA, Sabadell, Bankinter, or online-first like N26 Spain.</li>
+    <li><strong>Day 14-30:</strong> Book your <strong>TIE card appointment</strong> via the Cita Previa portal. Required: NIE, empadronamiento, application form, fee receipt (Modelo 790-012, €16.08), passport photos.</li>
+    <li><strong>Day 21-30:</strong> If autónomo: file <strong>Modelo 036</strong> at Hacienda registering your business activity. <strong>BEFORE</strong> the next step.</li>
+    <li><strong>Day 21-30:</strong> If autónomo: register <strong>alta RETA</strong> with Seguridad Social via Importass. Request Tarifa Plana explicitly (€88.64/month for first 12 months). DO NOT delay this — late filing = Tarifa Plana denial.</li>
+    <li><strong>Day 25-30:</strong> Open accounts for tax filings: Sede Electrónica de la Agencia Tributaria (with NIE + digital certificate or Cl@ve PIN), Seguridad Social, etc.</li>
+  </ul>
+
+  <div class="note">
+    <p><strong>Common mistake:</strong> Many applicants try to do alta autónomo and Modelo 036 too late, after they've started invoicing clients. Spanish law requires <em>alta previa</em> — register BEFORE first invoice. The €88.64 vs €299.56/month Tarifa Plana decision lives in this 30-day window.</p>
+  </div>
+
+  <div class="page-number">11</div>
+  <div class="page-footer-brand">SpanishTax AI · spanishtaxai.com</div>
+</div>
+
+<!-- PAGE 12 — QUARTERLY TAX FILINGS -->
+<div class="page">
+  <h1>Your annual tax filing calendar</h1>
+  <p class="subtitle">All the deadlines you need to know as a Spanish-resident DNV holder.</p>
+
+  <h2>Quarterly filings (autónomos)</h2>
+  <table>
+    <thead><tr><th>Filing</th><th>Deadline</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td>Modelo 130 Q1</td><td>April 20</td><td>IRPF payment-on-account (Q1)</td></tr>
+      <tr><td>Modelo 130 Q2</td><td>July 20</td><td>IRPF payment-on-account (Q2)</td></tr>
+      <tr><td>Modelo 130 Q3</td><td>October 20</td><td>IRPF payment-on-account (Q3)</td></tr>
+      <tr><td>Modelo 130 Q4</td><td>January 30 (next year)</td><td>IRPF payment-on-account (Q4)</td></tr>
+      <tr><td>Modelo 303 Q1-Q4</td><td>Same dates as 130</td><td>VAT (IVA) declarations</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Annual filings</h2>
+  <table>
+    <thead><tr><th>Filing</th><th>Deadline</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td>Modelo 100 (or 151 if Beckham)</td><td>June 30 (following year)</td><td>Annual personal income tax</td></tr>
+      <tr><td>Modelo 720</td><td>March 31</td><td>Foreign assets &gt; €50k (declarative, no tax)</td></tr>
+      <tr><td>Modelo 721</td><td>March 31</td><td>Crypto holdings &gt; €50k (declarative)</td></tr>
+      <tr><td>Modelo 347</td><td>February 28-29</td><td>Operations &gt; €3,005.06 with same client/supplier in the year</td></tr>
+    </tbody>
+  </table>
+
+  <h2>One-time filings</h2>
+  <table>
+    <thead><tr><th>Filing</th><th>Deadline</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td>Modelo 149 (Beckham election)</td><td>6 months from alta autónomo</td><td>Elect special tax regime (irreversible 6 years)</td></tr>
+      <tr><td>Modelo 030 (initial)</td><td>Before first filing</td><td>Census registration with Hacienda</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <p><strong>Holiday rule:</strong> If a deadline falls on a Saturday, Sunday, or Spanish national/regional/local holiday, the deadline moves to the next working day. Verify each deadline before filing.</p>
+  </div>
+
+  <div class="page-number">12</div>
+  <div class="page-footer-brand">SpanishTax AI · spanishtaxai.com</div>
+</div>
+
+<!-- PAGE 13 — WHEN PROFESSIONAL HELP -->
+<div class="page">
+  <h1>When you need a professional</h1>
+  <p class="subtitle">Most situations are self-serve. These are not.</p>
+
+  <h2>You NEED expert review if any of these apply:</h2>
+  <ol>
+    <li><strong>You earn &gt; €100,000/year</strong> — both Beckham vs standard IRPF math should be modeled before electing.</li>
+    <li><strong>You earn &gt; €600,000/year</strong> — Beckham upper bracket (47%) kicks in, election decision critical.</li>
+    <li><strong>You own a foreign LLC, S-Corp, or Ltd</strong> — CFC rules under Art. 91 LIRPF require case-specific analysis.</li>
+    <li><strong>You have crypto income from DAOs, NFT royalties, or DeFi yield</strong> — Spanish tax treatment is unsettled.</li>
+    <li><strong>You're applying with a spouse + children</strong> — family reunification adds documentation complexity and threshold scaling.</li>
+    <li><strong>Your employer has no Spanish Código Cuenta Cotización (CCC)</strong> — most US employers don't, creating Certificate of Coverage friction.</li>
+    <li><strong>You received a subsanación and have &lt; 5 working days to respond</strong> — time-sensitive, KB-cited workarounds matter.</li>
+    <li><strong>You're at risk of dual tax residency</strong> (still meeting US/UK tax residency tests while becoming Spanish resident).</li>
+    <li><strong>You hold &gt; €50,000 in foreign accounts and don't know if Modelo 720/721 applies.</strong></li>
+    <li><strong>You have prior Spanish tax residency</strong> within the last 5 years (Beckham eligibility issues).</li>
+  </ol>
+
+  <h2>You're FINE self-serving if:</h2>
+  <ul>
+    <li>You're a salaried W-2 / PAYE employee earning €30k-100k/year</li>
+    <li>Single applicant, no family</li>
+    <li>Clean documentation from a single foreign employer</li>
+    <li>Standard nationality (US, UK, Canada, Australia, etc.)</li>
+    <li>No exotic income types (just W-2 paycheck or simple 1099)</li>
+    <li>Standard timeline (not urgent, not subsanación)</li>
+  </ul>
+
+  <div class="page-number">13</div>
+  <div class="page-footer-brand">SpanishTax AI · spanishtaxai.com</div>
+</div>
+
+<!-- PAGE 14 — RESOURCES -->
+<div class="page">
+  <h1>Resources & links</h1>
+  <p class="subtitle">The official sources and tools that actually help.</p>
+
+  <h2>Official Spanish authorities</h2>
+  <ul>
+    <li><strong>UGE-CE (Large Companies and Strategic Collectives Unit):</strong> sede.administracionespublicas.gob.es</li>
+    <li><strong>Agencia Tributaria (Hacienda):</strong> sede.agenciatributaria.gob.es</li>
+    <li><strong>Seguridad Social (Importass):</strong> import.seg-social.gob.es</li>
+    <li><strong>Portal ONE (DNV info):</strong> portalone.gob.es</li>
+    <li><strong>Sede electrónica del Catastro:</strong> sede.catastro.gob.es</li>
+  </ul>
+
+  <h2>Apostille and translation</h2>
+  <ul>
+    <li><strong>US Dept of State (federal apostille):</strong> travel.state.gov/content/travel/en/legal/travel-legal-considerations/internl-judicial-asst/authentications-and-apostilles.html</li>
+    <li><strong>UK Legalisation Office (FCDO):</strong> gov.uk/get-document-legalised</li>
+    <li><strong>Spanish sworn translators (Ministerio de Asuntos Exteriores):</strong> exteriores.gob.es (search "traductores jurados")</li>
+  </ul>
+
+  <h2>Criminal records</h2>
+  <ul>
+    <li><strong>FBI Identity History Summary (US):</strong> edo.cjis.gov</li>
+    <li><strong>ACRO Police Certificate (UK):</strong> acro.police.uk/police-certificates</li>
+  </ul>
+
+  <h2>Tools and calculators</h2>
+  <ul>
+    <li><strong>SpanishTax AI chatbot:</strong> spanishtaxai.com — ask specific questions, get KB-cited answers</li>
+    <li><strong>Template library:</strong> spanishtaxai.com/templates — CPA letters, subsanación responses, email templates</li>
+  </ul>
+
+  <h2>Books and reading</h2>
+  <ul>
+    <li>Ley 14/2013 — full text at boe.es</li>
+    <li>Ley 28/2022 ("Startups Law") — full text at boe.es</li>
+    <li>RD 1155/2024 — implementing regulation, full text at boe.es</li>
+  </ul>
+
+  <div class="page-number">14</div>
+  <div class="page-footer-brand">SpanishTax AI · spanishtaxai.com</div>
+</div>
+
+<!-- PAGE 15 — ABOUT OSCAR + CTA -->
+<div class="page">
+  <h1>About SpanishTax AI</h1>
+  <p class="subtitle">Built by Oscar Gonzalez Febles, Spanish auditor in Madrid.</p>
+
+  <p>
+    I'm Oscar, a Spanish auditor based in Madrid with experience at ShineWing (Big 4-adjacent firm) advising on Spanish and international tax matters. I built SpanishTax AI because the existing options for English-speaking expats navigating the DNV are either:
+  </p>
+
+  <ul>
+    <li><strong>Generic Reddit and Facebook group advice</strong> — often outdated, sometimes plain wrong, no accountability when it costs you money</li>
+    <li><strong>Premium law firm consultations</strong> — €1,200-3,000 for what's often 80% standard guidance + 20% genuinely complex review</li>
+  </ul>
+
+  <p>
+    SpanishTax AI sits between these. The AI chatbot, knowledge base, and templates handle the 80% that's standard. For complex situations (S-Corps, LLCs, high net worth, urgent subsanaciones, family applications), my async email review service handles the 20% that needs real expertise — without the price of a law firm.
+  </p>
+
+  <div class="cta-block">
+    <h2>Need help with your specific case?</h2>
+    <p>Three ways I can help, all async (no phone calls — by design):</p>
+    <p style="margin-top: 16px;"><strong>Free:</strong> use the chatbot at <a href="https://spanishtaxai.com">spanishtaxai.com</a> — get KB-cited answers to specific questions.</p>
+    <p><strong>DNV Application Pack (€199):</strong> the complete templates, checklists, and document review tools to self-serve your application.</p>
+    <p><strong>DNV Pro Audit (€499):</strong> I personally review your full application package by email within 48h — catches the small errors before UGE-CE does.</p>
+    <p><strong>Ongoing tax compliance:</strong> Spanish Resident Pro (€29/mo, founding €14.50) and Premium Concierge (€99/mo, founding €49.50) for autónomos who want quarterly filing review and proactive deadline alerts.</p>
+    <p style="margin-top: 16px; font-size: 11pt;">Email: <a href="mailto:support@spanishtaxai.com">support@spanishtaxai.com</a></p>
+  </div>
+
+  <div class="page-number">15</div>
+  <div class="page-footer-brand">SpanishTax AI · spanishtaxai.com</div>
+</div>
+
+<!-- PAGE 16 — DISCLAIMER -->
+<div class="page">
+  <h1>Disclaimer & version notes</h1>
+  <p class="subtitle">The fine print that matters.</p>
+
+  <h2>Legal disclaimer</h2>
+  <p>
+    This guide provides general information about the Spanish Digital Nomad Visa and related procedures. It is <strong>not legal, tax, or immigration advice</strong>. Individual circumstances vary, Spanish administrative practice evolves, and outcomes are not guaranteed.
+  </p>
+  <p>
+    SpanishTax AI is operated by Oscar Gonzalez Febles (Madrid, Spain) as informational and educational support. It does not constitute the practice of law or accredited tax advisory services (asesoría fiscal colegiada). For binding advice on your specific situation, consult a licensed attorney (abogado colegiado) or asesor fiscal in Spain.
+  </p>
+
+  <h2>Liability limitations</h2>
+  <p>
+    To the maximum extent permitted by Spanish and EU law, SpanishTax AI and Oscar Gonzalez Febles assume no liability for decisions made based on this guide. Readers are responsible for verifying current rules with primary sources before acting.
+  </p>
+
+  <h2>Version notes</h2>
+  <p>
+    <strong>Edition:</strong> 2026 (June)<br>
+    <strong>Based on:</strong> Ley 14/2013 as amended through Ley 28/2022, RD 1155/2024, RD 126/2026 (SMI), current AEPD, AEAT, TGSS, and UGE-CE practice as of June 2026.<br>
+    <strong>Last verified:</strong> June 12, 2026
+  </p>
+
+  <h2>Updates</h2>
+  <p>
+    Spanish DNV and tax rules change 2-4 times per year. To receive update notifications when this guide is revised, subscribe to the monthly newsletter at spanishtaxai.com (email-only, no spam, easy unsubscribe).
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    Email: <a href="mailto:support@spanishtaxai.com">support@spanishtaxai.com</a><br>
+    Website: <a href="https://spanishtaxai.com">spanishtaxai.com</a><br>
+    Operated from: Madrid, Spain
+  </p>
+
+  <div style="text-align: center; margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--line);">
+    <p style="font-family: var(--serif); font-size: 14pt; color: var(--ink); margin-bottom: 4px;">Good luck with your DNV.</p>
+    <p style="font-size: 11pt; color: var(--muted);">Oscar Gonzalez Febles · Madrid</p>
+  </div>
+
+  <div class="page-number">16</div>
+  <div class="page-footer-brand">SpanishTax AI · spanishtaxai.com</div>
+</div>
+
+</body>
+</html>
