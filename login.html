@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign in — SpanishTax AI</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0F2547; --accent: #C8553D; --muted: #5D5D5D;
+      --line: #E8E4DC; --bg: #FAF8F4;
+      --serif: 'Fraunces', Georgia, serif;
+      --sans: 'Inter', -apple-system, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 40px 36px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 8px 28px rgba(15,37,71,0.08);
+    }
+    .brand {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--ink);
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .brand::before {
+      content: '';
+      display: inline-block;
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    h1 {
+      font-family: var(--serif);
+      font-size: 24px;
+      color: var(--ink);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 24px;
+      line-height: 1.55;
+    }
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    input[type="email"] {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font-family: var(--sans);
+      font-size: 14px;
+      color: var(--ink);
+      background: var(--bg);
+      margin-bottom: 16px;
+      transition: border-color 180ms, box-shadow 180ms;
+    }
+    input[type="email"]:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(200,85,61,0.12);
+    }
+    button {
+      width: 100%;
+      padding: 13px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 180ms;
+    }
+    button:hover { background: #A8412F; }
+    button:disabled { background: #ccc; cursor: not-allowed; }
+    .success {
+      display: none;
+      text-align: center;
+      padding: 16px;
+      background: #E8F5E9;
+      border-radius: 8px;
+      color: #1B5E20;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .error-msg {
+      display: none;
+      font-size: 13px;
+      color: var(--accent);
+      margin-top: 12px;
+      text-align: center;
+    }
+    .back {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .back:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+<div class="card">
+  <div class="brand">SpanishTax AI</div>
+
+  <div id="form-view">
+    <h1>Sign in</h1>
+    <p>Enter your email and we'll send you a magic link. No password needed.</p>
+    <label for="email">Email address</label>
+    <input type="email" id="email" placeholder="you@example.com" autocomplete="email">
+    <button id="submit-btn" onclick="sendMagicLink()">Send magic link →</button>
+    <div class="error-msg" id="error-msg"></div>
+  </div>
+
+  <div class="success" id="success-view">
+    <strong>Check your email ✓</strong><br>
+    We sent a sign-in link to <span id="sent-to"></span>.<br>
+    Click it to access your dashboard. You can close this tab.
+  </div>
+
+  <a href="/" class="back">← Back to home</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+  const SUPABASE_URL = 'https://jxoepqwbalhdwwbycksa.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4b2VwcXdiYWxoZHd3Ynlja3NhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA4NjQ1NDAsImV4cCI6MjA5NjQ0MDU0MH0.MRO1t5kZIfIw8HORTjEYvU_TUeri7ovXKSHKHRxnJJQ';
+
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  // If already logged in, redirect to dashboard
+  supabase.auth.getSession().then(({ data: { session } }) => {
+    if (session) window.location.href = '/app.html';
+  });
+
+  async function sendMagicLink() {
+    const email = document.getElementById('email').value.trim();
+    const btn = document.getElementById('submit-btn');
+    const errorEl = document.getElementById('error-msg');
+
+    if (!email || !email.includes('@')) {
+      errorEl.textContent = 'Please enter a valid email address.';
+      errorEl.style.display = 'block';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    errorEl.style.display = 'none';
+
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        emailRedirectTo: 'https://spanishtaxai.com/app.html',
+      },
+    });
+
+    if (error) {
+      btn.disabled = false;
+      btn.textContent = 'Send magic link →';
+      errorEl.textContent = error.message || 'Something went wrong. Try again.';
+      errorEl.style.display = 'block';
+      return;
+    }
+
+    // Show success
+    document.getElementById('form-view').style.display = 'none';
+    document.getElementById('sent-to').textContent = email;
+    document.getElementById('success-view').style.display = 'block';
+  }
+
+  // Allow Enter key
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('email').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') sendMagicLink();
+    });
+  });
+</script>
+</body>
+</html>
