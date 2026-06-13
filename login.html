@@ -158,14 +158,14 @@
   const SUPABASE_URL = 'https://jxoepqwbalhdwwbycksa.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4b2VwcXdiYWxoZHd3Ynlja3NhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA4NjQ1NDAsImV4cCI6MjA5NjQ0MDU0MH0.MRO1t5kZIfIw8HORTjEYvU_TUeri7ovXKSHKHRxnJJQ';
 
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   // If already logged in, redirect to dashboard
-  supabase.auth.getSession().then(({ data: { session } }) => {
+  sbClient.auth.getSession().then(({ data: { session } }) => {
     if (session) window.location.href = '/app.html';
   });
 
-  async function sendMagicLink() {
+  window.sendMagicLink = async function() {
     const email = document.getElementById('email').value.trim();
     const btn = document.getElementById('submit-btn');
     const errorEl = document.getElementById('error-msg');
@@ -180,7 +180,7 @@
     btn.textContent = 'Sending...';
     errorEl.style.display = 'none';
 
-    const { error } = await supabase.auth.signInWithOtp({
+    const { error } = await sbClient.auth.signInWithOtp({
       email,
       options: {
         emailRedirectTo: 'https://spanishtaxai.com/app.html',
@@ -204,7 +204,7 @@
   // Allow Enter key
   document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('email').addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') sendMagicLink();
+      if (e.key === 'Enter') window.sendMagicLink();
     });
   });
 </script>
