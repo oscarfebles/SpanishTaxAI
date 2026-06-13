@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CPA Letter Template — 1099 Sole Proprietor — SpanishTax AI</title>
+  <link rel="stylesheet" href="templates.css">
+</head>
+<body data-template-id="cpa-letter-1099">
+
+<div class="doc-toolbar">
+  <div class="doc-toolbar-info">
+    <strong>CPA Letter — 1099 Sole Proprietor</strong> · For US contractors applying for Spanish DNV
+  </div>
+  <button onclick="printDoc()">Print / Save PDF</button>
+  <button id="copy-btn" onclick="copyDocText()">Copy text</button>
+</div>
+
+<div class="instruction" style="max-width: 720px; margin: 0 auto 20px;">
+  <strong>How to use this template:</strong>
+  <ol style="margin-top: 8px; padding-left: 20px;">
+    <li>This letter must be drafted and signed by YOUR CPA (Certified Public Accountant) — not by you.</li>
+    <li>Edit the yellow fields with the relevant information (firm address, your details, dates).</li>
+    <li>Send the completed template + email request (see <a href="email-to-cpa-1099.html">Email to CPA</a>) to your CPA.</li>
+    <li>Once your CPA returns the signed and stamped version on their firm letterhead, you must:
+      <ul>
+        <li>Apostille via US Department of State (federal) or relevant state Secretary of State</li>
+        <li>Get it sworn-translated into Spanish by a <em>traductor jurado</em></li>
+      </ul>
+    </li>
+    <li>Submit with your DNV application to UGE-CE.</li>
+  </ol>
+</div>
+
+<article class="doc">
+  <header class="doc-letterhead">
+    <div class="doc-letterhead-firm"><span class="fill" contenteditable="true" data-field="cpa_firm_name">CPA FIRM NAME</span></div>
+    <div class="doc-letterhead-meta">
+      <span class="fill" contenteditable="true" data-field="cpa_firm_address">Street Address, City, State, ZIP Code</span><br>
+      Phone: <span class="fill" contenteditable="true" data-field="cpa_firm_phone">(555) 123-4567</span> · Email: <span class="fill" contenteditable="true" data-field="cpa_firm_email">name@firm.com</span><br>
+      CPA License #: <span class="fill" contenteditable="true" data-field="cpa_license">XXXXX</span> · Firm EIN: <span class="fill" contenteditable="true" data-field="firm_ein">XX-XXXXXXX</span>
+    </div>
+  </header>
+
+  <div class="doc-date">
+    <span class="fill" contenteditable="true" data-field="date">Month Day, Year</span>
+  </div>
+
+  <div class="doc-to">
+    <strong>To Whom It May Concern</strong><br>
+    Re: Confirmation of self-employed status and income for Spanish Digital Nomad Visa application<br>
+    Applicant: <span class="fill" contenteditable="true" data-field="applicant_name">[Applicant's full legal name]</span>
+  </div>
+
+  <p>Dear Sir or Madam,</p>
+
+  <p>
+    I, <span class="fill" contenteditable="true" data-field="cpa_full_name">[CPA's full name]</span>, a Certified Public Accountant licensed in the State of <span class="fill" contenteditable="true" data-field="cpa_state">[State]</span> (License No. <span class="fill" contenteditable="true" data-field="cpa_license_2">[License Number]</span>), confirm the following information about my client <span class="fill" contenteditable="true" data-field="applicant_name_2">[Applicant's full legal name]</span> (the "Client").
+  </p>
+
+  <h3 style="font-family: Georgia, serif; font-size: 13pt; margin: 20px 0 10px; font-weight: bold;">1. Self-employed status</h3>
+  <p>
+    The Client is and has been operating as a <strong>self-employed independent contractor (sole proprietor)</strong> in the United States since <span class="fill" contenteditable="true" data-field="start_date">[Month Year]</span>. The Client conducts business under their own legal name and has not formed a separate legal entity (LLC, S-Corp, or otherwise) for this professional activity.
+  </p>
+  <p>
+    The Client's federal tax identification number for this activity is their Social Security Number (SSN) <em>OR</em> their personal Employer Identification Number (EIN): <span class="fill" contenteditable="true" data-field="applicant_ein">[EIN if applicable, otherwise "Client's SSN on file"]</span>.
+  </p>
+
+  <h3 style="font-family: Georgia, serif; font-size: 13pt; margin: 20px 0 10px; font-weight: bold;">2. Tax filings — Schedule C</h3>
+  <p>
+    The Client has filed <strong>IRS Form 1040 Schedule C</strong> (Profit or Loss from Business — Sole Proprietorship) for the past <span class="fill" contenteditable="true" data-field="years_filed">[number]</span> consecutive tax years, reporting income from <span class="fill" contenteditable="true" data-field="profession">[professional services — e.g., software development, consulting, content creation, design]</span>. Most recent filed tax year: <span class="fill" contenteditable="true" data-field="last_tax_year">[Year]</span>.
+  </p>
+
+  <h3 style="font-family: Georgia, serif; font-size: 13pt; margin: 20px 0 10px; font-weight: bold;">3. Income confirmation</h3>
+  <p>
+    Based on financial records I have reviewed for the most recent twelve (12) months ending <span class="fill" contenteditable="true" data-field="income_period_end">[Month Year]</span>:
+  </p>
+  <ul>
+    <li>Gross monthly income (12-month average): <strong>USD <span class="fill" contenteditable="true" data-field="monthly_income_usd">[Amount]</span></strong></li>
+    <li>Approximate Euro equivalent at current exchange rate: <strong>EUR <span class="fill" contenteditable="true" data-field="monthly_income_eur">[Amount]</span></strong></li>
+    <li>Total gross annual income (past 12 months): <strong>USD <span class="fill" contenteditable="true" data-field="annual_income_usd">[Amount]</span></strong></li>
+    <li>Income source: 1099-NEC payments and direct B2B invoices from foreign and domestic clients</li>
+    <li>Income recurrence: <strong>regular monthly basis</strong>, consistent with ongoing professional services</li>
+  </ul>
+
+  <h3 style="font-family: Georgia, serif; font-size: 13pt; margin: 20px 0 10px; font-weight: bold;">4. Client portfolio (if applicable)</h3>
+  <p>
+    The Client maintains ongoing professional relationships with the following primary clients (anonymized at Client's request, full client list available upon authorized request):
+  </p>
+  <ul>
+    <li>Client A: <span class="fill" contenteditable="true" data-field="client_a">[Industry / general description]</span> · Relationship duration: <span class="fill" contenteditable="true" data-field="client_a_duration">[X months/years]</span></li>
+    <li>Client B: <span class="fill" contenteditable="true" data-field="client_b">[Industry / general description]</span> · Relationship duration: <span class="fill" contenteditable="true" data-field="client_b_duration">[X months/years]</span></li>
+  </ul>
+
+  <h3 style="font-family: Georgia, serif; font-size: 13pt; margin: 20px 0 10px; font-weight: bold;">5. Purpose of this letter</h3>
+  <p>
+    This letter is issued at the Client's request to support their application for the Spanish Digital Nomad Visa (Visado Nómada Digital) pursuant to Ley 14/2013 (as amended). The Client intends to continue conducting their self-employed professional activity remotely from Spain.
+  </p>
+  <p>
+    I confirm under my professional responsibility that the statements above are accurate to the best of my knowledge based on documentation in my possession (tax returns, bank statements, 1099 forms, and invoices).
+  </p>
+
+  <p>
+    Should you require additional information or verification, I may be reached at the contact details listed at the top of this letter.
+  </p>
+
+  <div class="doc-signature">
+    <p>Sincerely,</p>
+    <div class="doc-signature-block">
+      <div class="doc-signature-line"></div>
+      <strong><span class="fill" contenteditable="true" data-field="cpa_signature_name">[CPA's full name]</span>, CPA</strong><br>
+      License No. <span class="fill" contenteditable="true" data-field="cpa_license_3">[License Number]</span>, State of <span class="fill" contenteditable="true" data-field="cpa_state_2">[State]</span><br>
+      Date signed: <span class="fill" contenteditable="true" data-field="signature_date">[Date]</span>
+    </div>
+    <p style="margin-top: 24px; font-size: 10pt; color: #666;">
+      <em>Firm seal / stamp required below:</em>
+    </p>
+    <div style="border: 1px dashed #999; height: 80px; width: 200px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 10pt; margin-top: 8px;">
+      [ Firm seal / stamp ]
+    </div>
+  </div>
+</article>
+
+<div class="warning" style="max-width: 720px; margin: 20px auto;">
+  <strong>⚠ Critical reminders for your CPA:</strong>
+  <ul style="margin-top: 8px; padding-left: 20px;">
+    <li>Letter MUST be on firm letterhead — do not just print this HTML as final document. Your CPA should retype on their official template, retaining the structure and content.</li>
+    <li>CPA's LICENSE NUMBER must be visible — UGE-CE specifically checks this.</li>
+    <li>Letter must be SIGNED in wet ink (digital signatures are sometimes rejected for apostille).</li>
+    <li>Firm STAMP/SEAL must be applied if the firm uses one (common in larger firms).</li>
+    <li>Letter must be DATED within 90 days of your DNV application submission.</li>
+    <li>After signing, apostille via US Department of State or Secretary of State (depends on document type and state).</li>
+    <li>Then sworn-translate into Spanish.</li>
+  </ul>
+</div>
+
+<script src="templates.js" defer></script>
+</body>
+</html>

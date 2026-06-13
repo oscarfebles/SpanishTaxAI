@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Income Proof Covering Letter — SpanishTax AI</title>
+  <link rel="stylesheet" href="templates.css">
+</head>
+<body data-template-id="income-covering-letter">
+
+<div class="doc-toolbar">
+  <div class="doc-toolbar-info">
+    <strong>Income Proof Covering Letter</strong> · Narrative submitted with your initial DNV documentation
+  </div>
+  <button onclick="printDoc()">Print / Save PDF</button>
+  <button id="copy-btn" onclick="copyDocText()">Copy text</button>
+</div>
+
+<div class="instruction" style="max-width: 720px; margin: 0 auto 20px;">
+  <strong>How to use:</strong> This is the explanation letter that ties together your CPA letter, bank statements, contracts, and other income documentation into a coherent narrative for UGE-CE. <strong>90% of applicants omit this — it's a significant edge.</strong>
+  <br><br>
+  <strong>Format:</strong> Print on white A4 paper, sign in wet ink, then scan to PDF. Or use as digital narrative attached as PDF in your sede electrónica submission. Spanish version preferred but English is acceptable.
+</div>
+
+<article class="doc">
+  <div style="text-align: right; font-size: 11pt; margin-bottom: 20px;">
+    <span class="fill" contenteditable="true" data-field="date">[City], [Date]</span>
+  </div>
+
+  <div class="doc-to">
+    <strong>To:</strong> Unidad de Grandes Empresas y Colectivos Estratégicos (UGE-CE)<br>
+    Dirección General de Migraciones, Madrid<br>
+    <strong>Re:</strong> Income documentation for Visado Nómada Digital application
+  </div>
+
+  <p>Dear Sir or Madam,</p>
+
+  <p>
+    My name is <span class="fill" contenteditable="true" data-field="applicant_name">[Your full legal name]</span>, citizen of <span class="fill" contenteditable="true" data-field="applicant_nationality">[Country]</span>, passport number <span class="fill" contenteditable="true" data-field="passport_number">[Number]</span>. I am applying for the Spanish Digital Nomad Visa under Ley 14/2013 (as amended by Ley 28/2022).
+  </p>
+
+  <p>
+    The purpose of this letter is to provide context to the income documentation attached, and to facilitate UGE-CE's review of my financial eligibility.
+  </p>
+
+  <h3 style="font-family: Georgia, serif; font-size: 13pt; margin: 20px 0 10px; font-weight: bold;">1. Professional background</h3>
+  <p>
+    I work as a <span class="fill" contenteditable="true" data-field="profession">[your profession — e.g., software engineer, designer, consultant]</span> with <span class="fill" contenteditable="true" data-field="years_experience">[number]</span> years of experience. My current professional activity, which I have conducted continuously since <span class="fill" contenteditable="true" data-field="career_start">[Month Year]</span>, is fully compatible with remote work and can be performed from Spain without modification.
+  </p>
+  <p>
+    My professional structure is: <span class="fill" contenteditable="true" data-field="professional_structure">[e.g., "self-employed independent contractor (sole proprietor) operating under my personal tax ID" / "owner-employee of [LLC/S-Corp name]" / "remote employee of [Company name]"]</span>.
+  </p>
+
+  <h3 style="font-family: Georgia, serif; font-size: 13pt; margin: 20px 0 10px; font-weight: bold;">2. Income summary — recurrence and stability</h3>
+  <p>
+    My monthly gross income, averaged over the past 12 months, is approximately <strong>EUR <span class="fill" contenteditable="true" data-field="monthly_income_eur">[Amount]</span></strong>. This exceeds the 2026 DNV threshold of EUR 2,849/month for a solo applicant.
+  </p>
+  <p>
+    Key characteristics of my income relevant to the DNV "recurring monthly basis" requirement:
+  </p>
+  <ul>
+    <li><strong>Frequency:</strong> Income is received on a <span class="fill" contenteditable="true" data-field="income_frequency">[monthly / biweekly / per-project with monthly settlement]</span> basis</li>
+    <li><strong>Continuity:</strong> No interruptions exceeding 30 days during the past 12 months</li>
+    <li><strong>Stability:</strong> Month-to-month variation is consistently within ±<span class="fill" contenteditable="true" data-field="income_variance">[XX]</span>% (please see bank statements attached)</li>
+    <li><strong>Source diversity:</strong> Income derives from <span class="fill" contenteditable="true" data-field="number_of_clients">[number]</span> active clients, mitigating concentration risk</li>
+  </ul>
+
+  <h3 style="font-family: Georgia, serif; font-size: 13pt; margin: 20px 0 10px; font-weight: bold;">3. Documentation submitted</h3>
+  <p>
+    Please find the following supporting documents attached to this application:
+  </p>
+  <ol>
+    <li><strong>CPA letter</strong> (apostilled and sworn-translated) confirming my self-employed status, monthly income, and tax filings — Document <code>01-CPA-letter.pdf</code></li>
+    <li><strong>Schedule C tax returns</strong> for the past <span class="fill" contenteditable="true" data-field="years_of_returns">[2-3]</span> tax years — Document <code>02-Schedule-C-returns.pdf</code></li>
+    <li><strong>Active client contracts</strong> showing ongoing professional relationships — Document <code>03-client-contracts.pdf</code></li>
+    <li><strong>Invoices issued</strong> over the past 6 months — Document <code>04-invoices.pdf</code></li>
+    <li><strong>Bank statements</strong> for the past 6 months showing income deposits matching the invoices — Document <code>05-bank-statements.pdf</code></li>
+    <li><span class="fill" contenteditable="true" data-field="additional_docs">[Add any additional documents — e.g., portfolio website screenshots, business registration, etc.]</span></li>
+  </ol>
+
+  <h3 style="font-family: Georgia, serif; font-size: 13pt; margin: 20px 0 10px; font-weight: bold;">4. Commitment to compliance</h3>
+  <p>
+    I am fully aware that, upon receiving the DNV authorization, I will be subject to Spanish tax obligations including (as applicable) <em>alta autónomo</em> with TGSS, IRPF declarations via Modelo 100 or 151 (Beckham Law), quarterly VAT and IRPF filings (Modelos 130, 303), and potentially Modelo 720/721 for foreign assets. I commit to fulfilling these obligations within their respective deadlines from the date my Spanish residency begins.
+  </p>
+
+  <p>
+    Should UGE-CE require additional clarification or documentation, I am available at the contact details below.
+  </p>
+
+  <p>
+    Thank you for your consideration.
+  </p>
+
+  <div class="doc-signature-block" style="margin-top: 40px;">
+    <div class="doc-signature-line"></div>
+    <strong><span class="fill" contenteditable="true" data-field="applicant_name_2">[Your full legal name]</span></strong><br>
+    Passport: <span class="fill" contenteditable="true" data-field="passport_number_2">[Number]</span><br>
+    Email: <span class="fill" contenteditable="true" data-field="applicant_email">[email]</span><br>
+    Phone: <span class="fill" contenteditable="true" data-field="applicant_phone">[+XX XXX XXX XXX]</span><br>
+    Date: <span class="fill" contenteditable="true" data-field="signature_date">[Date]</span>
+  </div>
+</article>
+
+<script src="templates.js" defer></script>
+</body>
+</html>

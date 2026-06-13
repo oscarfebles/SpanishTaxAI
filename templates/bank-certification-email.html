@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bank Certification Request Email — SpanishTax AI</title>
+  <link rel="stylesheet" href="templates.css">
+</head>
+<body data-template-id="bank-certification-email">
+
+<div class="doc-toolbar">
+  <div class="doc-toolbar-info">
+    <strong>Email to your bank</strong> · Request account certification for Spanish DNV
+  </div>
+  <button id="copy-btn" onclick="copyDocText()">Copy email text</button>
+</div>
+
+<div class="instruction" style="max-width: 720px; margin: 0 auto 20px;">
+  <strong>How to use:</strong>
+  <ol style="margin-top: 8px; padding-left: 20px;">
+    <li>This email is for requesting an official certification from an <strong>online-only bank</strong> (Wise, Revolut, Mercury, Chime, N26, etc.) that cannot stamp paper documents.</li>
+    <li>Send to your bank's customer service email or in-app support. Common addresses:
+      <ul style="margin-top: 4px;">
+        <li>Wise: contact through in-app help (Personal accounts → Help → Statement letter)</li>
+        <li>Revolut: <code>support@revolut.com</code></li>
+        <li>Mercury: in-app message → Support</li>
+        <li>Chime: <code>support@chime.com</code></li>
+        <li>N26: in-app chat → Help</li>
+      </ul>
+    </li>
+    <li>Response typically takes 3-7 business days. Request early.</li>
+    <li>If the bank refuses or delays, consider the <strong>acta de presencia notarial</strong> alternative — a Spanish notary witnesses the digital statements on your device (~€60-100).</li>
+  </ol>
+</div>
+
+<article class="doc">
+  <div style="font-family: monospace; font-size: 11pt; color: #444; padding-bottom: 16px; border-bottom: 1px solid #ddd; margin-bottom: 20px;">
+    <strong>To:</strong> <span class="fill" contenteditable="true" data-field="bank_email">support@yourbank.com</span><br>
+    <strong>Subject:</strong> Formal request: Account certification letter for Spanish visa application
+  </div>
+
+  <p>Hello <span class="fill" contenteditable="true" data-field="bank_name">[Bank name]</span> support team,</p>
+
+  <p>
+    I am writing to request an <strong>official account certification letter</strong> for my account ending in <span class="fill" contenteditable="true" data-field="account_last4">XXXX</span>. The certification is required by Spanish immigration authorities (UGE-CE — Unidad de Grandes Empresas y Colectivos Estratégicos) as part of my Spanish Digital Nomad Visa application.
+  </p>
+
+  <p>
+    Spanish authorities have requested "stamped and signed bank statements" demonstrating my income recurrence. Because <span class="fill" contenteditable="true" data-field="bank_name_2">[Bank name]</span> operates digitally without physical branches, I need an alternative certification that Spanish authorities can accept.
+  </p>
+
+  <p><strong>What I need the letter to include:</strong></p>
+  <ul>
+    <li><strong>On your regulated entity's letterhead</strong> (showing full legal name, regulatory licenses, registered address)</li>
+    <li>My <strong>full legal name</strong> as account holder: <span class="fill" contenteditable="true" data-field="account_holder_name">[Your full legal name]</span></li>
+    <li>My <strong>IBAN / account number</strong> (last 4 digits visible for confirmation)</li>
+    <li>Confirmation that the <strong>account is active and in good standing</strong>, opened on <span class="fill" contenteditable="true" data-field="account_open_date">[approximate open date]</span></li>
+    <li>A statement summary covering the past <strong>6 months</strong>, from <span class="fill" contenteditable="true" data-field="period_start">[Month Year]</span> to <span class="fill" contenteditable="true" data-field="period_end">[Month Year]</span>, including:
+      <ul style="margin-top: 4px;">
+        <li>Total credits/deposits during the period</li>
+        <li>Number of monthly deposit transactions (showing income recurrence pattern)</li>
+        <li>Closing balance at end of period</li>
+      </ul>
+    </li>
+    <li><strong>Signature</strong> by an authorized representative (digital or physical) and <strong>date of issue</strong></li>
+  </ul>
+
+  <p><strong>Optional but helpful:</strong></p>
+  <ul>
+    <li>If you cannot include the statement summary in the certification letter itself, please confirm I can attach my downloaded PDF statements alongside the certification (where the bank's name and my account details appear consistently).</li>
+    <li>If your standard certification letter does not include all the above elements, please indicate which elements are missing so I can plan alternatives.</li>
+  </ul>
+
+  <p><strong>Format requested:</strong> PDF document, signed digitally or with a wet-ink signature. If issued as a PDF, please ensure the document includes:</p>
+  <ul>
+    <li>Your firm's full legal name and regulatory registration number (e.g., "Wise Payments Limited, FCA Reg. No. 900507")</li>
+    <li>A QR code or verification reference (if your firm uses one) for authenticity checks</li>
+  </ul>
+
+  <p>
+    My target date for receiving this letter: <span class="fill" contenteditable="true" data-field="target_date">[Date]</span>. The Spanish authorities have given me a strict deadline of <span class="fill" contenteditable="true" data-field="dnv_deadline">[Date]</span> to submit additional documentation, so timely response is critical.
+  </p>
+
+  <p>
+    For verification of my identity and to expedite this request, please find attached/find on file:
+  </p>
+  <ul>
+    <li>Photo ID (passport copy)</li>
+    <li>Recent statement excerpt confirming account ownership</li>
+  </ul>
+
+  <p>
+    Thank you very much for your help with this important request. Please let me know if you need any additional verification or information from my side.
+  </p>
+
+  <p>
+    Best regards,<br>
+    <span class="fill" contenteditable="true" data-field="applicant_name">[Your full legal name]</span><br>
+    <span class="fill" contenteditable="true" data-field="applicant_email">[Your email]</span><br>
+    <span class="fill" contenteditable="true" data-field="applicant_phone">[Your phone with country code]</span>
+  </p>
+</article>
+
+<script src="templates.js" defer></script>
+</body>
+</html>

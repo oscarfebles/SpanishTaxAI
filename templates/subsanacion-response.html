@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subsanación Response Covering Letter — SpanishTax AI</title>
+  <link rel="stylesheet" href="templates.css">
+</head>
+<body data-template-id="subsanacion-response">
+
+<div class="doc-toolbar">
+  <div class="doc-toolbar-info">
+    <strong>Subsanación Response — Covering Letter</strong> · Carta en español para responder requerimiento UGE-CE
+  </div>
+  <button onclick="printDoc()">Print / Save PDF</button>
+  <button id="copy-btn" onclick="copyDocText()">Copy text</button>
+</div>
+
+<div class="instruction" style="max-width: 720px; margin: 0 auto 20px;">
+  <strong>How to use:</strong>
+  <ol style="margin-top: 8px; padding-left: 20px;">
+    <li>This is the covering letter you submit ALONGSIDE the requested documents through the UGE-CE sede electrónica portal.</li>
+    <li>The letter is in Spanish — UGE-CE prefers official correspondence in Spanish even though the application supports English.</li>
+    <li>Edit the yellow fields with your specific case details.</li>
+    <li>List each document UGE-CE requested and what you're providing in response.</li>
+    <li>Upload each supporting document as a separate PDF (NOT combined). Use descriptive filenames like <code>01-CPA-letter-apostillada.pdf</code>, <code>02-extracto-bancario-Wise.pdf</code>, etc.</li>
+    <li>Submit ALL documents in one batch — partial submissions trigger another subsanación (not always granted).</li>
+  </ol>
+</div>
+
+<div class="warning" style="max-width: 720px; margin: 0 auto 20px;">
+  <strong>⏰ Critical timing:</strong> You have <strong>10 working days</strong> (~14 calendar days excluding Spanish public holidays) from the date you received the notification. Late submission = automatic denial of your application. Do NOT wait until the last day.
+</div>
+
+<article class="doc">
+  <div style="text-align: right; font-size: 11pt; margin-bottom: 20px;">
+    <span class="fill" contenteditable="true" data-field="applicant_location">[City], España</span>, <span class="fill" contenteditable="true" data-field="date">[día] de [mes] de [año]</span>
+  </div>
+
+  <div style="margin-bottom: 24px;">
+    <strong>A LA ATENCIÓN DE:</strong><br>
+    Unidad de Grandes Empresas y Colectivos Estratégicos (UGE-CE)<br>
+    Dirección General de Migraciones<br>
+    Ministerio de Inclusión, Seguridad Social y Migraciones<br>
+    Madrid
+  </div>
+
+  <div class="doc-subject">
+    ASUNTO: Respuesta a requerimiento de subsanación — Expediente nº <span class="fill" contenteditable="true" data-field="expediente_num">[Número de expediente]</span>
+  </div>
+
+  <p>
+    Muy señores míos:
+  </p>
+
+  <p>
+    En relación con mi solicitud de Autorización de Residencia para Teletrabajador de Carácter Internacional (Visado Nómada Digital), expediente número <span class="fill" contenteditable="true" data-field="expediente_num_2">[Número de expediente]</span>, presentada el día <span class="fill" contenteditable="true" data-field="submission_date">[fecha de presentación inicial]</span>, y habiendo recibido el día <span class="fill" contenteditable="true" data-field="subsanacion_date">[fecha de recepción del requerimiento]</span> el requerimiento de subsanación al amparo del artículo 68.1 de la Ley 39/2015, presento dentro del plazo de diez días hábiles establecido la siguiente documentación complementaria:
+  </p>
+
+  <h3 style="font-family: Georgia, serif; font-size: 13pt; margin: 20px 0 10px; font-weight: bold;">Documentación aportada en respuesta a los puntos requeridos:</h3>
+
+  <p><strong>Punto 1 del requerimiento:</strong> <span class="fill" contenteditable="true" data-field="requirement_1">[Citar literalmente el primer punto requerido por UGE-CE]</span></p>
+  <p style="padding-left: 24px;">
+    <strong>Documento aportado:</strong> <span class="fill" contenteditable="true" data-field="document_1">[Nombre del documento — ej: Acta de presencia notarial certificando los extractos bancarios de Wise correspondientes a los últimos 6 meses]</span><br>
+    <strong>Archivo adjunto:</strong> <code><span class="fill" contenteditable="true" data-field="filename_1">01-nombre-archivo.pdf</span></code>
+  </p>
+
+  <p><strong>Punto 2 del requerimiento:</strong> <span class="fill" contenteditable="true" data-field="requirement_2">[Citar literalmente el segundo punto]</span></p>
+  <p style="padding-left: 24px;">
+    <strong>Documento aportado:</strong> <span class="fill" contenteditable="true" data-field="document_2">[Descripción]</span><br>
+    <strong>Archivo adjunto:</strong> <code><span class="fill" contenteditable="true" data-field="filename_2">02-nombre-archivo.pdf</span></code>
+  </p>
+
+  <p><strong>Punto 3 del requerimiento:</strong> <span class="fill" contenteditable="true" data-field="requirement_3">[Citar literalmente el tercer punto — o eliminar este bloque si solo hay 2 puntos]</span></p>
+  <p style="padding-left: 24px;">
+    <strong>Documento aportado:</strong> <span class="fill" contenteditable="true" data-field="document_3">[Descripción]</span><br>
+    <strong>Archivo adjunto:</strong> <code><span class="fill" contenteditable="true" data-field="filename_3">03-nombre-archivo.pdf</span></code>
+  </p>
+
+  <p style="margin-top: 24px;">
+    <strong>Aclaraciones adicionales (si procede):</strong>
+  </p>
+  <p>
+    <span class="fill" contenteditable="true" data-field="additional_notes">[Espacio opcional para aclarar contexto particular — ej: "El extracto bancario aportado corresponde a una entidad online (Wise Payments Ltd) que opera bajo licencia FCA en Reino Unido y autorización del Banco de España. Al carecer de oficinas físicas, el extracto se acompaña de Acta Notarial al amparo del art. 199 del Reglamento Notarial." Si no necesitas aclaraciones, elimina este párrafo.]</span>
+  </p>
+
+  <p>
+    Por todo lo expuesto, considero subsanada la documentación requerida y solicito se reanude la tramitación de mi expediente.
+  </p>
+
+  <p>
+    Quedo a su disposición para cualquier aclaración adicional que precisen.
+  </p>
+
+  <p style="margin-top: 32px;">
+    Atentamente,
+  </p>
+
+  <div class="doc-signature-block" style="margin-top: 40px;">
+    <div class="doc-signature-line"></div>
+    <strong><span class="fill" contenteditable="true" data-field="applicant_name">[Nombre completo del solicitante]</span></strong><br>
+    NIE / Pasaporte nº: <span class="fill" contenteditable="true" data-field="applicant_nie">[Número de documento de identidad]</span><br>
+    Email: <span class="fill" contenteditable="true" data-field="applicant_email">[email]</span><br>
+    Teléfono: <span class="fill" contenteditable="true" data-field="applicant_phone">[teléfono]</span>
+  </div>
+</article>
+
+<script src="templates.js" defer></script>
+</body>
+</html>

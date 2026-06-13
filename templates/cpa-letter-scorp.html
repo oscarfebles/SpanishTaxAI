@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CPA Letter Template — S-Corp Owner — SpanishTax AI</title>
+  <link rel="stylesheet" href="templates.css">
+</head>
+<body data-template-id="cpa-letter-scorp">
+
+<div class="doc-toolbar">
+  <div class="doc-toolbar-info">
+    <strong>CPA Letter — S-Corporation Owner</strong> · For US S-Corp owners applying for Spanish DNV
+  </div>
+  <button onclick="printDoc()">Print / Save PDF</button>
+  <button id="copy-btn" onclick="copyDocText()">Copy text</button>
+</div>
+
+<div class="instruction" style="max-width: 720px; margin: 0 auto 20px;">
+  <strong>How to use:</strong> This template is for owners of a US S-Corporation receiving W-2 salary + K-1 distributions. If you're a 1099 sole proprietor (no entity), use the <a href="cpa-letter-1099.html">1099 template instead</a>. If you have a single-member LLC, use the <a href="cpa-letter-llc.html">LLC template</a>.
+  <br><br>
+  <strong>Strategic note from Oscar:</strong> Lead with W-2 salary as your primary income proof (cleaner UGE-CE narrative). K-1 distributions are supporting but harder to defend as "recurring professional income." Your CPA letter should emphasize the salary structure.
+</div>
+
+<div class="warning" style="max-width: 720px; margin: 0 auto 20px;">
+  <strong>⚠ Critical: S-Corp + Spain = mandatory CFC analysis.</strong> Before electing Beckham Law or filing in Spain, the interaction between US S-Corp pass-through taxation and Spanish Art. 91 LIRPF (transparencia fiscal internacional) requires case-specific modeling. <strong>Do not file Modelo 149 without specialist review</strong> — incorrect election is irreversible for 6 years.
+</div>
+
+<article class="doc">
+  <header class="doc-letterhead">
+    <div class="doc-letterhead-firm"><span class="fill" contenteditable="true" data-field="cpa_firm_name">CPA FIRM NAME</span></div>
+    <div class="doc-letterhead-meta">
+      <span class="fill" contenteditable="true" data-field="cpa_firm_address">Street Address, City, State, ZIP</span><br>
+      Phone: <span class="fill" contenteditable="true" data-field="cpa_firm_phone">(555) 123-4567</span> · Email: <span class="fill" contenteditable="true" data-field="cpa_firm_email">name@firm.com</span><br>
+      CPA License #: <span class="fill" contenteditable="true" data-field="cpa_license">XXXXX</span>
+    </div>
+  </header>
+
+  <div class="doc-date"><span class="fill" contenteditable="true" data-field="date">Month Day, Year</span></div>
+
+  <div class="doc-to">
+    <strong>To Whom It May Concern</strong><br>
+    Re: Confirmation of S-Corporation ownership, employment, and income for Spanish Digital Nomad Visa application<br>
+    Applicant: <span class="fill" contenteditable="true" data-field="applicant_name">[Applicant's full legal name]</span>
+  </div>
+
+  <p>Dear Sir or Madam,</p>
+
+  <p>
+    I, <span class="fill" contenteditable="true" data-field="cpa_full_name">[CPA full name]</span>, a Certified Public Accountant licensed in the State of <span class="fill" contenteditable="true" data-field="cpa_state">[State]</span> (License No. <span class="fill" contenteditable="true" data-field="cpa_license_2">[Number]</span>), confirm the following about my client <span class="fill" contenteditable="true" data-field="applicant_name_2">[Applicant's full legal name]</span>.
+  </p>
+
+  <h3 style="font-family: Georgia, serif; font-size: 13pt; margin: 20px 0 10px; font-weight: bold;">1. S-Corporation ownership and structure</h3>
+  <p>
+    The Client is the <span class="fill" contenteditable="true" data-field="ownership_pct">100%</span> shareholder and an employee of <strong><span class="fill" contenteditable="true" data-field="scorp_name">[S-Corp Legal Name], Inc.</span></strong>, a corporation organized under the laws of <span class="fill" contenteditable="true" data-field="scorp_state">[State of Incorporation]</span> and operating as an S-Corporation under IRS Subchapter S election (Form 2553) since <span class="fill" contenteditable="true" data-field="scorp_inception">[Month Year]</span>.
+  </p>
+  <ul>
+    <li>Corporate EIN: <span class="fill" contenteditable="true" data-field="scorp_ein">[XX-XXXXXXX]</span></li>
+    <li>Date of S-election effectiveness: <span class="fill" contenteditable="true" data-field="s_election_date">[Date]</span></li>
+    <li>Business activity: <span class="fill" contenteditable="true" data-field="business_activity">[e.g., software consulting services]</span></li>
+  </ul>
+
+  <h3 style="font-family: Georgia, serif; font-size: 13pt; margin: 20px 0 10px; font-weight: bold;">2. Employee compensation (W-2 salary)</h3>
+  <p>
+    The Client receives a <strong>regular monthly W-2 salary</strong> from the S-Corp in their capacity as employee. This salary constitutes "reasonable compensation" for services rendered, per IRS guidance for S-Corp owner-employees.
+  </p>
+  <ul>
+    <li>Annual W-2 salary (current year): USD <strong><span class="fill" contenteditable="true" data-field="annual_w2">[Amount]</span></strong></li>
+    <li>Monthly gross W-2 salary: USD <strong><span class="fill" contenteditable="true" data-field="monthly_w2">[Amount]</span></strong></li>
+    <li>Approximate EUR equivalent (monthly): EUR <strong><span class="fill" contenteditable="true" data-field="monthly_eur">[Amount]</span></strong></li>
+    <li>Pay frequency: <span class="fill" contenteditable="true" data-field="pay_frequency">[Monthly / Semi-monthly / Biweekly]</span></li>
+    <li>Salary has been paid consistently for: <span class="fill" contenteditable="true" data-field="salary_duration">[X months/years]</span></li>
+  </ul>
+
+  <h3 style="font-family: Georgia, serif; font-size: 13pt; margin: 20px 0 10px; font-weight: bold;">3. K-1 distributions (supporting income)</h3>
+  <p>
+    In addition to W-2 salary, the Client receives <strong>K-1 distributions</strong> as the S-Corp shareholder, representing their share of corporate profits. For the most recent tax year (<span class="fill" contenteditable="true" data-field="last_tax_year">[Year]</span>):
+  </p>
+  <ul>
+    <li>K-1 distributions received: USD <strong><span class="fill" contenteditable="true" data-field="k1_amount">[Amount]</span></strong></li>
+    <li>Distribution frequency: <span class="fill" contenteditable="true" data-field="distribution_frequency">[Quarterly / Annual]</span></li>
+  </ul>
+
+  <h3 style="font-family: Georgia, serif; font-size: 13pt; margin: 20px 0 10px; font-weight: bold;">4. Tax filings</h3>
+  <p>
+    The S-Corp has filed <strong>IRS Form 1120-S</strong> (US Income Tax Return for an S Corporation) for the past <span class="fill" contenteditable="true" data-field="scorp_filing_years">[number]</span> consecutive tax years. The Client has correspondingly filed <strong>IRS Form 1040</strong> with Schedule E reporting the K-1 income and W-2 employment income.
+  </p>
+
+  <h3 style="font-family: Georgia, serif; font-size: 13pt; margin: 20px 0 10px; font-weight: bold;">5. Continuity of remote work</h3>
+  <p>
+    The Client's professional activity can be conducted remotely. The S-Corp continues to operate from <span class="fill" contenteditable="true" data-field="scorp_address">[State, USA]</span> with the Client as remote employee. The Client intends to continue receiving W-2 salary while temporarily residing in Spain under the Digital Nomad Visa regime.
+  </p>
+
+  <p>
+    This letter is issued at the Client's request to support their Spanish Digital Nomad Visa application. The statements above are accurate to the best of my professional knowledge based on tax filings, payroll records, and banking documentation in my possession.
+  </p>
+
+  <div class="doc-signature">
+    <p>Sincerely,</p>
+    <div class="doc-signature-block">
+      <div class="doc-signature-line"></div>
+      <strong><span class="fill" contenteditable="true" data-field="cpa_signature_name">[CPA full name]</span>, CPA</strong><br>
+      License No. <span class="fill" contenteditable="true" data-field="cpa_license_3">[Number]</span>, State of <span class="fill" contenteditable="true" data-field="cpa_state_2">[State]</span><br>
+      Date: <span class="fill" contenteditable="true" data-field="signature_date">[Date]</span>
+    </div>
+    <p style="margin-top: 24px; font-size: 10pt; color: #666;"><em>Firm seal / stamp:</em></p>
+    <div style="border: 1px dashed #999; height: 80px; width: 200px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 10pt;">[ Firm seal ]</div>
+  </div>
+</article>
+
+<script src="templates.js" defer></script>
+</body>
+</html>

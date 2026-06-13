@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Template Library — SpanishTax AI</title>
+  <link rel="stylesheet" href="templates.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body { background: #FAF8F4; font-family: 'Inter', sans-serif; padding: 40px 20px; }
+    .lib-container { max-width: 820px; margin: 0 auto; }
+    .lib-header { text-align: center; margin-bottom: 40px; }
+    .lib-header h1 { font-family: 'Fraunces', serif; font-size: 38px; color: #0F2547; margin-bottom: 10px; font-weight: 600; }
+    .lib-header p { color: #666; font-size: 16px; max-width: 580px; margin: 0 auto; line-height: 1.6; }
+    .lib-section { margin-bottom: 40px; }
+    .lib-section-title { font-family: 'Fraunces', serif; font-size: 20px; color: #0F2547; font-weight: 600; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #E8E4DC; }
+    .lib-template { background: white; border: 1px solid #E8E4DC; border-radius: 10px; padding: 20px 24px; margin-bottom: 12px; transition: all 200ms; }
+    .lib-template:hover { border-color: #C8553D; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(200, 85, 61, 0.08); }
+    .lib-template a { text-decoration: none; color: #0F2547; }
+    .lib-template h3 { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 600; margin-bottom: 6px; }
+    .lib-template p { color: #666; font-size: 14px; line-height: 1.55; margin-bottom: 8px; }
+    .lib-tag { display: inline-block; font-size: 11px; padding: 3px 8px; border-radius: 12px; background: #F4F0E8; color: #5D5D5D; margin-right: 6px; font-weight: 500; }
+    .lib-tag-urgent { background: #FEF3C7; color: #78350F; }
+    .lib-tag-pro { background: #FBF1F0; color: #A8412F; }
+    .back-link { text-align: center; margin-top: 40px; }
+    .back-link a { color: #666; text-decoration: none; font-size: 14px; }
+    .back-link a:hover { color: #C8553D; }
+  </style>
+</head>
+<body>
+
+<div class="lib-container">
+
+  <div class="lib-header">
+    <h1>Template Library</h1>
+    <p>Pre-built documents and email templates for your Spanish DNV journey. Edit in your browser, print to PDF, or copy text directly. All templates use the same yellow-highlighted fillable fields.</p>
+  </div>
+
+  <div class="lib-section">
+    <h2 class="lib-section-title">CPA letters for US applicants</h2>
+
+    <div class="lib-template">
+      <a href="cpa-letter-1099.html">
+        <h3>CPA letter — 1099 Sole Proprietor</h3>
+        <p>For US independent contractors filing Schedule C without a separate legal entity. Your CPA confirms self-employment status and recurring monthly income.</p>
+        <span class="lib-tag">US 1099</span><span class="lib-tag">Document template</span>
+      </a>
+    </div>
+
+    <div class="lib-template">
+      <a href="email-to-cpa-1099.html">
+        <h3>Email to your CPA — Requesting 1099 letter</h3>
+        <p>Pre-drafted email you send to your CPA explaining what Spanish authorities need. Saves you 20 minutes of awkward explanation and reduces back-and-forth.</p>
+        <span class="lib-tag">US 1099</span><span class="lib-tag">Email</span>
+      </a>
+    </div>
+
+    <div class="lib-template">
+      <a href="cpa-letter-scorp.html">
+        <h3>CPA letter — S-Corp Owner</h3>
+        <p>For US S-Corp owners receiving W-2 salary plus K-1 distributions. Highlights W-2 as primary income (cleaner UGE-CE narrative).</p>
+        <span class="lib-tag">US S-Corp</span><span class="lib-tag lib-tag-pro">CFC analysis required</span>
+      </a>
+    </div>
+
+    <div class="lib-template">
+      <a href="cpa-letter-llc.html">
+        <h3>CPA letter — Single-member LLC</h3>
+        <p>For US SMLLC owners treated as disregarded entity for federal tax purposes. Income flows through to personal Schedule C.</p>
+        <span class="lib-tag">US LLC</span><span class="lib-tag lib-tag-pro">CFC analysis required</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="lib-section">
+    <h2 class="lib-section-title">UGE-CE correspondence (Spanish)</h2>
+
+    <div class="lib-template">
+      <a href="subsanacion-response.html">
+        <h3>Subsanación response — Covering letter</h3>
+        <p>Pre-drafted Spanish letter for responding to a UGE-CE subsanación request. Lists each required document and explains your submission.</p>
+        <span class="lib-tag">Spanish</span><span class="lib-tag lib-tag-urgent">10-day deadline</span>
+      </a>
+    </div>
+
+    <div class="lib-template">
+      <a href="income-covering-letter.html">
+        <h3>Income proof covering letter</h3>
+        <p>Narrative that ties together your CPA letter, bank statements, contracts into a coherent story for UGE-CE. 90% of applicants omit this — significant edge.</p>
+        <span class="lib-tag">All applicants</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="lib-section">
+    <h2 class="lib-section-title">Bank certifications</h2>
+
+    <div class="lib-template">
+      <a href="bank-certification-email.html">
+        <h3>Email to your online bank — Certification request</h3>
+        <p>Pre-drafted email for Wise, Revolut, Mercury, Chime, N26 etc. requesting an official account certification letter when stamped statements aren't available.</p>
+        <span class="lib-tag">Online banks</span><span class="lib-tag">Email</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="lib-section">
+    <h2 class="lib-section-title">Apostille and translation guides</h2>
+
+    <div class="lib-template">
+      <a href="apostille-guide-us.html">
+        <h3>US Apostille Guide</h3>
+        <p>Step-by-step guide for apostilling US documents (FBI background check, CPA letter, etc.) for Spanish authorities. Federal vs. state apostille rules explained.</p>
+        <span class="lib-tag">US applicants</span><span class="lib-tag">Guide</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="back-link">
+    <a href="/">← Back to SpanishTax AI</a>
+  </div>
+
+</div>
+
+</body>
+</html>

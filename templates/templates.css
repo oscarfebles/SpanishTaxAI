@@ -1,0 +1,239 @@
+/* SpanishTax AI — Document Templates Stylesheet
+ * Designed for browser editing + print-to-PDF
+ * Print: clean white background, no decorative elements
+ * Screen: subtle ST branding for context */
+
+:root {
+  --doc-ink: #1a1a1a;
+  --doc-muted: #666;
+  --doc-line: #ccc;
+  --doc-fill-bg: #FFF8DC;
+  --doc-fill-border: #D4A017;
+  --doc-instruction-bg: #F0F4F8;
+  --doc-instruction-border: #3B82F6;
+  --doc-warning-bg: #FEF3C7;
+  --doc-warning-border: #F59E0B;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #F4F4F0;
+  color: var(--doc-ink);
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 12pt;
+  line-height: 1.55;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+
+.doc-toolbar {
+  max-width: 720px;
+  margin: 0 auto 20px;
+  padding: 14px 18px;
+  background: white;
+  border: 1px solid var(--doc-line);
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 13px;
+  color: var(--doc-muted);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.doc-toolbar .doc-toolbar-info {
+  flex: 1;
+}
+
+.doc-toolbar strong {
+  color: var(--doc-ink);
+}
+
+.doc-toolbar button {
+  background: #0F2547;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 500;
+}
+
+.doc-toolbar button:hover {
+  background: #1a3461;
+}
+
+.doc-toolbar a {
+  color: #C8553D;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.doc {
+  max-width: 720px;
+  margin: 0 auto;
+  background: white;
+  padding: 56px 64px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-radius: 4px;
+}
+
+.doc-letterhead {
+  text-align: center;
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--doc-ink);
+}
+
+.doc-letterhead-firm {
+  font-size: 18pt;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.doc-letterhead-meta {
+  font-size: 10pt;
+  color: var(--doc-muted);
+  margin-top: 6px;
+}
+
+.doc-date {
+  text-align: right;
+  margin-bottom: 28px;
+  font-size: 11pt;
+}
+
+.doc-to {
+  margin-bottom: 28px;
+}
+
+.doc-subject {
+  font-weight: bold;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--doc-line);
+}
+
+.doc p {
+  margin-bottom: 14px;
+  text-align: justify;
+}
+
+.doc ul, .doc ol {
+  margin-bottom: 14px;
+  padding-left: 24px;
+}
+
+.doc li {
+  margin-bottom: 6px;
+}
+
+.doc-signature {
+  margin-top: 48px;
+  padding-top: 20px;
+  border-top: 1px solid var(--doc-line);
+}
+
+.doc-signature-block {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.doc-signature-line {
+  border-bottom: 1px solid var(--doc-ink);
+  width: 280px;
+  height: 36px;
+  margin-bottom: 4px;
+}
+
+/* ─── Fillable fields ────────────────────────────────────────────── */
+.fill {
+  background: var(--doc-fill-bg);
+  border-bottom: 2px solid var(--doc-fill-border);
+  padding: 2px 6px;
+  display: inline-block;
+  min-width: 100px;
+  font-style: italic;
+  color: #6B4914;
+  margin: 0 1px;
+}
+
+.fill[contenteditable="true"] {
+  outline: none;
+  cursor: text;
+}
+
+.fill[contenteditable="true"]:hover {
+  background: #FFEFB8;
+}
+
+.fill[contenteditable="true"]:focus {
+  background: #FFE5A0;
+  font-style: normal;
+  color: var(--doc-ink);
+}
+
+/* ─── Instruction blocks (NOT printed) ──────────────────────────── */
+.instruction {
+  background: var(--doc-instruction-bg);
+  border-left: 4px solid var(--doc-instruction-border);
+  padding: 14px 18px;
+  margin: 16px 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 11pt;
+  color: #1E3A8A;
+  border-radius: 0 6px 6px 0;
+}
+
+.instruction strong {
+  color: #1E3A8A;
+}
+
+.warning {
+  background: var(--doc-warning-bg);
+  border-left: 4px solid var(--doc-warning-border);
+  padding: 14px 18px;
+  margin: 16px 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 11pt;
+  color: #78350F;
+  border-radius: 0 6px 6px 0;
+}
+
+/* ─── Print styles ─────────────────────────────────────────────── */
+@media print {
+  body {
+    background: white;
+    padding: 0;
+  }
+  .doc-toolbar, .instruction, .warning {
+    display: none !important;
+  }
+  .doc {
+    max-width: 100%;
+    padding: 30px 50px;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  .fill {
+    background: transparent;
+    border-bottom: 1px solid var(--doc-ink);
+    color: var(--doc-ink);
+    font-style: normal;
+  }
+  @page {
+    size: A4;
+    margin: 1.5cm;
+  }
+}

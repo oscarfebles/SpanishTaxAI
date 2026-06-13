@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CPA Letter Template — Single-member LLC — SpanishTax AI</title>
+  <link rel="stylesheet" href="templates.css">
+</head>
+<body data-template-id="cpa-letter-llc">
+
+<div class="doc-toolbar">
+  <div class="doc-toolbar-info">
+    <strong>CPA Letter — Single-member LLC</strong> · For US LLC owners applying for Spanish DNV
+  </div>
+  <button onclick="printDoc()">Print / Save PDF</button>
+  <button id="copy-btn" onclick="copyDocText()">Copy text</button>
+</div>
+
+<div class="instruction" style="max-width: 720px; margin: 0 auto 20px;">
+  <strong>How to use:</strong> This template is for owners of a US <strong>single-member LLC</strong> (SMLLC) that is treated as a "disregarded entity" for federal tax purposes (income flows directly to your personal Schedule C). If your LLC has elected to be taxed as S-Corp, use the <a href="cpa-letter-scorp.html">S-Corp template instead</a>.
+</div>
+
+<div class="warning" style="max-width: 720px; margin: 0 auto 20px;">
+  <strong>⚠ Critical: LLC + Spain = mandatory CFC analysis.</strong> A foreign LLC where you're the sole member triggers Spanish <em>transparencia fiscal internacional</em> rules (Art. 91 LIRPF). Spain may impute passive or low-taxed LLC income to you regardless of distributions. This is one of the most complex tax situations for DNV applicants. <strong>Do not file Spanish taxes without specialist review.</strong>
+</div>
+
+<article class="doc">
+  <header class="doc-letterhead">
+    <div class="doc-letterhead-firm"><span class="fill" contenteditable="true" data-field="cpa_firm_name">CPA FIRM NAME</span></div>
+    <div class="doc-letterhead-meta">
+      <span class="fill" contenteditable="true" data-field="cpa_firm_address">Street Address, City, State, ZIP</span><br>
+      Phone: <span class="fill" contenteditable="true" data-field="cpa_firm_phone">(555) 123-4567</span> · Email: <span class="fill" contenteditable="true" data-field="cpa_firm_email">name@firm.com</span><br>
+      CPA License #: <span class="fill" contenteditable="true" data-field="cpa_license">XXXXX</span>
+    </div>
+  </header>
+
+  <div class="doc-date"><span class="fill" contenteditable="true" data-field="date">Month Day, Year</span></div>
+
+  <div class="doc-to">
+    <strong>To Whom It May Concern</strong><br>
+    Re: Confirmation of LLC ownership and income for Spanish Digital Nomad Visa application<br>
+    Applicant: <span class="fill" contenteditable="true" data-field="applicant_name">[Applicant's full legal name]</span>
+  </div>
+
+  <p>Dear Sir or Madam,</p>
+
+  <p>
+    I, <span class="fill" contenteditable="true" data-field="cpa_full_name">[CPA full name]</span>, a Certified Public Accountant licensed in the State of <span class="fill" contenteditable="true" data-field="cpa_state">[State]</span> (License No. <span class="fill" contenteditable="true" data-field="cpa_license_2">[Number]</span>), confirm the following about my client <span class="fill" contenteditable="true" data-field="applicant_name_2">[Applicant's full legal name]</span>.
+  </p>
+
+  <h3 style="font-family: Georgia, serif; font-size: 13pt; margin: 20px 0 10px; font-weight: bold;">1. LLC ownership and structure</h3>
+  <p>
+    The Client is the <strong>sole member (100% owner)</strong> of <strong><span class="fill" contenteditable="true" data-field="llc_name">[LLC Legal Name], LLC</span></strong>, a limited liability company organized under the laws of <span class="fill" contenteditable="true" data-field="llc_state">[State]</span>, registered on <span class="fill" contenteditable="true" data-field="llc_inception">[Month Year]</span>.
+  </p>
+  <ul>
+    <li>LLC EIN: <span class="fill" contenteditable="true" data-field="llc_ein">[XX-XXXXXXX]</span></li>
+    <li>Federal tax classification: <strong>Disregarded entity</strong> (treated as sole proprietorship for federal income tax purposes)</li>
+    <li>Business activity: <span class="fill" contenteditable="true" data-field="business_activity">[e.g., professional consulting services]</span></li>
+    <li>Operating address: <span class="fill" contenteditable="true" data-field="llc_address">[State, USA]</span></li>
+  </ul>
+
+  <h3 style="font-family: Georgia, serif; font-size: 13pt; margin: 20px 0 10px; font-weight: bold;">2. Tax filings — Schedule C through personal 1040</h3>
+  <p>
+    Because the LLC is a disregarded entity, all business income and expenses flow through to the Client's personal <strong>IRS Form 1040 Schedule C</strong>. The Client has filed Schedule C reporting the LLC's activity for the past <span class="fill" contenteditable="true" data-field="years_filed">[number]</span> consecutive tax years.
+  </p>
+
+  <h3 style="font-family: Georgia, serif; font-size: 13pt; margin: 20px 0 10px; font-weight: bold;">3. Income confirmation</h3>
+  <p>
+    Based on LLC financial records and the Client's personal tax filings for the most recent twelve (12) months ending <span class="fill" contenteditable="true" data-field="income_period_end">[Month Year]</span>:
+  </p>
+  <ul>
+    <li>Gross monthly revenue (12-month average): USD <strong><span class="fill" contenteditable="true" data-field="monthly_revenue_usd">[Amount]</span></strong></li>
+    <li>Monthly net income to Client (after business expenses): USD <strong><span class="fill" contenteditable="true" data-field="monthly_net_usd">[Amount]</span></strong></li>
+    <li>Approximate EUR equivalent (monthly net): EUR <strong><span class="fill" contenteditable="true" data-field="monthly_net_eur">[Amount]</span></strong></li>
+    <li>Annual gross revenue: USD <strong><span class="fill" contenteditable="true" data-field="annual_revenue_usd">[Amount]</span></strong></li>
+    <li>Income source: <span class="fill" contenteditable="true" data-field="income_source">[e.g., B2B services to clients in US, EU, etc.]</span></li>
+    <li>Income recurrence: <strong>regular monthly basis</strong>, consistent with ongoing professional services</li>
+  </ul>
+
+  <h3 style="font-family: Georgia, serif; font-size: 13pt; margin: 20px 0 10px; font-weight: bold;">4. Member draws / distributions</h3>
+  <p>
+    The Client withdraws funds from the LLC as <strong>member draws</strong> (not subject to payroll tax, as disregarded entities don't have employee status for the sole member). The draws are reflected in both LLC and personal bank statements, providing a clear paper trail.
+  </p>
+
+  <h3 style="font-family: Georgia, serif; font-size: 13pt; margin: 20px 0 10px; font-weight: bold;">5. Continuity of remote operation</h3>
+  <p>
+    The Client's business activity is conducted remotely. The LLC will continue to operate from <span class="fill" contenteditable="true" data-field="llc_address_2">[State, USA]</span> with the Client as sole member working from Spain under the Digital Nomad Visa regime.
+  </p>
+
+  <p>
+    This letter is issued at the Client's request to support their Spanish Digital Nomad Visa application. The statements above are accurate to the best of my professional knowledge.
+  </p>
+
+  <div class="doc-signature">
+    <p>Sincerely,</p>
+    <div class="doc-signature-block">
+      <div class="doc-signature-line"></div>
+      <strong><span class="fill" contenteditable="true" data-field="cpa_signature_name">[CPA full name]</span>, CPA</strong><br>
+      License No. <span class="fill" contenteditable="true" data-field="cpa_license_3">[Number]</span>, State of <span class="fill" contenteditable="true" data-field="cpa_state_2">[State]</span><br>
+      Date: <span class="fill" contenteditable="true" data-field="signature_date">[Date]</span>
+    </div>
+    <p style="margin-top: 24px; font-size: 10pt; color: #666;"><em>Firm seal / stamp:</em></p>
+    <div style="border: 1px dashed #999; height: 80px; width: 200px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 10pt;">[ Firm seal ]</div>
+  </div>
+</article>
+
+<script src="templates.js" defer></script>
+</body>
+</html>

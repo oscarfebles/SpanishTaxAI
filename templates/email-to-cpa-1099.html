@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email to CPA — Request 1099 Letter — SpanishTax AI</title>
+  <link rel="stylesheet" href="templates.css">
+</head>
+<body data-template-id="email-cpa-1099">
+
+<div class="doc-toolbar">
+  <div class="doc-toolbar-info">
+    <strong>Email to your CPA</strong> · Request CPA letter for Spanish DNV (1099 sole proprietor)
+  </div>
+  <button id="copy-btn" onclick="copyDocText()">Copy email text</button>
+</div>
+
+<div class="instruction" style="max-width: 720px; margin: 0 auto 20px;">
+  <strong>How to use:</strong>
+  <ol style="margin-top: 8px; padding-left: 20px;">
+    <li>Edit the yellow fields with your details.</li>
+    <li>Click "Copy email text" to copy the message.</li>
+    <li>Paste into your email client, send to your CPA.</li>
+    <li>Attach the <a href="cpa-letter-1099.html">CPA letter template</a> as reference for the structure they need to follow.</li>
+  </ol>
+</div>
+
+<article class="doc">
+  <div style="font-family: monospace; font-size: 11pt; color: #444; padding-bottom: 16px; border-bottom: 1px solid #ddd; margin-bottom: 20px;">
+    <strong>To:</strong> <span class="fill" contenteditable="true" data-field="cpa_email">your.cpa@firm.com</span><br>
+    <strong>Subject:</strong> Request: CPA letter for Spanish Digital Nomad Visa application
+  </div>
+
+  <p>Hi <span class="fill" contenteditable="true" data-field="cpa_first_name">[CPA's first name]</span>,</p>
+
+  <p>
+    I'm applying for the Spanish <strong>Digital Nomad Visa</strong> (Visado Nómada Digital), which allows US contractors to legally relocate to Spain while continuing their professional activity. The application is governed by Ley 14/2013 (Spain) and is reviewed by a specialized unit called UGE-CE (Unidad de Grandes Empresas y Colectivos Estratégicos).
+  </p>
+
+  <p>
+    UGE-CE requires applicants to prove their self-employment status. Since the United States has no government-issued self-employment registry equivalent to Spain's <em>alta autónomo</em>, the standard substitute is a <strong>CPA letter on firm letterhead</strong> confirming my status.
+  </p>
+
+  <p>
+    Could you please draft and sign such a letter for me? The letter must include the following elements (this is what Spanish authorities specifically require):
+  </p>
+
+  <ol>
+    <li><strong>On your firm's official letterhead</strong> (showing firm name, address, phone, your CPA license number).</li>
+    <li><strong>Confirmation that I have filed IRS Form 1040 Schedule C</strong> (Profit or Loss from Business — Sole Proprietorship) for the most recent <span class="fill" contenteditable="true" data-field="years_filed">[number]</span> tax years, reporting income from <span class="fill" contenteditable="true" data-field="profession">[describe your profession briefly]</span>.</li>
+    <li><strong>Statement that I operate as a self-employed independent contractor</strong> (sole proprietor) since <span class="fill" contenteditable="true" data-field="start_date">[Month Year you started]</span>, conducting business under my own legal name (not through an LLC, S-Corp, or other entity).</li>
+    <li><strong>My average monthly gross income</strong> for the past 12 months, in USD (with approximate EUR equivalent if possible).</li>
+    <li><strong>Confirmation that the income is recurring on a regular monthly basis</strong> (this wording matters — Spanish authorities apply a "recurring monthly income" test).</li>
+    <li><strong>Your CPA license number, state, and signature</strong>, plus your firm stamp/seal if applicable.</li>
+    <li><strong>Letter dated within the last 90 days</strong> from the time I submit my visa application.</li>
+  </ol>
+
+  <p>
+    I've attached a reference template showing the structure Spanish authorities expect. Please feel free to adapt it to your firm's standard letter format — what matters is that the substance is preserved.
+  </p>
+
+  <p>
+    <strong>Important next steps after you sign:</strong>
+  </p>
+  <ul>
+    <li>I'll need the letter in <strong>original physical form</strong> (wet-ink signature). Digital signatures may not be accepted for apostille.</li>
+    <li>I'll then apostille the letter via the <strong>US Department of State</strong> or relevant state's <strong>Secretary of State</strong> office, depending on the document type and your firm's location.</li>
+    <li>Finally, I'll have it sworn-translated into Spanish by a certified translator in Spain.</li>
+  </ul>
+
+  <p>
+    My timeline: I'd like to submit my visa application by <span class="fill" contenteditable="true" data-field="target_date">[target date]</span>. Could you let me know by what date you can have the letter ready, and what your fee would be?
+  </p>
+
+  <p>
+    Thank you very much. Happy to jump on a quick call if it helps to discuss.
+  </p>
+
+  <p>
+    Best regards,<br>
+    <span class="fill" contenteditable="true" data-field="applicant_name">[Your full name]</span><br>
+    <span class="fill" contenteditable="true" data-field="applicant_phone">[Your phone]</span>
+  </p>
+</article>
+
+<script src="templates.js" defer></script>
+</body>
+</html>
