@@ -284,7 +284,7 @@
   const SUPABASE_URL = 'https://jxoepqwbalhdwwbycksa.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4b2VwcXdiYWxoZHd3Ynlja3NhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA4NjQ1NDAsImV4cCI6MjA5NjQ0MDU0MH0.MRO1t5kZIfIw8HORTjEYvU_TUeri7ovXKSHKHRxnJJQ';
 
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   const TIER_LABELS = {
     dnv_pack:  'DNV Application Pack',
@@ -299,7 +299,7 @@
     document.getElementById('user-email').textContent = email;
 
     // Fetch customer record
-    const { data: customer, error } = await supabase
+    const { data: customer, error } = await sbClient
       .from('customers')
       .select('tier, status, access_expires_at, full_name')
       .eq('email', email)
@@ -334,7 +334,7 @@
   }
 
   async function signOut() {
-    await supabase.auth.signOut();
+    await sbClient.auth.signOut();
     window.location.href = '/login.html';
   }
 
@@ -348,7 +348,7 @@
   }
 
   // ─── Auth check ────────────────────────────────────────────────────────
-  supabase.auth.onAuthStateChange(async (event, session) => {
+  sbClient.auth.onAuthStateChange(async (event, session) => {
     if (event === 'SIGNED_IN' || event === 'INITIAL_SESSION') {
       if (session) {
         await loadDashboard(session);
@@ -361,7 +361,7 @@
   });
 
   // Fallback: check session immediately
-  supabase.auth.getSession().then(({ data: { session } }) => {
+  sbClient.auth.getSession().then(({ data: { session } }) => {
     if (!session) {
       window.location.href = '/login.html';
     }
