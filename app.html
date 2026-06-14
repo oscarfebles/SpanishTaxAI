@@ -221,6 +221,29 @@
       <p id="welcome-sub">Your SpanishTax AI dashboard. Everything you need for your Spanish DNV and autónomo setup in one place.</p>
     </div>
 
+    <!-- Intake form — shown only if onboarding not completed -->
+    <div id="intake-section" style="display:none; margin-bottom:28px;">
+      <div style="background:white; border:1px solid #E8E4DC; border-radius:12px; padding:28px 32px;">
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
+          <span style="font-size:20px;">👋</span>
+          <h2 style="font-family:'Fraunces',Georgia,serif; font-size:20px; color:#0F2547; font-weight:600;">Tell Oscar about your situation</h2>
+        </div>
+        <p style="font-size:14px; color:#5D5D5D; margin-bottom:20px; line-height:1.55;">Takes 2 minutes. Helps Oscar personalise your dashboard, deadline reminders, and support emails to your specific situation.</p>
+        <iframe
+          id="intake-iframe"
+          data-tally-src="https://tally.so/embed/RGrJQv?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+          loading="lazy"
+          width="100%"
+          height="500"
+          frameborder="0"
+          marginheight="0"
+          marginwidth="0"
+          style="border:none; border-radius:8px;"
+          title="SpanishTax AI onboarding">
+        </iframe>
+      </div>
+    </div>
+
     <div class="cards">
 
       <div class="card">
@@ -311,6 +334,31 @@
     if (customer && !error) {
       tier = customer.tier || 'unknown';
       if (customer.full_name) displayName = customer.full_name;
+
+      // Show intake form if onboarding not completed
+      if (!customer.onboarding_completed) {
+        document.getElementById('intake-section').style.display = 'block';
+        // Load Tally embed script
+        if (!document.getElementById('tally-js')) {
+          const s = document.createElement('script');
+          s.id = 'tally-js';
+          s.src = 'https://tally.so/widgets/embed.js';
+          s.async = true;
+          s.onload = () => { if (window.Tally) window.Tally.loadEmbeds(); };
+          document.head.appendChild(s);
+        }
+      }
+    } else {
+      // New customer — no row yet, show intake form
+      document.getElementById('intake-section').style.display = 'block';
+      if (!document.getElementById('tally-js')) {
+        const s = document.createElement('script');
+        s.id = 'tally-js';
+        s.src = 'https://tally.so/widgets/embed.js';
+        s.async = true;
+        s.onload = () => { if (window.Tally) window.Tally.loadEmbeds(); };
+        document.head.appendChild(s);
+      }
     }
 
     // Update UI
