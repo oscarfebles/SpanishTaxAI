@@ -159,23 +159,31 @@ export function detectEscalation(message) {
 /**
  * Returns the recommended product details for the system prompt to use
  * when building the escalation message.
+ *
+ * v1.1 changes:
+ *   - Removed `calendly` field (no phone/call escalation per business decision)
+ *   - Added `support_email` field for async escalation
+ *   - Renamed pro_review → pro_audit (DNV Pro Audit)
+ *   - Renamed premium → premium_concierge (Premium Concierge)
+ *   - Updated descriptions to reflect Oscar-only async review (no external asesor)
  */
 export function getProductDetails(productKey) {
   const products = {
     pro_review: {
-      name: 'DNV Pro Review',
+      name: 'DNV Pro Audit',
       price: '€499 one-time',
       url: 'https://spanishtaxai.com/#pricing',
-      calendly: 'https://calendly.com/spanishtaxai',
-      description: 'Full application review by Oscar (Spanish auditor) before submission, including a 45-min consultation call.',
+      support_email: 'support@spanishtaxai.com',
+      description: 'Complete asynchronous review of your DNV application package — full audit delivered by email within 48h. No phone calls.',
     },
     premium: {
-      name: 'Premium + Asesor',
-      price: '€99/month (founding €49.50/month, lifetime)',
+      name: 'Premium Concierge',
+      price: '€99/month (founding €49.50/month)',
       url: 'https://spanishtaxai.com/#pricing',
-      calendly: 'https://calendly.com/spanishtaxai',
-      description: 'Monthly check-in with a licensed asesor fiscal, ongoing tax compliance, Modelo 720/721 review.',
+      support_email: 'support@spanishtaxai.com',
+      description: 'Ongoing async tax compliance — quarterly Modelo 130/303 review, Modelo 720/721 monitoring, priority email support within 24h.',
     },
   };
   return products[productKey] || products.pro_review;
 }
+

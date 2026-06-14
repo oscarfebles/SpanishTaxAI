@@ -2,14 +2,18 @@
  * SpanishTax AI Worker — entry point.
  *
  * Routes:
- *   POST /chat   → main chatbot endpoint (streaming response)
- *   GET  /health → simple liveness check
- *   *            → 404
+ *   POST /chat            → main chatbot endpoint (streaming response)
+ *   POST /stripe-webhook  → Stripe webhook handler (checkout + subscription events)
+ *   GET  /health          → simple liveness check
+ *   *                     → 404
  *
  * CORS is applied to all responses based on the ALLOWED_ORIGINS env var.
+ * Stripe webhooks don't need CORS (server-to-server) but it doesn't hurt.
  */
 
 import { handleChat } from './chat.js';
+import { handleStripeWebhook } from './stripe-webhook.js';
+import { handleIntakeForm } from './intake-form.js';
 
 export default {
   async fetch(request, env, ctx) {
@@ -26,6 +30,10 @@ export default {
     try {
       if (url.pathname === '/chat' && request.method === 'POST') {
         response = await handleChat(request, env, ctx);
+      } else if (url.pathname === '/stripe-webhook' && request.method === 'POST') {
+        response = await handleStripeWebhook(request, env);
+      } else if (url.pathname === '/intake-form' && request.method === 'POST') {
+        response = await handleIntakeForm(request, env);
       } else if (url.pathname === '/health' && request.method === 'GET') {
         response = new Response(JSON.stringify({ ok: true, ts: Date.now() }), {
           headers: { 'content-type': 'application/json' },

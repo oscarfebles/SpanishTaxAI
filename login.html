@@ -11,7 +11,7 @@
   <style>
     :root {
       --ink: #0F2547; --accent: #C8553D; --muted: #5D5D5D;
-      --line: #E8E4DC; --bg: #FAF8F4;
+      --line: #E8E4DC; --bg: #FAF8F4; --bg-alt: #F4F0E8;
       --serif: 'Fraunces', Georgia, serif;
       --sans: 'Inter', -apple-system, sans-serif;
     }
@@ -31,7 +31,7 @@
       border-radius: 14px;
       padding: 40px 36px;
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
       box-shadow: 0 8px 28px rgba(15,37,71,0.08);
     }
     .brand {
@@ -41,6 +41,8 @@
       color: var(--ink);
       text-align: center;
       margin-bottom: 28px;
+      display: block;
+      text-decoration: none;
     }
     .brand::before {
       content: '';
@@ -51,19 +53,35 @@
       margin-right: 8px;
       vertical-align: middle;
     }
-    h1 {
-      font-family: var(--serif);
-      font-size: 24px;
-      color: var(--ink);
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-    p {
-      font-size: 14px;
-      color: var(--muted);
+    .tabs {
+      display: flex;
+      background: var(--bg-alt);
+      border-radius: 10px;
+      padding: 4px;
       margin-bottom: 24px;
-      line-height: 1.55;
+      gap: 4px;
     }
+    .tab {
+      flex: 1;
+      padding: 9px;
+      border: none;
+      background: none;
+      border-radius: 8px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 180ms;
+    }
+    .tab.active {
+      background: white;
+      color: var(--ink);
+      box-shadow: 0 1px 4px rgba(15,37,71,0.1);
+    }
+    .form-view { display: none; }
+    .form-view.active { display: block; }
+    .form-group { margin-bottom: 16px; }
     label {
       display: block;
       font-size: 13px;
@@ -71,24 +89,59 @@
       color: var(--ink);
       margin-bottom: 6px;
     }
-    input[type="email"] {
+    input {
       width: 100%;
-      padding: 12px 14px;
+      padding: 11px 14px;
       border: 1px solid var(--line);
       border-radius: 8px;
       font-family: var(--sans);
       font-size: 14px;
       color: var(--ink);
       background: var(--bg);
-      margin-bottom: 16px;
       transition: border-color 180ms, box-shadow 180ms;
     }
-    input[type="email"]:focus {
+    input:focus {
       outline: none;
       border-color: var(--accent);
       box-shadow: 0 0 0 3px rgba(200,85,61,0.12);
     }
-    button {
+    .input-hint {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+    .password-requirements {
+      background: var(--bg-alt);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-top: 6px;
+    }
+    .password-requirements p {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+    .req-item {
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 2px;
+      transition: color 180ms;
+    }
+    .req-item.met { color: #2E7D32; }
+    .req-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--line);
+      flex-shrink: 0;
+      transition: background 180ms;
+    }
+    .req-item.met .req-dot { background: #2E7D32; }
+    .btn-submit {
       width: 100%;
       padding: 13px;
       background: var(--accent);
@@ -100,25 +153,41 @@
       font-weight: 600;
       cursor: pointer;
       transition: background 180ms;
+      margin-top: 4px;
     }
-    button:hover { background: #A8412F; }
-    button:disabled { background: #ccc; cursor: not-allowed; }
-    .success {
-      display: none;
-      text-align: center;
-      padding: 16px;
-      background: #E8F5E9;
-      border-radius: 8px;
-      color: #1B5E20;
-      font-size: 14px;
-      line-height: 1.5;
+    .btn-submit:hover { background: #A8412F; }
+    .btn-submit:disabled { background: #ccc; cursor: not-allowed; }
+    .forgot-link {
+      display: block;
+      text-align: right;
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      margin-top: -10px;
+      margin-bottom: 16px;
     }
+    .forgot-link:hover { color: var(--accent); }
     .error-msg {
       display: none;
-      font-size: 13px;
+      background: #FBF1F0;
+      border: 1px solid #F0DAD5;
       color: var(--accent);
-      margin-top: 12px;
-      text-align: center;
+      font-size: 13px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-bottom: 14px;
+      line-height: 1.45;
+    }
+    .success-msg {
+      display: none;
+      background: #E8F5E9;
+      border: 1px solid #A5D6A7;
+      color: #1B5E20;
+      font-size: 13px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-bottom: 14px;
+      line-height: 1.45;
     }
     .back {
       display: block;
@@ -129,25 +198,105 @@
       text-decoration: none;
     }
     .back:hover { color: var(--accent); }
+    .btn-secondary {
+      width: 100%;
+      padding: 13px;
+      background: var(--bg-alt);
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 180ms;
+      margin-top: 8px;
+    }
+    .btn-secondary:hover { border-color: var(--ink); }
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 16px 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
   </style>
 </head>
 <body>
 <div class="card">
-  <div class="brand">SpanishTax AI</div>
+  <a href="/" class="brand">SpanishTax AI</a>
 
-  <div id="form-view">
-    <h1>Sign in</h1>
-    <p>Enter your email and we'll send you a magic link. No password needed.</p>
-    <label for="email">Email address</label>
-    <input type="email" id="email" placeholder="you@example.com" autocomplete="email">
-    <button id="submit-btn" onclick="sendMagicLink()">Send magic link →</button>
-    <div class="error-msg" id="error-msg"></div>
+  <div class="tabs">
+    <button class="tab active" id="tab-signin" onclick="showTab('signin')">Sign in</button>
+    <button class="tab" id="tab-signup" onclick="showTab('signup')">Create account</button>
   </div>
 
-  <div class="success" id="success-view">
-    <strong>Check your email ✓</strong><br>
-    We sent a sign-in link to <span id="sent-to"></span>.<br>
-    Click it to access your dashboard. You can close this tab.
+  <!-- Sign In -->
+  <div class="form-view active" id="view-signin">
+    <div class="error-msg" id="signin-error"></div>
+    <div class="success-msg" id="signin-success"></div>
+    <div class="form-group">
+      <label for="signin-email">Email</label>
+      <input type="email" id="signin-email" placeholder="you@example.com" autocomplete="email">
+    </div>
+    <div class="form-group">
+      <label for="signin-password">Password</label>
+      <input type="password" id="signin-password" placeholder="Your password" autocomplete="current-password">
+    </div>
+    <a href="#" class="forgot-link" onclick="showTab('forgot'); return false;">Forgot password?</a>
+    <button class="btn-submit" id="signin-btn" onclick="handleSignIn()">Sign in →</button>
+  </div>
+
+  <!-- Sign Up -->
+  <div class="form-view" id="view-signup">
+    <div class="error-msg" id="signup-error"></div>
+    <div class="success-msg" id="signup-success"></div>
+    <div class="form-group">
+      <label for="signup-name">Display name</label>
+      <input type="text" id="signup-name" placeholder="How should we address you?" autocomplete="nickname" maxlength="40">
+      <div class="input-hint">Shown in your dashboard. Can be changed later.</div>
+    </div>
+    <div class="form-group">
+      <label for="signup-email">Email</label>
+      <input type="email" id="signup-email" placeholder="you@example.com" autocomplete="email">
+    </div>
+    <div class="form-group">
+      <label for="signup-password">Password</label>
+      <input type="password" id="signup-password" placeholder="Create a strong password" autocomplete="new-password" oninput="checkPasswordRequirements(this.value)">
+      <div class="password-requirements">
+        <p>Password must include:</p>
+        <div class="req-item" id="req-length"><span class="req-dot"></span>7 to 20 characters</div>
+        <div class="req-item" id="req-upper"><span class="req-dot"></span>At least one uppercase letter (A–Z)</div>
+        <div class="req-item" id="req-number"><span class="req-dot"></span>At least one number (0–9)</div>
+        <div class="req-item" id="req-special"><span class="req-dot"></span>At least one special character (!@#$%^&*)</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="signup-confirm">Confirm password</label>
+      <input type="password" id="signup-confirm" placeholder="Repeat your password" autocomplete="new-password">
+    </div>
+    <button class="btn-submit" id="signup-btn" onclick="handleSignUp()">Create account →</button>
+  </div>
+
+  <!-- Forgot Password -->
+  <div class="form-view" id="view-forgot">
+    <div class="error-msg" id="forgot-error"></div>
+    <div class="success-msg" id="forgot-success"></div>
+    <p style="font-size:14px; color:var(--muted); margin-bottom:20px; line-height:1.5;">Enter your email and we'll send you a link to reset your password.</p>
+    <div class="form-group">
+      <label for="forgot-email">Email</label>
+      <input type="email" id="forgot-email" placeholder="you@example.com" autocomplete="email">
+    </div>
+    <button class="btn-submit" id="forgot-btn" onclick="handleForgotPassword()">Send reset link →</button>
+    <div class="divider">or</div>
+    <button class="btn-secondary" onclick="showTab('signin')">Back to sign in</button>
   </div>
 
   <a href="/" class="back">← Back to home</a>
@@ -155,58 +304,122 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
-  const SUPABASE_URL = 'https://jxoepqwbalhdwwbycksa.supabase.co';
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4b2VwcXdiYWxoZHd3Ynlja3NhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA4NjQ1NDAsImV4cCI6MjA5NjQ0MDU0MH0.MRO1t5kZIfIw8HORTjEYvU_TUeri7ovXKSHKHRxnJJQ';
+  const SUPABASE_URL  = 'https://jxoepqwbalhdwwbycksa.supabase.co';
+  const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4b2VwcXdiYWxoZHd3Ynlja3NhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA4NjQ1NDAsImV4cCI6MjA5NjQ0MDU0MH0.MRO1t5kZIfIw8HORTjEYvU_TUeri7ovXKSHKHRxnJJQ';
+  const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
-  const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-  // If already logged in, redirect to dashboard
   sbClient.auth.getSession().then(({ data: { session } }) => {
     if (session) window.location.href = '/app.html';
   });
 
-  window.sendMagicLink = async function() {
-    const email = document.getElementById('email').value.trim();
-    const btn = document.getElementById('submit-btn');
-    const errorEl = document.getElementById('error-msg');
-
-    if (!email || !email.includes('@')) {
-      errorEl.textContent = 'Please enter a valid email address.';
-      errorEl.style.display = 'block';
-      return;
-    }
-
-    btn.disabled = true;
-    btn.textContent = 'Sending...';
-    errorEl.style.display = 'none';
-
-    const { error } = await sbClient.auth.signInWithOtp({
-      email,
-      options: {
-        emailRedirectTo: 'https://spanishtaxai.com/app.html',
-      },
+  function showTab(tab) {
+    ['signin','signup','forgot'].forEach(t => {
+      document.getElementById('view-' + t).classList.toggle('active', t === tab);
     });
-
-    if (error) {
-      btn.disabled = false;
-      btn.textContent = 'Send magic link →';
-      errorEl.textContent = error.message || 'Something went wrong. Try again.';
-      errorEl.style.display = 'block';
-      return;
-    }
-
-    // Show success
-    document.getElementById('form-view').style.display = 'none';
-    document.getElementById('sent-to').textContent = email;
-    document.getElementById('success-view').style.display = 'block';
+    document.getElementById('tab-signin').classList.toggle('active', tab === 'signin');
+    document.getElementById('tab-signup').classList.toggle('active', tab === 'signup');
+    clearMessages();
   }
 
-  // Allow Enter key
-  document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('email').addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') window.sendMagicLink();
+  function clearMessages() {
+    document.querySelectorAll('.error-msg, .success-msg').forEach(el => {
+      el.style.display = 'none'; el.textContent = '';
     });
+  }
+
+  function showError(id, msg) {
+    const el = document.getElementById(id);
+    el.textContent = msg; el.style.display = 'block';
+  }
+
+  function showSuccess(id, msg) {
+    const el = document.getElementById(id);
+    el.textContent = msg; el.style.display = 'block';
+  }
+
+  function checkPasswordRequirements(val) {
+    const reqs = {
+      'req-length':  val.length >= 7 && val.length <= 20,
+      'req-upper':   /[A-Z]/.test(val),
+      'req-number':  /[0-9]/.test(val),
+      'req-special': /[!@#$%^&*()\-_=+\[\]{};':"\\|,.<>\/?]/.test(val),
+    };
+    Object.entries(reqs).forEach(([id, met]) => {
+      document.getElementById(id).classList.toggle('met', met);
+    });
+    return Object.values(reqs).every(Boolean);
+  }
+
+  function validatePassword(val) {
+    return val.length >= 7 && val.length <= 20 &&
+      /[A-Z]/.test(val) && /[0-9]/.test(val) &&
+      /[!@#$%^&*()\-_=+\[\]{};':"\\|,.<>\/?]/.test(val);
+  }
+
+  window.handleSignIn = async function() {
+    const email    = document.getElementById('signin-email').value.trim();
+    const password = document.getElementById('signin-password').value;
+    const btn      = document.getElementById('signin-btn');
+    clearMessages();
+    if (!email)    return showError('signin-error', 'Please enter your email.');
+    if (!password) return showError('signin-error', 'Please enter your password.');
+    btn.disabled = true; btn.textContent = 'Signing in...';
+    const { error } = await sbClient.auth.signInWithPassword({ email, password });
+    if (error) {
+      btn.disabled = false; btn.textContent = 'Sign in →';
+      return showError('signin-error', error.message.includes('Invalid') ? 'Incorrect email or password.' : error.message);
+    }
+    window.location.href = '/app.html';
+  };
+
+  window.handleSignUp = async function() {
+    const name     = document.getElementById('signup-name').value.trim();
+    const email    = document.getElementById('signup-email').value.trim();
+    const password = document.getElementById('signup-password').value;
+    const confirm  = document.getElementById('signup-confirm').value;
+    const btn      = document.getElementById('signup-btn');
+    clearMessages();
+    if (!name)  return showError('signup-error', 'Please enter a display name.');
+    if (!email) return showError('signup-error', 'Please enter your email.');
+    if (!validatePassword(password)) return showError('signup-error', 'Password does not meet the requirements shown below.');
+    if (password !== confirm) return showError('signup-error', 'Passwords do not match.');
+    btn.disabled = true; btn.textContent = 'Creating account...';
+    const { error } = await sbClient.auth.signUp({
+      email, password,
+      options: { data: { display_name: name } },
+    });
+    if (error) {
+      btn.disabled = false; btn.textContent = 'Create account →';
+      return showError('signup-error', error.message.includes('already') ? 'This email is already registered. Sign in instead.' : error.message);
+    }
+    const { error: e2 } = await sbClient.auth.signInWithPassword({ email, password });
+    if (e2) { btn.disabled = false; btn.textContent = 'Create account →'; return showSuccess('signup-success', 'Account created! Please sign in.'); }
+    window.location.href = '/app.html';
+  };
+
+  window.handleForgotPassword = async function() {
+    const email = document.getElementById('forgot-email').value.trim();
+    const btn   = document.getElementById('forgot-btn');
+    clearMessages();
+    if (!email) return showError('forgot-error', 'Please enter your email.');
+    btn.disabled = true; btn.textContent = 'Sending...';
+    const { error } = await sbClient.auth.resetPasswordForEmail(email, {
+      redirectTo: 'https://spanishtaxai.com/login.html',
+    });
+    btn.disabled = false; btn.textContent = 'Send reset link →';
+    if (error) return showError('forgot-error', error.message);
+    showSuccess('forgot-success', 'Reset link sent. Check your email.');
+  };
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+    const active = document.querySelector('.form-view.active');
+    if (!active) return;
+    if (active.id === 'view-signin') handleSignIn();
+    else if (active.id === 'view-signup') handleSignUp();
+    else if (active.id === 'view-forgot') handleForgotPassword();
   });
 </script>
 </body>
 </html>
+

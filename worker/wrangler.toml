@@ -17,7 +17,7 @@ RATE_LIMIT_PER_MIN = "10"
 
 # Gating model v1.1: 3 anonymous → email gate at turn 3 → 3 more with email → paywall at turn 7
 ANONYMOUS_TURN_LIMIT = "3"
-WITH_EMAIL_TURN_LIMIT = "6"
+WITH_EMAIL_TURN_LIMIT = "8"
 EMAIL_CAPTURE_TURN = "3"
 
 # ─── Secrets (NOT defined here) ───────────────────────────────────────────
