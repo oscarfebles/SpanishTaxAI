@@ -227,17 +227,20 @@
       <div style="background:white; border:1px solid #E8E4DC; border-radius:12px; padding:28px 32px;">
         <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
           <span style="font-size:20px;">👋</span>
-          <h2 style="font-family:'Fraunces',Georgia,serif; font-size:20px; color:#0F2547; font-weight:600;">Tell Oscar about your situation</h2>
+          <h2 style="font-family:'Fraunces',Georgia,serif; font-size:20px; color:#0F2547; font-weight:600;">Tell us about your situation</h2>
         </div>
-        <p style="font-size:14px; color:#5D5D5D; margin-bottom:20px; line-height:1.55;">Takes 2 minutes. Helps Oscar personalise your dashboard, deadline reminders, and support emails to your specific situation.</p>
+        <p style="font-size:14px; color:#5D5D5D; margin-bottom:20px; line-height:1.55;">Takes 2 minutes. Helps us personalise your dashboard, deadline reminders, and support emails to your specific situation.</p>
         <iframe
           id="intake-iframe"
+          data-tally-src="https://tally.so/embed/RGrJQv?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+          loading="lazy"
           width="100%"
           height="500"
           frameborder="0"
           marginheight="0"
           marginwidth="0"
-          style="border:none; border-radius:8px; display:none;">
+          style="border:none; border-radius:8px;"
+          title="SpanishTax AI onboarding">
         </iframe>
       </div>
     </div>
@@ -400,17 +403,9 @@
     window.location.href = '/login.html';
   };
 
-  // ─── Intake form helper (MODIFIED: loads iframe dynamically) ───
+  // ─── Intake form helper ────────────────────────────────────────
   function showIntakeForm() {
     document.getElementById('intake-section').style.display = 'block';
-    
-    // Load iframe dynamically ONLY when needed
-    var iframe = document.getElementById('intake-iframe');
-    if (iframe && !iframe.src) {
-      iframe.src = 'https://tally.so/embed/RGrJQv?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1';
-      iframe.style.display = 'block';
-    }
-    
     if (!document.getElementById('tally-js')) {
       var s = document.createElement('script');
       s.id = 'tally-js';
@@ -424,3 +419,4 @@
 </script>
 </body>
 </html>
+
