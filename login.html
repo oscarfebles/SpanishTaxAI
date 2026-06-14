@@ -228,6 +228,7 @@
       background: var(--line);
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
 <body>
 <div class="card">
@@ -302,14 +303,16 @@
   <a href="/" class="back">← Back to home</a>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
-  const SUPABASE_URL  = 'https://jxoepqwbalhdwwbycksa.supabase.co';
-  const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4b2VwcXdiYWxoZHd3Ynlja3NhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA4NjQ1NDAsImV4cCI6MjA5NjQ0MDU0MH0.MRO1t5kZIfIw8HORTjEYvU_TUeri7ovXKSHKHRxnJJQ';
-  const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+  // Guard
+  if (typeof window.supabase === 'undefined') { throw new Error('Supabase not loaded'); }
 
-  sbClient.auth.getSession().then(({ data: { session } }) => {
-    if (session) window.location.href = '/app.html';
+  var SUPABASE_URL  = 'https://jxoepqwbalhdwwbycksa.supabase.co';
+  var SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4b2VwcXdiYWxoZHd3Ynlja3NhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA4NjQ1NDAsImV4cCI6MjA5NjQ0MDU0MH0.MRO1t5kZIfIw8HORTjEYvU_TUeri7ovXKSHKHRxnJJQ';
+  var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+  sb.auth.getSession().then(function(r) {
+    if (r.data.session) window.location.href = '/app.html';
   });
 
   function showTab(tab) {
@@ -364,7 +367,7 @@
     if (!email)    return showError('signin-error', 'Please enter your email.');
     if (!password) return showError('signin-error', 'Please enter your password.');
     btn.disabled = true; btn.textContent = 'Signing in...';
-    const { error } = await sbClient.auth.signInWithPassword({ email, password });
+    const { error } = await sb.auth.signInWithPassword({ email, password });
     if (error) {
       btn.disabled = false; btn.textContent = 'Sign in →';
       return showError('signin-error', error.message.includes('Invalid') ? 'Incorrect email or password.' : error.message);
@@ -384,7 +387,7 @@
     if (!validatePassword(password)) return showError('signup-error', 'Password does not meet the requirements shown below.');
     if (password !== confirm) return showError('signup-error', 'Passwords do not match.');
     btn.disabled = true; btn.textContent = 'Creating account...';
-    const { error } = await sbClient.auth.signUp({
+    const { error } = await sb.auth.signUp({
       email, password,
       options: { data: { display_name: name } },
     });
@@ -392,7 +395,7 @@
       btn.disabled = false; btn.textContent = 'Create account →';
       return showError('signup-error', error.message.includes('already') ? 'This email is already registered. Sign in instead.' : error.message);
     }
-    const { error: e2 } = await sbClient.auth.signInWithPassword({ email, password });
+    const { error: e2 } = await sb.auth.signInWithPassword({ email, password });
     if (e2) { btn.disabled = false; btn.textContent = 'Create account →'; return showSuccess('signup-success', 'Account created! Please sign in.'); }
     window.location.href = '/app.html';
   };
@@ -403,7 +406,7 @@
     clearMessages();
     if (!email) return showError('forgot-error', 'Please enter your email.');
     btn.disabled = true; btn.textContent = 'Sending...';
-    const { error } = await sbClient.auth.resetPasswordForEmail(email, {
+    const { error } = await sb.auth.resetPasswordForEmail(email, {
       redirectTo: 'https://spanishtaxai.com/login.html',
     });
     btn.disabled = false; btn.textContent = 'Send reset link →';
