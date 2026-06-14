@@ -195,6 +195,7 @@
       .user-email { display: none; }
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
 <body>
 
@@ -302,16 +303,7 @@
   </main>
 </div>
 
-<script>
-  // Load Supabase CDN then init auth
-  (function() {
-    const s = document.createElement('script');
-    s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
-    s.onload = function() { initAuth(); };
-    s.onerror = function() { window.location.href = '/login.html'; };
-    document.head.appendChild(s);
-  })();
-</script>
+<!-- app v2 -->
 <script>
   const SUPABASE_URL = 'https://jxoepqwbalhdwwbycksa.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4b2VwcXdiYWxoZHd3Ynlja3NhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA4NjQ1NDAsImV4cCI6MjA5NjQ0MDU0MH0.MRO1t5kZIfIw8HORTjEYvU_TUeri7ovXKSHKHRxnJJQ';
@@ -427,7 +419,7 @@
   }
 
   // initAuth() is called by the Supabase CDN script onload above
-</script>
+  initAuth();</script>
 </body>
 </html>
 
