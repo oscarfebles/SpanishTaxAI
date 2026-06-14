@@ -1144,32 +1144,36 @@ function formatMarkdown(text) {
 }
 
 // ─── Auth init ─────────────────────────────────────────────────────────────
-sbClient.auth.onAuthStateChange(async (event, session) => {
-  if (session) {
-    currentUser = session.user;
-    document.getElementById('sidebar-email').textContent = session.user.email;
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('app').style.display = 'flex';
-    loadConversations();
-    renderConversationList();
-    // Apply saved theme
-    const savedTheme = localStorage.getItem('stx_theme') || 'auto';
-    applyTheme(savedTheme);
-    document.querySelectorAll('.theme-btn').forEach(b => {
-      b.classList.toggle('active', b.dataset.t === savedTheme);
-    });
-    // Auto-watch system theme changes
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-      if ((localStorage.getItem('stx_theme') || 'auto') === 'auto') applyTheme('auto');
-    });
-  } else {
-    window.location.href = '/login.html';
-  }
-});
+async function initChatAuth() {
+  const { data: { session } } = await sbClient.auth.getSession();
 
-sbClient.auth.getSession().then(({ data: { session } }) => {
-  if (!session) window.location.href = '/login.html';
-});
+  if (!session) {
+    window.location.href = '/login.html';
+    return;
+  }
+
+  currentUser = session.user;
+  document.getElementById('sidebar-email').textContent = session.user.email;
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('app').style.display = 'flex';
+  loadConversations();
+  renderConversationList();
+
+  const savedTheme = localStorage.getItem('stx_theme') || 'auto';
+  applyTheme(savedTheme);
+  document.querySelectorAll('.theme-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.t === savedTheme);
+  });
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    if ((localStorage.getItem('stx_theme') || 'auto') === 'auto') applyTheme('auto');
+  });
+
+  sbClient.auth.onAuthStateChange((event) => {
+    if (event === 'SIGNED_OUT') window.location.href = '/login.html';
+  });
+}
+
+initChatAuth();
 </script>
 </body>
 </html>
