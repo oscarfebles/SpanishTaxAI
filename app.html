@@ -9,202 +9,48 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --ink: #0F2547; --ink-soft: #1E3358; --muted: #5D5D5D;
-      --accent: #C8553D; --accent-soft: #FBF1F0;
-      --line: #E8E4DC; --bg: #FAF8F4; --bg-alt: #F4F0E8;
-      --serif: 'Fraunces', Georgia, serif;
-      --sans: 'Inter', -apple-system, sans-serif;
-    }
+    :root { --ink: #0F2547; --ink-soft: #1E3358; --muted: #5D5D5D; --accent: #C8553D; --accent-soft: #FBF1F0; --line: #E8E4DC; --bg: #FAF8F4; --bg-alt: #F4F0E8; --serif: 'Fraunces', Georgia, serif; --sans: 'Inter', -apple-system, sans-serif; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: var(--sans); background: var(--bg); color: var(--ink-soft); min-height: 100vh; }
-
-    /* Loading screen */
-    #loading {
-      position: fixed; inset: 0; background: var(--bg);
-      display: flex; align-items: center; justify-content: center;
-      z-index: 100;
-    }
-    .spinner {
-      width: 32px; height: 32px;
-      border: 3px solid var(--line);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
+    #loading { position: fixed; inset: 0; background: var(--bg); display: flex; align-items: center; justify-content: center; z-index: 100; }
+    .spinner { width: 32px; height: 32px; border: 3px solid var(--line); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* Layout */
     #app { display: none; }
-    .header {
-      background: white;
-      border-bottom: 1px solid var(--line);
-      padding: 0 32px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .brand {
-      font-family: var(--serif);
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--ink);
-      text-decoration: none;
-    }
-    .brand::before {
-      content: '';
-      display: inline-block;
-      width: 7px; height: 7px;
-      background: var(--accent);
-      border-radius: 50%;
-      margin-right: 8px;
-      vertical-align: middle;
-    }
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .user-email {
-      font-size: 13px;
-      color: var(--muted);
-    }
-    .btn-signout {
-      font-size: 13px;
-      color: var(--muted);
-      background: none;
-      border: 1px solid var(--line);
-      padding: 6px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-family: var(--sans);
-      transition: all 180ms;
-    }
+    .header { background: white; border-bottom: 1px solid var(--line); padding: 0 32px; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+    .brand { font-family: var(--serif); font-size: 18px; font-weight: 600; color: var(--ink); text-decoration: none; }
+    .brand::before { content: ''; display: inline-block; width: 7px; height: 7px; background: var(--accent); border-radius: 50%; margin-right: 8px; vertical-align: middle; }
+    .header-right { display: flex; align-items: center; gap: 16px; }
+    .user-email { font-size: 13px; color: var(--muted); }
+    .btn-signout { font-size: 13px; color: var(--muted); background: none; border: 1px solid var(--line); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-family: var(--sans); transition: all 180ms; }
     .btn-signout:hover { border-color: var(--accent); color: var(--accent); }
-
-    /* Main content */
-    .main {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 40px 24px;
-    }
-
-    /* Welcome hero */
-    .welcome {
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 32px;
-      margin-bottom: 28px;
-    }
-    .welcome h1 {
-      font-family: var(--serif);
-      font-size: 28px;
-      color: var(--ink);
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
+    .main { max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+    .welcome { background: white; border: 1px solid var(--line); border-radius: 12px; padding: 32px; margin-bottom: 28px; }
+    .welcome h1 { font-family: var(--serif); font-size: 28px; color: var(--ink); font-weight: 600; margin-bottom: 8px; }
     .welcome p { font-size: 15px; color: var(--muted); line-height: 1.55; }
-    .tier-badge {
-      display: inline-block;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-size: 12px;
-      font-weight: 600;
-      padding: 3px 10px;
-      border-radius: 100px;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    /* Cards grid */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 16px;
-      margin-bottom: 28px;
-    }
-    .card {
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 24px;
-      transition: all 200ms;
-    }
+    .tier-badge { display: inline-block; background: var(--accent-soft); color: var(--accent); font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 100px; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 28px; }
+    .card { background: white; border: 1px solid var(--line); border-radius: 10px; padding: 24px; transition: all 200ms; }
     .card:hover { border-color: var(--accent); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(200,85,61,0.08); }
     .card a { text-decoration: none; color: inherit; display: block; }
     .card-icon { font-size: 24px; margin-bottom: 12px; }
-    .card h3 {
-      font-family: var(--serif);
-      font-size: 16px;
-      color: var(--ink);
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
+    .card h3 { font-family: var(--serif); font-size: 16px; color: var(--ink); font-weight: 600; margin-bottom: 6px; }
     .card p { font-size: 13px; color: var(--muted); line-height: 1.5; }
-    .card-coming {
-      opacity: 0.5;
-      pointer-events: none;
-    }
-    .coming-soon {
-      font-size: 10px;
-      background: var(--bg-alt);
-      color: var(--muted);
-      padding: 2px 8px;
-      border-radius: 10px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      display: inline-block;
-      margin-top: 8px;
-    }
-
-    /* Support section */
-    .support {
-      background: var(--ink);
-      border-radius: 12px;
-      padding: 28px 32px;
-      color: white;
-    }
-    .support h2 {
-      font-family: var(--serif);
-      font-size: 20px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
+    .card-coming { opacity: 0.5; pointer-events: none; }
+    .coming-soon { font-size: 10px; background: var(--bg-alt); color: var(--muted); padding: 2px 8px; border-radius: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; display: inline-block; margin-top: 8px; }
+    .support { background: var(--ink); border-radius: 12px; padding: 28px 32px; color: white; }
+    .support h2 { font-family: var(--serif); font-size: 20px; font-weight: 600; margin-bottom: 8px; }
     .support p { font-size: 14px; color: rgba(255,255,255,0.75); margin-bottom: 16px; line-height: 1.5; }
-    .support a {
-      display: inline-block;
-      background: var(--accent);
-      color: white;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      text-decoration: none;
-      transition: background 180ms;
-    }
+    .support a { display: inline-block; background: var(--accent); color: white; padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 500; text-decoration: none; transition: background 180ms; }
     .support a:hover { background: #A8412F; }
-
-    @media (max-width: 600px) {
-      .header { padding: 0 16px; }
-      .main { padding: 24px 16px; }
-      .welcome { padding: 24px 20px; }
-      .user-email { display: none; }
-    }
+    @media (max-width: 600px) { .header { padding: 0 16px; } .main { padding: 24px 16px; } .welcome { padding: 24px 20px; } .user-email { display: none; } }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="/deadlines.js"></script>
 </head>
 <body>
 
-<!-- Loading screen -->
-<div id="loading">
-  <div class="spinner"></div>
-</div>
+<div id="loading"><div class="spinner"></div></div>
 
-<!-- App (hidden until auth confirmed) -->
 <div id="app">
   <header class="header">
     <a href="/" class="brand">SpanishTax AI</a>
@@ -215,14 +61,12 @@
   </header>
 
   <main class="main">
-
     <div class="welcome">
       <div class="tier-badge" id="tier-badge">Loading...</div>
       <h1 id="welcome-heading">Welcome back</h1>
       <p id="welcome-sub">Your SpanishTax AI dashboard. Everything you need for your Spanish DNV and autónomo setup in one place.</p>
     </div>
 
-    <!-- Intake form — shown only if onboarding not completed -->
     <div id="intake-section" style="display:none; margin-bottom:28px;">
       <div style="background:white; border:1px solid #E8E4DC; border-radius:12px; padding:28px 32px;">
         <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
@@ -230,68 +74,27 @@
           <h2 style="font-family:'Fraunces',Georgia,serif; font-size:20px; color:#0F2547; font-weight:600;">Tell us about your situation</h2>
         </div>
         <p style="font-size:14px; color:#5D5D5D; margin-bottom:20px; line-height:1.55;">Takes 2 minutes. Helps us personalise your dashboard, deadline reminders, and support emails to your specific situation.</p>
-        <iframe
-          id="intake-iframe"
-          data-tally-src="https://tally.so/embed/RGrJQv?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
-          loading="lazy"
-          width="100%"
-          height="500"
-          frameborder="0"
-          marginheight="0"
-          marginwidth="0"
-          style="border:none; border-radius:8px;"
-          title="SpanishTax AI onboarding">
-        </iframe>
+        <iframe id="intake-iframe" data-tally-src="https://tally.so/embed/RGrJQv?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0" style="border:none; border-radius:8px;" title="SpanishTax AI onboarding"></iframe>
       </div>
     </div>
 
+    <div style="background:white; border:1px solid #E8E4DC; border-radius:12px; padding:24px 28px; margin-bottom:28px;">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid #E8E4DC;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="font-size:20px;">📅</span>
+          <h2 style="font-family:'Fraunces',Georgia,serif; font-size:20px; color:#0F2547; font-weight:600; margin:0;">Your deadlines</h2>
+        </div>
+        <span style="font-size:13px; color:#5D5D5D;" id="deadline-count"></span>
+      </div>
+      <div id="deadlines-container"><p style="font-size:14px; color:#5D5D5D; padding:8px;">Loading deadlines...</p></div>
+    </div>
+
     <div class="cards">
-
-      <div class="card">
-        <a href="/chat.html">
-          <div class="card-icon">💬</div>
-          <h3>Ask the AI</h3>
-          <p>Get instant answers about DNV eligibility, documentation, Beckham Law, and more.</p>
-        </a>
-      </div>
-
-      <div class="card">
-        <a href="/templates/">
-          <div class="card-icon">📄</div>
-          <h3>Templates</h3>
-          <p>CPA letters, subsanación responses, bank certification emails, and 16 more templates.</p>
-        </a>
-      </div>
-
-      <div class="card">
-        <a href="/free-guide.html">
-          <div class="card-icon">📋</div>
-          <h3>DNV Checklist 2026</h3>
-          <p>The complete 16-page guide to the application process, timeline, and common mistakes.</p>
-        </a>
-      </div>
-
-      <div class="card card-coming">
-        <div class="card-icon">📅</div>
-        <h3>Deadline Calendar</h3>
-        <p>Personalized reminders for Modelo 130, 303, 720, Beckham election, Tarifa Plana, and more.</p>
-        <span class="coming-soon">Coming soon</span>
-      </div>
-
-      <div class="card card-coming">
-        <div class="card-icon">🗂️</div>
-        <h3>Document Vault</h3>
-        <p>Securely store your apostilled documents, CPA letters, and bank statements.</p>
-        <span class="coming-soon">Coming soon</span>
-      </div>
-
-      <div class="card card-coming">
-        <div class="card-icon">🧾</div>
-        <h3>Auto-fill Modelo 130</h3>
-        <p>Generate your quarterly IRPF payment automatically from your invoices and expenses.</p>
-        <span class="coming-soon">Coming soon</span>
-      </div>
-
+      <div class="card"><a href="/chat.html"><div class="card-icon">💬</div><h3>Ask the AI</h3><p>Get instant answers about DNV eligibility, documentation, Beckham Law, and more.</p></a></div>
+      <div class="card"><a href="/templates/"><div class="card-icon">📄</div><h3>Templates</h3><p>CPA letters, subsanación responses, bank certification emails, and 16 more templates.</p></a></div>
+      <div class="card"><a href="/free-guide.html"><div class="card-icon">📋</div><h3>DNV Checklist 2026</h3><p>The complete 16-page guide to the application process, timeline, and common mistakes.</p></a></div>
+      <div class="card"><a href="/modelo130.html"><div class="card-icon">🧾</div><h3>Auto-fill Modelo 130</h3><p>Generate your quarterly IRPF payment automatically from your invoices and expenses.</p></a></div>
+      <div class="card card-coming"><div class="card-icon">🗂️</div><h3>Document Vault</h3><p>Securely store your apostilled documents, CPA letters, and bank statements.</p><span class="coming-soon">Coming soon</span></div>
     </div>
 
     <div class="support">
@@ -299,111 +102,81 @@
       <p>Reply by email within 24-48h. For Pro Audit customers, email your documentation package to start your review.</p>
       <a href="mailto:support@spanishtaxai.com">Email us →</a>
     </div>
-
   </main>
 </div>
 
 <script>
 (async function () {
-  // ─── Guard: ensure Supabase CDN loaded ─────────────────────────
   if (typeof window.supabase === 'undefined') {
-    // CDN failed — retry once after a short wait
-    await new Promise(r => setTimeout(r, 1500));
+    await new Promise(function(r) { setTimeout(r, 1500); });
     if (typeof window.supabase === 'undefined') {
-      document.getElementById('loading').innerHTML =
-        '<p style="font-family:Inter,sans-serif;color:#C8553D;">Failed to load. Please <a href="/app.html">refresh</a>.</p>';
+      document.getElementById('loading').innerHTML = '<p style="font-family:Inter,sans-serif;color:#C8553D;">Failed to load. Please <a href="/app.html">refresh</a>.</p>';
       return;
     }
   }
 
-  // ─── Create Supabase client ────────────────────────────────────
   var sb = window.supabase.createClient(
     'https://jxoepqwbalhdwwbycksa.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4b2VwcXdiYWxoZHd3Ynlja3NhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA4NjQ1NDAsImV4cCI6MjA5NjQ0MDU0MH0.MRO1t5kZIfIw8HORTjEYvU_TUeri7ovXKSHKHRxnJJQ'
   );
 
-  // ─── Check session ─────────────────────────────────────────────
   var sessionResult = await sb.auth.getSession();
   var session = sessionResult.data.session;
+  if (!session) { window.location.href = '/login.html'; return; }
 
-  if (!session) {
-    window.location.href = '/login.html';
-    return;
-  }
+  var TIER_LABELS = { dnv_pack: 'DNV Application Pack', dnv_audit: 'DNV Pro Audit', pro: 'Spanish Resident Pro', premium: 'Premium Concierge', unknown: 'SpanishTax AI' };
 
-  // ─── Tier labels ───────────────────────────────────────────────
-  var TIER_LABELS = {
-    dnv_pack:  'DNV Application Pack',
-    dnv_audit: 'DNV Pro Audit',
-    pro:       'Spanish Resident Pro',
-    premium:   'Premium Concierge',
-    unknown:   'SpanishTax AI',
-  };
-
-  // ─── Load dashboard ────────────────────────────────────────────
   var email = session.user.email;
   var displayName = email.split('@')[0];
   var tier = 'unknown';
-
   document.getElementById('user-email').textContent = email;
 
-  // Check user_metadata for display_name from signup
   if (session.user.user_metadata && session.user.user_metadata.display_name) {
     displayName = session.user.user_metadata.display_name;
   }
 
-  // Fetch customer record from Supabase
+  var customerProfile = {};
   try {
     var result = await sb.from('customers')
-      .select('tier, status, access_expires_at, full_name, onboarding_completed')
+      .select('tier, status, access_expires_at, full_name, onboarding_completed, dnv_status, autonomo_status, autonomo_alta_date, spain_arrival_date, income_type')
       .eq('email', email)
       .maybeSingle();
 
     if (result.data && !result.error) {
       tier = result.data.tier || 'unknown';
       if (result.data.full_name) displayName = result.data.full_name;
-
-      if (!result.data.onboarding_completed) {
-        showIntakeForm();
-      }
+      customerProfile = result.data;
+      if (!result.data.onboarding_completed) { showIntakeForm(); }
     } else {
-      // No customer row yet — show intake form
       showIntakeForm();
     }
   } catch (e) {
-    // DB error — continue anyway, show the dashboard without customer data
     showIntakeForm();
   }
 
-  // Update UI
+  if (window.STXDeadlines) {
+    window.STXDeadlines.render('deadlines-container', customerProfile);
+    var allDeadlines = window.STXDeadlines.generate(customerProfile);
+    var countEl = document.getElementById('deadline-count');
+    if (countEl && allDeadlines.length > 0) {
+      var urgentCount = allDeadlines.filter(function(d) { return d.urgent; }).length;
+      countEl.textContent = allDeadlines.length + ' upcoming' + (urgentCount > 0 ? ' \u00b7 ' + urgentCount + ' urgent' : '');
+    }
+  }
+
   document.getElementById('tier-badge').textContent = TIER_LABELS[tier] || 'SpanishTax AI';
   document.getElementById('welcome-heading').textContent = 'Welcome, ' + displayName;
 
-  var messages = {
-    dnv_pack:  'You have access to all templates and the AI chatbot. Use the links below to get started.',
-    dnv_audit: 'Your Pro Audit is active. Email your documentation package to support@spanishtaxai.com to start the review.',
-    pro:       'Your monthly plan is active. We\'ll send deadline reminders as they approach.',
-    premium:   'Your Premium Concierge plan is active. Priority email support + quarterly filing review included.',
-    unknown:   'Your account is active. If you have questions, email support@spanishtaxai.com.',
-  };
+  var messages = { dnv_pack: 'You have access to all templates and the AI chatbot. Use the links below to get started.', dnv_audit: 'Your Pro Audit is active. Email your documentation package to support@spanishtaxai.com to start the review.', pro: 'Your monthly plan is active. We\'ll send deadline reminders as they approach.', premium: 'Your Premium Concierge plan is active. Priority email support + quarterly filing review included.', unknown: 'Your account is active. If you have questions, email support@spanishtaxai.com.' };
   document.getElementById('welcome-sub').textContent = messages[tier] || messages['unknown'];
 
-  // Show app, hide loading
   document.getElementById('loading').style.display = 'none';
   document.getElementById('app').style.display = 'block';
 
-  // Listen for sign out
-  sb.auth.onAuthStateChange(function (event) {
-    if (event === 'SIGNED_OUT') window.location.href = '/login.html';
-  });
+  sb.auth.onAuthStateChange(function (event) { if (event === 'SIGNED_OUT') window.location.href = '/login.html'; });
 
-  // ─── Expose signOut to onclick ─────────────────────────────────
-  window.signOut = async function () {
-    await sb.auth.signOut();
-    window.location.href = '/login.html';
-  };
+  window.signOut = async function () { await sb.auth.signOut(); window.location.href = '/login.html'; };
 
-  // ─── Intake form helper ────────────────────────────────────────
   function showIntakeForm() {
     document.getElementById('intake-section').style.display = 'block';
     if (!document.getElementById('tally-js')) {
