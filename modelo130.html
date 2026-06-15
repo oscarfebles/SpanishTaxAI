@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Modelo 130 — Auto-fill · SpanishTax AI</title>
+  <meta name="description" content="Auto-fill the Modelo 130 quarterly IRPF instalment for Spanish self-employed (autónomos). Enter your numbers in English, download a ready-to-review PDF." />
+  <link rel="icon" href="/favicon.ico" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root{
+      --bg:#f6f8fb; --card:#ffffff; --ink:#121826; --muted:#5b6473;
+      --rule:#e6eaf0; --accent:#1A5AD9; --accent-ink:#0f3a8a;
+      --ok:#0a8a5a; --warn:#a85b00; --bad:#b42318;
+      --shadow:0 1px 2px rgba(15,23,42,.04),0 4px 16px rgba(15,23,42,.06);
+      --radius:14px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    .topbar{background:#fff;border-bottom:1px solid var(--rule);padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+    .brand{font-weight:700;font-size:16px;color:var(--accent)}
+    .topbar .meta{font-size:13px;color:var(--muted)}
+    .topbar .meta a{margin-left:14px}
+
+    main{max-width:980px;margin:24px auto;padding:0 16px 80px}
+    .hero{margin:8px 0 20px}
+    .hero h1{margin:0 0 6px;font-size:26px;letter-spacing:-.01em}
+    .hero p{margin:0;color:var(--muted)}
+
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:20px;align-items:start}
+    @media (max-width: 880px){ .grid{grid-template-columns:1fr} .summary{position:static !important} }
+
+    .card{background:var(--card);border:1px solid var(--rule);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .card + .card{margin-top:16px}
+    .card h2{margin:0;padding:14px 18px;font-size:14px;color:var(--accent);border-bottom:1px solid var(--rule);background:#fafbfd;border-radius:var(--radius) var(--radius) 0 0}
+    .card .body{padding:14px 18px}
+
+    .row{display:grid;grid-template-columns:32px 1fr 160px;gap:12px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--rule)}
+    .row:last-child{border-bottom:none}
+    .row .num{font:600 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);background:#f1f4f8;border-radius:6px;padding:6px 0;text-align:center}
+    .row label{display:flex;flex-direction:column;gap:2px}
+    .row label .lbl{font-weight:500}
+    .row label .hint{font-size:12px;color:var(--muted)}
+    .row .out{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
+    .row .out.computed{background:#f6f8fb;border-radius:8px;padding:8px 10px;font-weight:600;color:var(--ink)}
+    .row input[type=number], .row input[type=text]{
+      width:100%;padding:8px 10px;border:1px solid var(--rule);border-radius:8px;
+      font:inherit;text-align:right;background:#fff;font-variant-numeric:tabular-nums;
+    }
+    .row input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(26,90,217,.12)}
+
+    .declarant{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .declarant .field{display:flex;flex-direction:column;gap:4px}
+    .declarant .field label{font-size:12px;color:var(--muted)}
+    .declarant input, .declarant select{
+      padding:9px 10px;border:1px solid var(--rule);border-radius:8px;font:inherit;background:#fff;
+    }
+    .declarant input:focus, .declarant select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(26,90,217,.12)}
+
+    .summary{position:sticky;top:20px}
+    .summary .body{padding:18px}
+    .summary .stat{display:flex;justify-content:space-between;padding:6px 0;color:var(--muted);font-size:13px}
+    .summary .stat.total{margin-top:10px;padding-top:14px;border-top:1px solid var(--rule);font-size:16px;color:var(--ink);font-weight:600}
+    .summary .stat .v{font-variant-numeric:tabular-nums}
+    .pill{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:600}
+    .pill.to_pay{background:#fef0ee;color:var(--bad)}
+    .pill.negative{background:#eaf5ef;color:var(--ok)}
+    .pill.to_carry_forward{background:#fff3e0;color:var(--warn)}
+
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;border-radius:10px;border:1px solid transparent;background:var(--accent);color:#fff;font:600 14px inherit;cursor:pointer;width:100%}
+    .btn:hover{background:var(--accent-ink)}
+    .btn[disabled]{opacity:.6;cursor:not-allowed}
+    .btn.secondary{background:#fff;color:var(--ink);border-color:var(--rule)}
+    .btn.secondary:hover{background:#f6f8fb}
+
+    .notice{margin-top:14px;padding:10px 12px;border-radius:10px;background:#f4f8ff;color:var(--accent-ink);font-size:13px;border:1px solid #d8e4ff}
+    .notice.error{background:#fef0ee;color:var(--bad);border-color:#f6c9c2}
+
+    footer{max-width:980px;margin:0 auto;padding:24px 16px 40px;color:var(--muted);font-size:12px;text-align:center}
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">SpanishTax AI</div>
+  <div class="meta">
+    <span id="userEmail">…</span>
+    <a href="/app.html">← Dashboard</a>
+    <a href="#" id="signOut">Sign out</a>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <h1>Auto-fill Modelo 130</h1>
+    <p>Quarterly IRPF instalment payment for Spanish self-employed (autónomos). Enter your figures, we compute every box and generate a working-copy PDF for your records.</p>
+  </div>
+
+  <div class="grid">
+    <div>
+      <!-- Declarant -->
+      <section class="card">
+        <h2>Declarant</h2>
+        <div class="body">
+          <div class="declarant">
+            <div class="field">
+              <label for="nif">NIF</label>
+              <input id="nif" type="text" maxlength="10" placeholder="12345678Z" autocomplete="off" />
+            </div>
+            <div class="field">
+              <label for="full_name">Full name / Business name</label>
+              <input id="full_name" type="text" placeholder="Name Surname" autocomplete="off" />
+            </div>
+            <div class="field">
+              <label for="fiscal_year">Fiscal year</label>
+              <input id="fiscal_year" type="number" min="2000" max="2100" step="1" />
+            </div>
+            <div class="field">
+              <label for="quarter">Quarter</label>
+              <select id="quarter">
+                <option value="1">Q1 — Jan/Feb/Mar (file by April 20)</option>
+                <option value="2">Q2 — Apr/May/Jun (file by July 20)</option>
+                <option value="3">Q3 — Jul/Aug/Sep (file by October 20)</option>
+                <option value="4">Q4 — Oct/Nov/Dec (file by January 30)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section I -->
+      <section class="card">
+        <h2>Section I — Direct estimation (non-agricultural activities)</h2>
+        <div class="body">
+          <div class="row">
+            <span class="num">01</span>
+            <label><span class="lbl">Computable income for the period</span><span class="hint">Gross revenues invoiced this quarter (cumulative year-to-date is also accepted by AEAT).</span></label>
+            <input id="b01" type="number" step="0.01" min="0" value="0" />
+          </div>
+          <div class="row">
+            <span class="num">02</span>
+            <label><span class="lbl">Deductible expenses for the period</span><span class="hint">Business expenses, social security quotas, supplies, services.</span></label>
+            <input id="b02" type="number" step="0.01" min="0" value="0" />
+          </div>
+          <div class="row">
+            <span class="num">03</span>
+            <label><span class="lbl">Net income</span><span class="hint">Auto: Box 01 - Box 02</span></label>
+            <div class="out computed" id="b03">0,00 €</div>
+          </div>
+          <div class="row">
+            <span class="num">04</span>
+            <label><span class="lbl">20% of Box 03</span><span class="hint">Auto: 20% of net income (0 if net is negative)</span></label>
+            <div class="out computed" id="b04">0,00 €</div>
+          </div>
+          <div class="row">
+            <span class="num">05</span>
+            <label><span class="lbl">Sum of prior instalments in this fiscal year</span><span class="hint">Total of Box 07 from previous quarters of the same year.</span></label>
+            <input id="b05" type="number" step="0.01" min="0" value="0" />
+          </div>
+          <div class="row">
+            <span class="num">06</span>
+            <label><span class="lbl">Withholdings and payments on account</span><span class="hint">IRPF withheld by clients (e.g. 7% or 15%) and account payments year-to-date.</span></label>
+            <input id="b06" type="number" step="0.01" min="0" value="0" />
+          </div>
+          <div class="row">
+            <span class="num">07</span>
+            <label><span class="lbl">Result Section I</span><span class="hint">Auto: max(0, Box 04 - 05 - 06)</span></label>
+            <div class="out computed" id="b07">0,00 €</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section II -->
+      <section class="card">
+        <h2>Section II — Agricultural, livestock, fishing and forestry (optional)</h2>
+        <div class="body">
+          <div class="row">
+            <span class="num">08</span>
+            <label><span class="lbl">Quarter income volume</span><span class="hint">Excludes capital grants, indemnities and VAT.</span></label>
+            <input id="b08" type="number" step="0.01" min="0" value="0" />
+          </div>
+          <div class="row">
+            <span class="num">09</span>
+            <label><span class="lbl">2% of Box 08</span><span class="hint">Auto</span></label>
+            <div class="out computed" id="b09">0,00 €</div>
+          </div>
+          <div class="row">
+            <span class="num">10</span>
+            <label><span class="lbl">Withholdings and payments on account</span><span class="hint">For agricultural activities only.</span></label>
+            <input id="b10" type="number" step="0.01" min="0" value="0" />
+          </div>
+          <div class="row">
+            <span class="num">11</span>
+            <label><span class="lbl">Result Section II</span><span class="hint">Auto: max(0, Box 09 - Box 10)</span></label>
+            <div class="out computed" id="b11">0,00 €</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section III -->
+      <section class="card">
+        <h2>Section III — Total quarter result</h2>
+        <div class="body">
+          <div class="row">
+            <span class="num">12</span>
+            <label><span class="lbl">Sum of Section I + II</span><span class="hint">Auto: Box 07 + Box 11</span></label>
+            <div class="out computed" id="b12">0,00 €</div>
+          </div>
+          <div class="row">
+            <span class="num">13</span>
+            <label><span class="lbl">Minoration (Art. 110.3.c)</span><span class="hint">Low-income reduction. Usually 0 — only applies if expected annual net income ≤ 12,000 €.</span></label>
+            <input id="b13" type="number" step="0.01" min="0" value="0" />
+          </div>
+          <div class="row">
+            <span class="num">14</span>
+            <label><span class="lbl">Subtotal</span><span class="hint">Auto: Box 12 - Box 13</span></label>
+            <div class="out computed" id="b14">0,00 €</div>
+          </div>
+          <div class="row">
+            <span class="num">15</span>
+            <label><span class="lbl">Negative results from prior quarters (same year)</span><span class="hint">Box 18 carried over from earlier quarters.</span></label>
+            <input id="b15" type="number" step="0.01" min="0" value="0" />
+          </div>
+          <div class="row">
+            <span class="num">16</span>
+            <label><span class="lbl">Primary residence deduction</span><span class="hint">Only for mortgages on homes acquired before 2013. Quarterly cap ≈ 165 €.</span></label>
+            <input id="b16" type="number" step="0.01" min="0" value="0" />
+          </div>
+          <div class="row">
+            <span class="num">17</span>
+            <label><span class="lbl">Quarter result</span><span class="hint">Auto: Box 14 - 15 - 16</span></label>
+            <div class="out computed" id="b17">0,00 €</div>
+          </div>
+          <div class="row">
+            <span class="num">18</span>
+            <label><span class="lbl">To carry forward</span><span class="hint">Auto: |Box 17| if Box 17 is negative</span></label>
+            <div class="out computed" id="b18">0,00 €</div>
+          </div>
+          <div class="row">
+            <span class="num">19</span>
+            <label><span class="lbl">To pay to AEAT</span><span class="hint">Auto: Box 17 if positive</span></label>
+            <div class="out computed" id="b19">0,00 €</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Summary sidebar -->
+    <aside class="summary card">
+      <h2>Summary</h2>
+      <div class="body">
+        <div class="stat"><span>Net income (Box 03)</span><span class="v" id="s_net">0,00 €</span></div>
+        <div class="stat"><span>Section I result (Box 07)</span><span class="v" id="s_sec1">0,00 €</span></div>
+        <div class="stat"><span>Section II result (Box 11)</span><span class="v" id="s_sec2">0,00 €</span></div>
+        <div class="stat"><span>Status</span><span class="v" id="s_status"><span class="pill negative">Negative</span></span></div>
+        <div class="stat total"><span id="s_total_label">To pay</span><span class="v" id="s_total">0,00 €</span></div>
+
+        <div style="height:14px"></div>
+        <button class="btn" id="downloadBtn">Generate &amp; download PDF</button>
+        <div style="height:8px"></div>
+        <a class="btn secondary" href="/app.html">Back to dashboard</a>
+
+        <div class="notice" id="notice" style="display:none"></div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  Working copy for your records. Official Modelo 130 must be filed electronically at <a href="https://sede.agenciatributaria.gob.es" target="_blank" rel="noopener">sede.agenciatributaria.gob.es</a>. We are not your tax advisor — verify with a professional before filing.
+</footer>
+
+<script>
+  // ====== Configure your Supabase project here ======
+  var SUPABASE_URL = 'https://jxoepqwbalhdwwbycksa.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4b2VwcXdiYWxoZHd3Ynlja3NhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA4NjQ1NDAsImV4cCI6MjA5NjQ0MDU0MH0.MRO1t5kZIfIw8HORTjEYvU_TUeri7ovXKSHKHRxnJJQ';
+  var API_BASE = 'https://spanishtax-chatbot.oscargonzalezfebles.workers.dev';
+  // ===================================================
+
+  var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  var session = null;
+
+  function fmt(n){
+    var v = Math.abs(Number(n) || 0).toFixed(2).replace('.', ',');
+    var parts = v.split(',');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    return (n < 0 ? '-' : '') + parts.join(',') + ' €';
+  }
+  function val(id){ var el = document.getElementById(id); return parseFloat(String(el.value).replace(',', '.')) || 0; }
+  function setOut(id, n){ document.getElementById(id).textContent = fmt(n); }
+
+  function compute(){
+    var b01 = Math.max(0, val('b01'));
+    var b02 = Math.max(0, val('b02'));
+    var b03 = +(b01 - b02).toFixed(2);
+    var b04 = +(Math.max(0, b03) * 0.20).toFixed(2);
+    var b05 = Math.max(0, val('b05'));
+    var b06 = Math.max(0, val('b06'));
+    var b07 = Math.max(0, +(b04 - b05 - b06).toFixed(2));
+
+    var b08 = Math.max(0, val('b08'));
+    var b09 = +(b08 * 0.02).toFixed(2);
+    var b10 = Math.max(0, val('b10'));
+    var b11 = Math.max(0, +(b09 - b10).toFixed(2));
+
+    var b12 = +(b07 + b11).toFixed(2);
+    var b13 = Math.max(0, val('b13'));
+    var b14 = +(b12 - b13).toFixed(2);
+    var b15 = Math.max(0, val('b15'));
+    var b16 = Math.max(0, val('b16'));
+    var b17 = +(b14 - b15 - b16).toFixed(2);
+    var b18 = b17 < 0 ? +Math.abs(b17).toFixed(2) : 0;
+    var b19 = b17 > 0 ? b17 : 0;
+
+    setOut('b03', b03); setOut('b04', b04); setOut('b07', b07);
+    setOut('b09', b09); setOut('b11', b11);
+    setOut('b12', b12); setOut('b14', b14); setOut('b17', b17);
+    setOut('b18', b18); setOut('b19', b19);
+
+    setOut('s_net', b03); setOut('s_sec1', b07); setOut('s_sec2', b11);
+
+    var statusEl = document.getElementById('s_status');
+    var totalEl = document.getElementById('s_total');
+    var totalLabel = document.getElementById('s_total_label');
+    if (b19 > 0){
+      statusEl.innerHTML = '<span class="pill to_pay">To pay</span>';
+      totalLabel.textContent = 'To pay to AEAT';
+      totalEl.textContent = fmt(b19);
+    } else if (b18 > 0){
+      statusEl.innerHTML = '<span class="pill to_carry_forward">Carry forward</span>';
+      totalLabel.textContent = 'To carry forward';
+      totalEl.textContent = fmt(b18);
+    } else {
+      statusEl.innerHTML = '<span class="pill negative">Negative</span>';
+      totalLabel.textContent = 'To pay';
+      totalEl.textContent = fmt(0);
+    }
+  }
+
+  function readInputs(){
+    return {
+      nif: document.getElementById('nif').value.trim().toUpperCase(),
+      full_name: document.getElementById('full_name').value.trim(),
+      fiscal_year: parseInt(document.getElementById('fiscal_year').value, 10),
+      quarter: parseInt(document.getElementById('quarter').value, 10),
+      box_01_income: val('b01'),
+      box_02_expenses: val('b02'),
+      box_05_prior_payments: val('b05'),
+      box_06_withholdings: val('b06'),
+      box_08_agri_income: val('b08'),
+      box_10_agri_withholdings: val('b10'),
+      box_13_minoration: val('b13'),
+      box_15_prior_negatives: val('b15'),
+      box_16_housing_deduction: val('b16'),
+    };
+  }
+
+  function showNotice(msg, isError){
+    var el = document.getElementById('notice');
+    el.className = 'notice' + (isError ? ' error' : '');
+    el.textContent = msg;
+    el.style.display = 'block';
+  }
+  function hideNotice(){ document.getElementById('notice').style.display = 'none'; }
+
+  async function downloadPdf(){
+    hideNotice();
+    if (!session){ showNotice('You must be signed in.', true); return; }
+    var body = readInputs();
+    if (!body.nif || body.nif.length < 8){ showNotice('Please enter a valid NIF.', true); return; }
+    if (!body.full_name){ showNotice('Please enter your full name or business name.', true); return; }
+    if (!body.fiscal_year || body.fiscal_year < 2000){ showNotice('Please enter a valid fiscal year.', true); return; }
+
+    var btn = document.getElementById('downloadBtn');
+    btn.disabled = true;
+    var prev = btn.textContent;
+    btn.textContent = 'Generating PDF…';
+
+    try {
+      var res = await fetch(API_BASE + '/api/modelo130/pdf', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + session.access_token,
+        },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok){
+        var err = await res.json().catch(function(){ return { error: 'HTTP ' + res.status }; });
+        throw new Error(err.error || ('HTTP ' + res.status));
+      }
+      var blob = await res.blob();
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'modelo-130-' + body.fiscal_year + '-Q' + body.quarter + '-' + body.nif + '.pdf';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
+      showNotice('PDF downloaded. We saved a snapshot to your account.', false);
+    } catch (e){
+      showNotice('Could not generate the PDF: ' + e.message, true);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = prev;
+    }
+  }
+
+  async function loadLatest(){
+    if (!session) return;
+    try {
+      var res = await fetch(API_BASE + '/api/modelo130/history', {
+        headers: { 'Authorization': 'Bearer ' + session.access_token },
+      });
+      if (!res.ok) return;
+      var data = await res.json();
+      if (!data.submissions || !data.submissions.length) return;
+      var last = data.submissions[0];
+      if (last.nif) document.getElementById('nif').value = last.nif;
+      if (last.full_name) document.getElementById('full_name').value = last.full_name;
+    } catch (e) { /* silent */ }
+  }
+
+  async function init(){
+    var res = await sb.auth.getSession();
+    session = res.data.session;
+    if (!session){
+      window.location.href = '/index.html';
+      return;
+    }
+    document.getElementById('userEmail').textContent = session.user.email;
+
+    // Defaults
+    var now = new Date();
+    document.getElementById('fiscal_year').value = now.getFullYear();
+    var m = now.getMonth() + 1;
+    document.getElementById('quarter').value = String(Math.min(4, Math.ceil(m / 3)));
+
+    // Listeners
+    var ids = ['b01','b02','b05','b06','b08','b10','b13','b15','b16'];
+    for (var i = 0; i < ids.length; i++){
+      document.getElementById(ids[i]).addEventListener('input', compute);
+    }
+    document.getElementById('downloadBtn').addEventListener('click', downloadPdf);
+    document.getElementById('signOut').addEventListener('click', async function(e){
+      e.preventDefault();
+      await sb.auth.signOut();
+      window.location.href = '/index.html';
+    });
+
+    compute();
+    loadLatest();
+  }
+
+  init();
+</script>
+</body>
+</html>
+
+
