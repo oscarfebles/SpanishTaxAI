@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tax Forms — SpanishTax AI</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="/favicon.ico" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root{
+      --bg:#f6f8fb;--card:#ffffff;--ink:#121826;--muted:#5b6473;
+      --rule:#e6eaf0;--accent:#1A5AD9;--accent-ink:#0f3a8a;
+      --ok:#0a8a5a;--warn:#a85b00;
+      --shadow:0 1px 2px rgba(15,23,42,.04),0 4px 16px rgba(15,23,42,.06);
+      --radius:14px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    .topbar{background:#fff;border-bottom:1px solid var(--rule);padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+    .brand{font-weight:700;font-size:16px;color:var(--accent)}
+    .topbar .meta{font-size:13px;color:var(--muted)}
+    .topbar .meta a{margin-left:14px}
+
+    main{max-width:720px;margin:24px auto;padding:0 16px 80px}
+    .hero{margin:8px 0 28px}
+    .hero h1{margin:0 0 6px;font-size:26px;letter-spacing:-.01em}
+    .hero p{margin:0;color:var(--muted);max-width:560px;line-height:1.55}
+
+    .section-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:28px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--rule)}
+
+    .form-card{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--rule);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:12px;transition:all 200ms;text-decoration:none;color:inherit}
+    .form-card:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:0 4px 20px rgba(15,23,42,.1)}
+    .form-card.disabled{opacity:.5;pointer-events:none}
+
+    .form-icon{width:48px;height:48px;border-radius:12px;background:#f0f4ff;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+    .form-card.disabled .form-icon{background:#f4f5f7}
+
+    .form-info{flex:1}
+    .form-name{font-weight:600;font-size:15px;color:var(--ink);margin:0 0 2px}
+    .form-desc{font-size:13px;color:var(--muted);margin:0;line-height:1.45}
+
+    .form-badge{font-size:11px;font-weight:600;padding:4px 10px;border-radius:999px;white-space:nowrap;flex-shrink:0}
+    .badge-active{background:#eaf5ef;color:var(--ok)}
+    .badge-soon{background:#f4f5f7;color:var(--muted)}
+
+    .form-arrow{font-size:18px;color:var(--rule);flex-shrink:0;transition:color 200ms}
+    .form-card:hover .form-arrow{color:var(--accent)}
+
+    .back-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);margin-top:24px;padding:10px 16px;border:1px solid var(--rule);border-radius:10px;transition:all 180ms}
+    .back-link:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+
+    footer{max-width:720px;margin:0 auto;padding:24px 16px 40px;color:var(--muted);font-size:12px;text-align:center}
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">SpanishTax AI</div>
+  <div class="meta">
+    <span id="userEmail">…</span>
+    <a href="/app.html">← Dashboard</a>
+    <a href="#" id="signOut">Sign out</a>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <h1>Tax Forms</h1>
+    <p>Auto-fill your Spanish tax forms in English. We compute every box — you review, sign, and submit to the AEAT.</p>
+  </div>
+
+  <div class="section-label">Quarterly filings</div>
+
+  <a href="/modelo130.html" class="form-card">
+    <div class="form-icon">📊</div>
+    <div class="form-info">
+      <p class="form-name">Modelo 130 — IRPF quarterly payment</p>
+      <p class="form-desc">Income tax instalment for autónomos. Enter revenue and expenses, we calculate your 20% advance payment.</p>
+    </div>
+    <span class="form-badge badge-active">Active</span>
+    <span class="form-arrow">→</span>
+  </a>
+
+  <a href="/modelo303.html" class="form-card">
+    <div class="form-icon">🧾</div>
+    <div class="form-info">
+      <p class="form-name">Modelo 303 — IVA/VAT quarterly return</p>
+      <p class="form-desc">VAT charged vs. VAT paid. Most digital nomads invoicing US/UK clients will use Box 60 (exports at 0%).</p>
+    </div>
+    <span class="form-badge badge-active">Active</span>
+    <span class="form-arrow">→</span>
+  </a>
+
+  <div class="section-label">Registration</div>
+
+  <div class="form-card disabled">
+    <div class="form-icon">📋</div>
+    <div class="form-info">
+      <p class="form-name">Modelo 036 — Alta autónomo (census declaration)</p>
+      <p class="form-desc">Register your economic activity with Hacienda. IAE code selection, tax obligations, activity start date.</p>
+    </div>
+    <span class="form-badge badge-soon">Coming soon</span>
+  </div>
+
+  <div class="section-label">Annual filings</div>
+
+  <div class="form-card disabled">
+    <div class="form-icon">📑</div>
+    <div class="form-info">
+      <p class="form-name">Modelo 100 — Annual IRPF return</p>
+      <p class="form-desc">Your annual income tax declaration. Reconciles quarterly Modelo 130 payments against actual liability.</p>
+    </div>
+    <span class="form-badge badge-soon">Coming soon</span>
+  </div>
+
+  <div class="form-card disabled">
+    <div class="form-icon">📦</div>
+    <div class="form-info">
+      <p class="form-name">Modelo 390 — Annual VAT summary</p>
+      <p class="form-desc">Summarizes all four quarterly Modelo 303 filings for the year.</p>
+    </div>
+    <span class="form-badge badge-soon">Coming soon</span>
+  </div>
+
+  <div class="form-card disabled">
+    <div class="form-icon">🌍</div>
+    <div class="form-info">
+      <p class="form-name">Modelo 720 — Foreign assets declaration</p>
+      <p class="form-desc">Declare bank accounts, securities, and real estate held outside Spain if above €50,000.</p>
+    </div>
+    <span class="form-badge badge-soon">Coming soon</span>
+  </div>
+
+  <a href="/app.html" class="back-link">← Back to dashboard</a>
+</main>
+
+<footer>
+  Working copies for your records. Official filings must be submitted at <a href="https://sede.agenciatributaria.gob.es" target="_blank" rel="noopener">sede.agenciatributaria.gob.es</a>.
+</footer>
+
+<script>
+  var SUPABASE_URL = 'https://jxoepqwbalhdwwbycksa.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4b2VwcXdiYWxoZHd3Ynlja3NhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA4NjQ1NDAsImV4cCI6MjA5NjQ0MDU0MH0.MRO1t5kZIfIw8HORTjEYvU_TUeri7ovXKSHKHRxnJJQ';
+
+  var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  async function init(){
+    var res = await sb.auth.getSession();
+    var session = res.data.session;
+    if (!session){
+      window.location.href = '/login.html';
+      return;
+    }
+    document.getElementById('userEmail').textContent = session.user.email;
+    document.getElementById('signOut').addEventListener('click', async function(e){
+      e.preventDefault();
+      await sb.auth.signOut();
+      window.location.href = '/login.html';
+    });
+  }
+
+  init();
+</script>
+</body>
+</html>
