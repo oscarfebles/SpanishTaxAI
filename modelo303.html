@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Modelo 303 — Auto-fill · SpanishTax AI</title>
+  <meta name="description" content="Auto-fill the Modelo 303 quarterly VAT return for Spanish self-employed (autónomos). Enter your numbers in English, download a ready-to-review PDF." />
+  <link rel="icon" href="/favicon.ico" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root{
+      --bg:#f6f8fb; --card:#ffffff; --ink:#121826; --muted:#5b6473;
+      --rule:#e6eaf0; --accent:#1A5AD9; --accent-ink:#0f3a8a;
+      --ok:#0a8a5a; --warn:#a85b00; --bad:#b42318;
+      --shadow:0 1px 2px rgba(15,23,42,.04),0 4px 16px rgba(15,23,42,.06);
+      --radius:14px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    .topbar{background:#fff;border-bottom:1px solid var(--rule);padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+    .brand{font-weight:700;font-size:16px;color:var(--accent)}
+    .topbar .meta{font-size:13px;color:var(--muted)}
+    .topbar .meta a{margin-left:14px}
+
+    main{max-width:980px;margin:24px auto;padding:0 16px 80px}
+    .hero{margin:8px 0 20px}
+    .hero h1{margin:0 0 6px;font-size:26px;letter-spacing:-.01em}
+    .hero p{margin:0;color:var(--muted)}
+
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:20px;align-items:start}
+    @media (max-width: 880px){ .grid{grid-template-columns:1fr} .summary{position:static !important} }
+
+    .card{background:var(--card);border:1px solid var(--rule);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .card + .card{margin-top:16px}
+    .card h2{margin:0;padding:14px 18px;font-size:14px;color:var(--accent);border-bottom:1px solid var(--rule);background:#fafbfd;border-radius:var(--radius) var(--radius) 0 0}
+    .card .body{padding:14px 18px}
+
+    .row{display:grid;grid-template-columns:32px 1fr 160px;gap:12px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--rule)}
+    .row:last-child{border-bottom:none}
+    .row .num{font:600 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);background:#f1f4f8;border-radius:6px;padding:6px 0;text-align:center}
+    .row label{display:flex;flex-direction:column;gap:2px}
+    .row label .lbl{font-weight:500}
+    .row label .hint{font-size:12px;color:var(--muted)}
+    .row .out{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
+    .row .out.computed{background:#f6f8fb;border-radius:8px;padding:8px 10px;font-weight:600;color:var(--ink)}
+    .row input[type=number], .row input[type=text]{
+      width:100%;padding:8px 10px;border:1px solid var(--rule);border-radius:8px;
+      font:inherit;text-align:right;background:#fff;font-variant-numeric:tabular-nums;
+    }
+    .row input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(26,90,217,.12)}
+
+    .declarant{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .declarant .field{display:flex;flex-direction:column;gap:4px}
+    .declarant .field label{font-size:12px;color:var(--muted)}
+    .declarant input, .declarant select{
+      padding:9px 10px;border:1px solid var(--rule);border-radius:8px;font:inherit;background:#fff;
+    }
+    .declarant input:focus, .declarant select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(26,90,217,.12)}
+
+    .summary{position:sticky;top:20px}
+    .summary .body{padding:18px}
+    .summary .stat{display:flex;justify-content:space-between;padding:6px 0;color:var(--muted);font-size:13px}
+    .summary .stat.total{margin-top:10px;padding-top:14px;border-top:1px solid var(--rule);font-size:16px;color:var(--ink);font-weight:600}
+    .summary .stat .v{font-variant-numeric:tabular-nums}
+    .pill{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:600}
+    .pill.to_pay{background:#fef0ee;color:var(--bad)}
+    .pill.to_offset{background:#fff3e0;color:var(--warn)}
+    .pill.neutral{background:#eaf5ef;color:var(--ok)}
+    .pill.refund{background:#e8f0fe;color:var(--accent)}
+
+    .q4-row{display:flex;align-items:center;gap:8px;padding:10px 0}
+    .q4-row input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent)}
+    .q4-row label{font-size:13px;color:var(--ink)}
+    .q4-row .hint{font-size:12px;color:var(--muted);margin-left:4px}
+
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;border-radius:10px;border:1px solid transparent;background:var(--accent);color:#fff;font:600 14px inherit;cursor:pointer;width:100%}
+    .btn:hover{background:var(--accent-ink)}
+    .btn[disabled]{opacity:.6;cursor:not-allowed}
+    .btn.secondary{background:#fff;color:var(--ink);border-color:var(--rule)}
+    .btn.secondary:hover{background:#f6f8fb}
+
+    .notice{margin-top:14px;padding:10px 12px;border-radius:10px;background:#f4f8ff;color:var(--accent-ink);font-size:13px;border:1px solid #d8e4ff}
+    .notice.error{background:#fef0ee;color:var(--bad);border-color:#f6c9c2}
+
+    footer{max-width:980px;margin:0 auto;padding:24px 16px 40px;color:var(--muted);font-size:12px;text-align:center}
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">SpanishTax AI</div>
+  <div class="meta">
+    <span id="userEmail">…</span>
+    <a href="/app.html">← Dashboard</a>
+    <a href="#" id="signOut">Sign out</a>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <h1>Auto-fill Modelo 303</h1>
+    <p>Quarterly IVA/VAT return for Spanish self-employed (autónomos). Enter your figures, we compute every box and generate a working-copy PDF. Most digital nomads invoicing US/UK clients will use Box 60 (exports).</p>
+  </div>
+
+  <div class="grid">
+    <div>
+      <!-- Declarant -->
+      <section class="card">
+        <h2>Declarant</h2>
+        <div class="body">
+          <div class="declarant">
+            <div class="field">
+              <label for="nif">NIF</label>
+              <input id="nif" type="text" maxlength="10" placeholder="12345678Z" autocomplete="off" />
+            </div>
+            <div class="field">
+              <label for="full_name">Full name / Business name</label>
+              <input id="full_name" type="text" placeholder="Name Surname" autocomplete="off" />
+            </div>
+            <div class="field">
+              <label for="fiscal_year">Fiscal year</label>
+              <input id="fiscal_year" type="number" min="2000" max="2100" step="1" />
+            </div>
+            <div class="field">
+              <label for="quarter">Quarter</label>
+              <select id="quarter">
+                <option value="1">Q1 — Jan/Feb/Mar (file by April 20)</option>
+                <option value="2">Q2 — Apr/May/Jun (file by July 20)</option>
+                <option value="3">Q3 — Jul/Aug/Sep (file by October 20)</option>
+                <option value="4">Q4 — Oct/Nov/Dec (file by January 30)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- IVA Devengado -->
+      <section class="card">
+        <h2>IVA charged (Devengado) — VAT you charged on your invoices</h2>
+        <div class="body">
+          <div class="row">
+            <span class="num">01</span>
+            <label><span class="lbl">Taxable base at 21%</span><span class="hint">Revenue from Spanish or domestic-rate invoices at standard 21% VAT.</span></label>
+            <input id="b01" type="number" step="0.01" min="0" value="0" />
+          </div>
+          <div class="row">
+            <span class="num">02</span>
+            <label><span class="lbl">VAT at 21%</span><span class="hint">Auto: 21% of Box 01</span></label>
+            <div class="out computed" id="b02">0,00 €</div>
+          </div>
+          <div class="row">
+            <span class="num">03</span>
+            <label><span class="lbl">Taxable base at 10%</span><span class="hint">Revenue at reduced 10% rate (food, transport, housing).</span></label>
+            <input id="b03" type="number" step="0.01" min="0" value="0" />
+          </div>
+          <div class="row">
+            <span class="num">04</span>
+            <label><span class="lbl">VAT at 10%</span><span class="hint">Auto: 10% of Box 03</span></label>
+            <div class="out computed" id="b04">0,00 €</div>
+          </div>
+          <div class="row">
+            <span class="num">05</span>
+            <label><span class="lbl">Taxable base at 4%</span><span class="hint">Revenue at super-reduced 4% rate (bread, books, medicine).</span></label>
+            <input id="b05" type="number" step="0.01" min="0" value="0" />
+          </div>
+          <div class="row">
+            <span class="num">06</span>
+            <label><span class="lbl">VAT at 4%</span><span class="hint">Auto: 4% of Box 05</span></label>
+            <div class="out computed" id="b06">0,00 €</div>
+          </div>
+          <div class="row">
+            <span class="num">10</span>
+            <label><span class="lbl">Intra-EU acquisitions — Base</span><span class="hint">Services/goods purchased from EU suppliers (reverse charge applies).</span></label>
+            <input id="b10" type="number" step="0.01" min="0" value="0" />
+          </div>
+          <div class="row">
+            <span class="num">11</span>
+            <label><span class="lbl">Intra-EU acquisitions — VAT</span><span class="hint">Auto: 21% of Box 10</span></label>
+            <div class="out computed" id="b11">0,00 €</div>
+          </div>
+          <div class="row">
+            <span class="num">12</span>
+            <label><span class="lbl">Reverse charge operations — Base</span><span class="hint">Other operations where you self-assess VAT.</span></label>
+            <input id="b12" type="number" step="0.01" min="0" value="0" />
+          </div>
+          <div class="row">
+            <span class="num">13</span>
+            <label><span class="lbl">Reverse charge — VAT</span><span class="hint">Auto: 21% of Box 12</span></label>
+            <div class="out computed" id="b13">0,00 €</div>
+          </div>
+          <div class="row">
+            <span class="num">27</span>
+            <label><span class="lbl">TOTAL VAT CHARGED</span><span class="hint">Auto: sum of all VAT quotas (02+04+06+11+13)</span></label>
+            <div class="out computed" id="b27">0,00 €</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- IVA Deducible -->
+      <section class="card">
+        <h2>IVA paid (Deducible) — VAT you paid on business expenses</h2>
+        <div class="body">
+          <div class="row">
+            <span class="num">28</span>
+            <label><span class="lbl">Domestic operations — Base</span><span class="hint">Total base of Spanish business expenses with VAT (coworking, software, supplies).</span></label>
+            <input id="b28" type="number" step="0.01" min="0" value="0" />
+          </div>
+          <div class="row">
+            <span class="num">29</span>
+            <label><span class="lbl">Domestic operations — Deductible VAT</span><span class="hint">The VAT amount on those expense invoices (e.g. 21% of base).</span></label>
+            <input id="b29" type="number" step="0.01" min="0" value="0" />
+          </div>
+          <div class="row">
+            <span class="num">32</span>
+            <label><span class="lbl">Intra-EU acquisitions — Base</span><span class="hint">Base of EU purchases where you self-assessed VAT (mirrors Box 10).</span></label>
+            <input id="b32" type="number" step="0.01" min="0" value="0" />
+          </div>
+          <div class="row">
+            <span class="num">33</span>
+            <label><span class="lbl">Intra-EU acquisitions — Deductible VAT</span><span class="hint">Deductible VAT on EU acquisitions (mirrors Box 11 if fully deductible).</span></label>
+            <input id="b33" type="number" step="0.01" min="0" value="0" />
+          </div>
+          <div class="row">
+            <span class="num">34</span>
+            <label><span class="lbl">Imports — Base</span><span class="hint">Base of imports from outside the EU with VAT paid at customs.</span></label>
+            <input id="b34" type="number" step="0.01" min="0" value="0" />
+          </div>
+          <div class="row">
+            <span class="num">35</span>
+            <label><span class="lbl">Imports — Deductible VAT</span><span class="hint">VAT paid at customs on imports.</span></label>
+            <input id="b35" type="number" step="0.01" min="0" value="0" />
+          </div>
+          <div class="row">
+            <span class="num">45</span>
+            <label><span class="lbl">TOTAL DEDUCTIBLE VAT</span><span class="hint">Auto: sum of deductible VAT (29+33+35)</span></label>
+            <div class="out computed" id="b45">0,00 €</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Operaciones exentas -->
+      <section class="card">
+        <h2>Exempt / non-subject operations (informational — no VAT charged)</h2>
+        <div class="body">
+          <div class="row">
+            <span class="num">59</span>
+            <label><span class="lbl">Intra-EU exempt services</span><span class="hint">Invoices to EU business clients (B2B, reverse charge applies on their end).</span></label>
+            <input id="b59" type="number" step="0.01" min="0" value="0" />
+          </div>
+          <div class="row">
+            <span class="num">60</span>
+            <label><span class="lbl">Exports and equivalent operations</span><span class="hint">⭐ KEY: Total invoiced to non-EU clients (USA, UK, etc.). This is where most digital nomad revenue goes. VAT = 0% but must be declared here.</span></label>
+            <input id="b60" type="number" step="0.01" min="0" value="0" />
+          </div>
+          <div class="row">
+            <span class="num">61</span>
+            <label><span class="lbl">Non-subject operations</span><span class="hint">Operations not subject to Spanish VAT by localisation rules.</span></label>
+            <input id="b61" type="number" step="0.01" min="0" value="0" />
+          </div>
+        </div>
+      </section>
+
+      <!-- Resultado -->
+      <section class="card">
+        <h2>Settlement result</h2>
+        <div class="body">
+          <div class="row">
+            <span class="num">46</span>
+            <label><span class="lbl">General result</span><span class="hint">Auto: Total charged (27) - Total deductible (45)</span></label>
+            <div class="out computed" id="b46">0,00 €</div>
+          </div>
+          <div class="row">
+            <span class="num">64</span>
+            <label><span class="lbl">Prior quarter offsets (same fiscal year)</span><span class="hint">Negative results from earlier quarters of this year to offset here. Enter as negative number.</span></label>
+            <input id="b64" type="number" step="0.01" value="0" />
+          </div>
+          <div class="row">
+            <span class="num">65</span>
+            <label><span class="lbl">Special regime result</span><span class="hint">Normally 0 for standard autónomos.</span></label>
+            <input id="b65" type="number" step="0.01" value="0" />
+          </div>
+          <div class="row">
+            <span class="num">69</span>
+            <label><span class="lbl">Settlement result</span><span class="hint">Auto: Box 46 + 64 + 65</span></label>
+            <div class="out computed" id="b69">0,00 €</div>
+          </div>
+          <div class="row">
+            <span class="num">71</span>
+            <label><span class="lbl">FINAL — To pay / To offset</span><span class="hint">Auto: = Box 69. Positive = you owe AEAT. Negative = offset to next quarter.</span></label>
+            <div class="out computed" id="b71">0,00 €</div>
+          </div>
+          <div class="q4-row" id="q4Row" style="display:none">
+            <input type="checkbox" id="q4Refund" />
+            <label for="q4Refund">Request refund (Q4 only)</label>
+            <span class="hint">— Instead of carrying forward, ask AEAT to refund the negative balance.</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Summary sidebar -->
+    <aside class="summary card">
+      <h2>Summary</h2>
+      <div class="body">
+        <div class="stat"><span>Total VAT charged (27)</span><span class="v" id="s_charged">0,00 €</span></div>
+        <div class="stat"><span>Total deductible VAT (45)</span><span class="v" id="s_deductible">0,00 €</span></div>
+        <div class="stat"><span>Exports / non-EU (60)</span><span class="v" id="s_exports">0,00 €</span></div>
+        <div class="stat"><span>Status</span><span class="v" id="s_status"><span class="pill neutral">Neutral</span></span></div>
+        <div class="stat total"><span id="s_total_label">Result</span><span class="v" id="s_total">0,00 €</span></div>
+
+        <div style="height:14px"></div>
+        <button class="btn" id="downloadBtn">Generate &amp; download PDF</button>
+        <div style="height:8px"></div>
+        <a class="btn secondary" href="/app.html">Back to dashboard</a>
+
+        <div class="notice" id="notice" style="display:none"></div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  Working copy for your records. Official Modelo 303 must be filed electronically at <a href="https://sede.agenciatributaria.gob.es" target="_blank" rel="noopener">sede.agenciatributaria.gob.es</a>. We are not your tax advisor — verify with a professional before filing.
+</footer>
+
+<script>
+  var SUPABASE_URL = 'https://jxoepqwbalhdwwbycksa.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4b2VwcXdiYWxoZHd3Ynlja3NhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA4NjQ1NDAsImV4cCI6MjA5NjQ0MDU0MH0.MRO1t5kZIfIw8HORTjEYvU_TUeri7ovXKSHKHRxnJJQ';
+  var API_BASE = 'https://spanishtax-chatbot.oscargonzalezfebles.workers.dev';
+
+  var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  var session = null;
+
+  function fmt(n){
+    var v = Math.abs(Number(n) || 0).toFixed(2).replace('.', ',');
+    var parts = v.split(',');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    return (n < 0 ? '-' : '') + parts.join(',') + ' €';
+  }
+  function val(id){ var el = document.getElementById(id); return parseFloat(String(el.value).replace(',', '.')) || 0; }
+  function setOut(id, n){ document.getElementById(id).textContent = fmt(n); }
+
+  function compute(){
+    // IVA devengado
+    var b01 = Math.max(0, val('b01'));
+    var b02 = +(b01 * 0.21).toFixed(2);
+    var b03 = Math.max(0, val('b03'));
+    var b04 = +(b03 * 0.10).toFixed(2);
+    var b05 = Math.max(0, val('b05'));
+    var b06 = +(b05 * 0.04).toFixed(2);
+    var b10 = Math.max(0, val('b10'));
+    var b11 = +(b10 * 0.21).toFixed(2);
+    var b12 = Math.max(0, val('b12'));
+    var b13 = +(b12 * 0.21).toFixed(2);
+    var b27 = +(b02 + b04 + b06 + b11 + b13).toFixed(2);
+
+    // IVA deducible
+    var b28 = Math.max(0, val('b28'));
+    var b29 = Math.max(0, val('b29'));
+    var b32 = Math.max(0, val('b32'));
+    var b33 = Math.max(0, val('b33'));
+    var b34 = Math.max(0, val('b34'));
+    var b35 = Math.max(0, val('b35'));
+    var b45 = +(b29 + b33 + b35).toFixed(2);
+
+    // Resultado
+    var b46 = +(b27 - b45).toFixed(2);
+    var b64 = val('b64'); // can be negative
+    var b65 = val('b65');
+    var b69 = +(b46 + b64 + b65).toFixed(2);
+    var b71 = b69;
+
+    // Informativas
+    var b59 = Math.max(0, val('b59'));
+    var b60 = Math.max(0, val('b60'));
+    var b61 = Math.max(0, val('b61'));
+
+    // Update computed fields
+    setOut('b02', b02); setOut('b04', b04); setOut('b06', b06);
+    setOut('b11', b11); setOut('b13', b13); setOut('b27', b27);
+    setOut('b45', b45);
+    setOut('b46', b46); setOut('b69', b69); setOut('b71', b71);
+
+    // Update summary
+    setOut('s_charged', b27);
+    setOut('s_deductible', b45);
+    setOut('s_exports', b60);
+
+    var statusEl = document.getElementById('s_status');
+    var totalEl = document.getElementById('s_total');
+    var totalLabel = document.getElementById('s_total_label');
+
+    var q = parseInt(document.getElementById('quarter').value, 10);
+    var isQ4 = q === 4;
+    document.getElementById('q4Row').style.display = isQ4 ? 'flex' : 'none';
+    var q4Refund = isQ4 && document.getElementById('q4Refund').checked;
+
+    if (b71 > 0){
+      statusEl.innerHTML = '<span class="pill to_pay">To pay</span>';
+      totalLabel.textContent = 'To pay to AEAT';
+      totalEl.textContent = fmt(b71);
+    } else if (b71 < 0 && q4Refund){
+      statusEl.innerHTML = '<span class="pill refund">Refund requested</span>';
+      totalLabel.textContent = 'Refund from AEAT';
+      totalEl.textContent = fmt(Math.abs(b71));
+    } else if (b71 < 0){
+      statusEl.innerHTML = '<span class="pill to_offset">To offset</span>';
+      totalLabel.textContent = 'To offset next quarter';
+      totalEl.textContent = fmt(Math.abs(b71));
+    } else {
+      statusEl.innerHTML = '<span class="pill neutral">Neutral</span>';
+      totalLabel.textContent = 'Result';
+      totalEl.textContent = fmt(0);
+    }
+  }
+
+  function readInputs(){
+    return {
+      nif: document.getElementById('nif').value.trim().toUpperCase(),
+      full_name: document.getElementById('full_name').value.trim(),
+      fiscal_year: parseInt(document.getElementById('fiscal_year').value, 10),
+      quarter: parseInt(document.getElementById('quarter').value, 10),
+      box_01_base_21: val('b01'),
+      box_03_base_10: val('b03'),
+      box_05_base_4: val('b05'),
+      box_10_intra_base: val('b10'),
+      box_12_reverse_base: val('b12'),
+      box_28_domestic_base: val('b28'),
+      box_29_domestic_quota: val('b29'),
+      box_32_intra_ded_base: val('b32'),
+      box_33_intra_ded_quota: val('b33'),
+      box_34_import_base: val('b34'),
+      box_35_import_quota: val('b35'),
+      box_59_intra_exempt: val('b59'),
+      box_60_exports: val('b60'),
+      box_61_not_subject: val('b61'),
+      box_64_prior_comp: val('b64'),
+      box_65_special_regime: val('b65'),
+      q4_refund_requested: document.getElementById('q4Refund').checked,
+    };
+  }
+
+  function showNotice(msg, isError){
+    var el = document.getElementById('notice');
+    el.className = 'notice' + (isError ? ' error' : '');
+    el.textContent = msg;
+    el.style.display = 'block';
+  }
+  function hideNotice(){ document.getElementById('notice').style.display = 'none'; }
+
+  async function downloadPdf(){
+    hideNotice();
+    if (!session){ showNotice('You must be signed in.', true); return; }
+    var body = readInputs();
+    if (!body.nif || body.nif.length < 8){ showNotice('Please enter a valid NIF.', true); return; }
+    if (!body.full_name){ showNotice('Please enter your full name or business name.', true); return; }
+    if (!body.fiscal_year || body.fiscal_year < 2000){ showNotice('Please enter a valid fiscal year.', true); return; }
+
+    var btn = document.getElementById('downloadBtn');
+    btn.disabled = true;
+    var prev = btn.textContent;
+    btn.textContent = 'Generating PDF…';
+
+    try {
+      var res = await fetch(API_BASE + '/api/modelo303/pdf', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + session.access_token,
+        },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok){
+        var err = await res.json().catch(function(){ return { error: 'HTTP ' + res.status }; });
+        throw new Error(err.error || ('HTTP ' + res.status));
+      }
+      var blob = await res.blob();
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'modelo-303-' + body.fiscal_year + '-Q' + body.quarter + '-' + body.nif + '.pdf';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
+      showNotice('PDF downloaded. We saved a snapshot to your account.', false);
+    } catch (e){
+      showNotice('Could not generate the PDF: ' + e.message, true);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = prev;
+    }
+  }
+
+  async function loadLatest(){
+    if (!session) return;
+    try {
+      var res = await fetch(API_BASE + '/api/modelo303/history', {
+        headers: { 'Authorization': 'Bearer ' + session.access_token },
+      });
+      if (!res.ok) return;
+      var data = await res.json();
+      if (!data.submissions || !data.submissions.length) return;
+      var last = data.submissions[0];
+      if (last.nif) document.getElementById('nif').value = last.nif;
+      if (last.full_name) document.getElementById('full_name').value = last.full_name;
+    } catch (e) { /* silent */ }
+  }
+
+  async function init(){
+    var res = await sb.auth.getSession();
+    session = res.data.session;
+    if (!session){
+      window.location.href = '/login.html';
+      return;
+    }
+    document.getElementById('userEmail').textContent = session.user.email;
+
+    var now = new Date();
+    document.getElementById('fiscal_year').value = now.getFullYear();
+    var m = now.getMonth() + 1;
+    document.getElementById('quarter').value = String(Math.min(4, Math.ceil(m / 3)));
+
+    var inputIds = ['b01','b03','b05','b10','b12','b28','b29','b32','b33','b34','b35','b59','b60','b61','b64','b65'];
+    for (var i = 0; i < inputIds.length; i++){
+      document.getElementById(inputIds[i]).addEventListener('input', compute);
+    }
+    document.getElementById('quarter').addEventListener('change', compute);
+    document.getElementById('q4Refund').addEventListener('change', compute);
+    document.getElementById('downloadBtn').addEventListener('click', downloadPdf);
+    document.getElementById('signOut').addEventListener('click', async function(e){
+      e.preventDefault();
+      await sb.auth.signOut();
+      window.location.href = '/login.html';
+    });
+
+    compute();
+    loadLatest();
+  }
+
+  init();
+</script>
+</body>
+</html>
