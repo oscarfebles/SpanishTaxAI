@@ -10,6 +10,9 @@
     "tail": "wrangler tail"
   },
   "devDependencies": {
-    "wrangler": "^3.78.0"
+    "wrangler": "^4.99.0"
+  },
+  "dependencies": {
+    "pdf-lib": "^1.17.1"
   }
 }

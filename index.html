@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,6 +30,10 @@
 
   <!-- ─── Lucide Icons ─────────────────────────────────── -->
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+
+  <!-- ─── GSAP 3 + ScrollTrigger (animation engine) ────── -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 
   <style>
     /* ─── Design tokens ─────────────────────────────────── */
@@ -346,6 +349,8 @@
       font-weight: 400;
       color: var(--accent);
     }
+    /* Split-text word wrappers (added by GSAP init) */
+    .hero h1 .w { display: inline-block; will-change: transform; }
     .hero-sub {
       font-size: clamp(16px, 1.8vw, 19px);
       line-height: 1.55;
@@ -384,6 +389,25 @@
       box-shadow: 0 1px 2px rgba(0,0,0,0.04);
     }
     .flag:first-child { margin-left: 0; }
+
+    /* Bureaucracy glyph field — decorative, GSAP-populated */
+    .hero-glyphs {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+      user-select: none;
+    }
+    .hero-glyphs span {
+      position: absolute;
+      font-family: var(--mono);
+      font-weight: 500;
+      font-size: 14px;
+      color: var(--ink);
+      opacity: 0;
+      will-change: transform, opacity;
+    }
 
     /* Hero mockup — browser frame with chat */
     .hero-mockup {
@@ -453,6 +477,12 @@
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+    /* When GSAP drives the intro, it takes over the chat sequence */
+    .chat-body.gsap-chat .chat-msg,
+    .chat-body.gsap-chat .chat-input {
+      animation: none;
+      opacity: 0;
     }
     .chat-avatar {
       width: 30px;
@@ -998,6 +1028,8 @@
         height: 2px;
         background: repeating-linear-gradient(90deg, var(--line-strong) 0, var(--line-strong) 4px, transparent 4px, transparent 8px);
         z-index: 0;
+        transform: scaleX(var(--lp, 1));
+        transform-origin: left center;
       }
     }
     .stage {
@@ -1124,13 +1156,25 @@
     }
     .price-card:hover {
       border-color: var(--line-strong);
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-6px);
+    }
+    .price-card:hover .price-tag {
+      transform: translateX(-50%) rotate(-3deg);
     }
     .price-card.featured {
       background: var(--ink);
       color: var(--bg);
       border-color: var(--ink);
       box-shadow: var(--shadow-lg);
+    }
+    /* Subtle terracotta glow pulse on featured tiers (GSAP mode only) */
+    @keyframes featuredGlow {
+      0%, 100% { box-shadow: var(--shadow-lg), 0 0 0 rgba(200, 85, 61, 0); }
+      50% { box-shadow: var(--shadow-lg), 0 0 32px rgba(200, 85, 61, 0.22); }
+    }
+    body.gsap-on .price-card.featured {
+      animation: featuredGlow 4s ease-in-out infinite;
     }
     .price-card.featured .price-name,
     .price-card.featured .price-amount,
@@ -1156,6 +1200,7 @@
       text-transform: uppercase;
       box-shadow: 0 4px 10px rgba(200, 85, 61, 0.3);
       white-space: nowrap;
+      transition: transform 250ms var(--ease);
     }
     .price-name {
       font-family: var(--serif);
@@ -1187,6 +1232,7 @@
       font-weight: 500;
       letter-spacing: -0.03em;
       line-height: 1;
+      font-variant-numeric: tabular-nums;
     }
     .price-period {
       font-size: 14px;
@@ -1403,7 +1449,7 @@
       border-radius: 1px;
       top: 50%;
       left: 50%;
-      transition: transform 250ms var(--ease);
+      transition: transform 250ms var(--ease), opacity 250ms var(--ease);
     }
     .faq-item .plus::before {
       width: 14px;
@@ -1424,6 +1470,7 @@
       font-size: 14.5px;
       line-height: 1.65;
       color: var(--muted);
+      overflow: hidden;
     }
 
     /* ─── Final CTA ──────────────────────────────────────── */
@@ -1563,9 +1610,25 @@
       justify-content: space-between;
       align-items: center;
       font-size: 13px;
-      color: rgba(250, 248, 244, 0.5)
+      color: rgba(250, 248, 244, 0.5);
+    }
 
-      
+    /* ─── Cursor accent (desktop only) ──────────────────── */
+    .cursor-dot {
+      position: fixed;
+      top: -6px;
+      left: -6px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0;
+      mix-blend-mode: multiply;
+    }
+    @media (hover: none), (pointer: coarse), (max-width: 767px) {
+      .cursor-dot { display: none; }
     }
 
     /* ─── Mobile nav drawer ─────────────────────────────── */
@@ -1612,10 +1675,16 @@
       opacity: 1;
       transform: translateY(0);
     }
+    /* When GSAP drives reveals, kill the CSS transition so tweens don't fight it */
+    body.gsap-on .reveal { transition: none; }
+
     @media (prefers-reduced-motion: reduce) {
       .reveal { opacity: 1; transform: none; transition: none; }
       .chat-msg { animation: none; }
       .hero-chip { animation: none; }
+      .cursor-dot { display: none; }
+      .hero-glyphs { display: none; }
+      body.gsap-on .price-card.featured { animation: none; }
     }
 
     /* Selection color */
@@ -1669,6 +1738,7 @@
        HERO — Updated: Expat-first H1, mistake-avoidance angle
        ════════════════════════════════════════════════════════ -->
   <section class="hero">
+    <div class="hero-glyphs" id="heroGlyphs" aria-hidden="true"></div>
     <div class="container">
       <div class="hero-grid">
         <div class="hero-left">
@@ -2176,7 +2246,7 @@
           <div class="founder-meta">
             <div>
               <div class="founder-name">Oscar Gonzalez Febles</div>
-              <div class="founder-role">Spanish auditor · Madrid ·</div>
+              <div class="founder-role">Spanish auditor · Madrid</div>
             </div>
             <a href="https://www.linkedin.com/in/oscargonzalezfebles" target="_blank" rel="noopener" class="founder-link">
               <i data-lucide="linkedin"></i>
@@ -2283,6 +2353,7 @@
   <!-- ════════════════════════════════════════════════════════
        FINAL CTA — Updated: removed waitlist form,
        direct pricing CTA + Calendly secondary
+       [FIXED: btn-outline anchor was malformed]
        ════════════════════════════════════════════════════════ -->
   <section class="final-cta">
     <div class="container">
@@ -2295,21 +2366,16 @@
             See pricing &amp; get started
             <i data-lucide="arrow-right"></i>
           </a>
-          <a href="/free-guide.html" class="btn-outline">
-            
-          </a>
-            Download free DNV guide          
-          </a>
+          <a href="/free-guide.html" class="btn-outline">Download free DNV guide</a>
         </div>
-  
-        <p class="final-cta-note">Not sure which tier? Try the free chatbot or email us at support@spanishtaxai.com.</p>   
+
+        <p class="final-cta-note">Not sure which tier? Try the free chatbot or email us at support@spanishtaxai.com.</p>
       </div>
     </div>
   </section>
 
   <!-- ════════════════════════════════════════════════════════
-       FOOTER — Updated: Contact link to /contact.html,
-       no visible email, Blog added
+       FOOTER — [FIXED: removed duplicate Templates/Free Guide links]
        ════════════════════════════════════════════════════════ -->
   <footer>
     <div class="container">
@@ -2338,12 +2404,10 @@
           <h5>Company</h5>
           <ul>
             <li><a href="/blog">Blog</a></li>
-            <li><a href="/templates.html">Templates</a></li>
-            <li><a href="/free-guide.html">Free Guide</a></li>
             <li><a href="/contact.html">Contact</a></li>
             <li><a href="mailto:support@spanishtaxai.com">support@spanishtaxai.com</a></li>
           </ul>
-         </div>   
+        </div>
 
         <div class="footer-col">
           <h5>Legal</h5>
@@ -2363,15 +2427,14 @@
     </div>
   </footer>
 
+  <!-- Cursor accent dot (desktop only, GSAP-driven) -->
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
   <!-- ════════════════════════════════════════════════════════
-       JS — Simplified: removed waitlist form logic
+       JS — Nav + mobile menu (unchanged behavior) +
+       GSAP animation layer with graceful fallback
        ════════════════════════════════════════════════════════ -->
   <script>
-    // Initialize Lucide icons after the script loads
-    window.addEventListener('load', () => {
-      if (window.lucide) window.lucide.createIcons();
-    });
-
     // ── Sticky nav scroll state ──────────────────────────
     const nav = document.getElementById('nav');
     const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 20);
@@ -2393,16 +2456,274 @@
     navOverlay.addEventListener('click', () => toggleMenu(false));
     navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
 
-    // ── Scroll reveal ────────────────────────────────────
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          io.unobserve(e.target);
+    // ── Motion environment checks ────────────────────────
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobileVp = window.matchMedia('(max-width: 767px)').matches;
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    // ── Fallback scroll reveal (IntersectionObserver) ────
+    // Used when GSAP is unavailable, on mobile, or with reduced motion.
+    function revealFallback() {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    }
+
+    // ── FAQ smooth open/close ────────────────────────────
+    function initFaq(useGsap) {
+      document.querySelectorAll('.faq-item').forEach(item => {
+        const summary = item.querySelector('summary');
+        const body = item.querySelector('.faq-body');
+        if (!summary || !body) return;
+        summary.addEventListener('click', (e) => {
+          if (!useGsap) return; // native <details> toggle
+          e.preventDefault();
+          if (item.hasAttribute('open')) {
+            gsap.to(body, {
+              height: 0, opacity: 0, paddingBottom: 0,
+              duration: 0.3, ease: 'power2.inOut',
+              onComplete: () => {
+                item.removeAttribute('open');
+                gsap.set(body, { clearProps: 'height,opacity,paddingBottom' });
+              }
+            });
+          } else {
+            item.setAttribute('open', '');
+            gsap.fromTo(body,
+              { height: 0, opacity: 0, paddingBottom: 0 },
+              {
+                height: 'auto', opacity: 1, paddingBottom: 22,
+                duration: 0.35, ease: 'power2.out',
+                onComplete: () => gsap.set(body, { clearProps: 'height,paddingBottom' })
+              }
+            );
+          }
+        });
+      });
+    }
+
+    // ── GSAP animation layer ─────────────────────────────
+    function initGsap() {
+      gsap.registerPlugin(ScrollTrigger);
+      document.body.classList.add('gsap-on');
+
+      /* 1 · HERO — split-text + frame entrance timeline */
+      const h1 = document.querySelector('.hero h1');
+      let wordSpans = [];
+      if (h1 && h1.childNodes.length && h1.childNodes[0].nodeType === Node.TEXT_NODE) {
+        const words = h1.childNodes[0].textContent.trim().split(/\s+/);
+        const frag = document.createDocumentFragment();
+        words.forEach((w, i) => {
+          const s = document.createElement('span');
+          s.className = 'w';
+          s.textContent = w;
+          frag.appendChild(s);
+          if (i < words.length - 1) frag.appendChild(document.createTextNode(' '));
+        });
+        h1.replaceChild(frag, h1.childNodes[0]);
+        wordSpans = h1.querySelectorAll('.w');
+      }
+
+      const chatBody = document.querySelector('.chat-body');
+      if (chatBody) chatBody.classList.add('gsap-chat');
+
+      const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+      heroTl.from('.hero-badge', { y: -16, opacity: 0, duration: 0.5 });
+      if (wordSpans.length) {
+        heroTl.from(wordSpans, { y: 30, opacity: 0, duration: 0.6, stagger: 0.06 }, '-=0.2');
+      }
+      heroTl.from('.sub-headline', { y: 24, opacity: 0, duration: 0.55 }, '-=0.25');
+      heroTl.from('.hero-sub', { y: 16, opacity: 0, duration: 0.5 }, '-=0.3');
+      heroTl.from('.hero-actions', { y: 14, opacity: 0, duration: 0.45 }, '-=0.3');
+      heroTl.from('.hero-trust', { opacity: 0, duration: 0.4 }, '-=0.25');
+
+      heroTl.from('.browser-frame', {
+        rotationY: 15, scale: 0.95, opacity: 0,
+        transformPerspective: 1200, transformOrigin: 'center center',
+        duration: 0.9, ease: 'power2.out'
+      }, 0.3);
+
+      heroTl.from('.hero-chip', {
+        scale: 0, rotate: -10, opacity: 0,
+        duration: 0.5, ease: 'back.out(1.7)', stagger: 0.12
+      }, '-=0.35');
+
+      // Chat sequence held until the frame has landed
+      if (chatBody) {
+        heroTl.to(chatBody.querySelectorAll('.chat-msg'), {
+          opacity: 1, y: 0, duration: 0.5, stagger: 0.22,
+          startAt: { y: 8 }
+        }, '-=0.2');
+        heroTl.to(chatBody.querySelector('.chat-input'), {
+          opacity: 1, duration: 0.4
+        }, '-=0.1');
+      }
+
+      /* 2 · HERO glyph field — chaos organizing into order */
+      const glyphHost = document.getElementById('heroGlyphs');
+      if (glyphHost) {
+        const glyphs = ['€', '%', 'IVA', '×', '§', '036', '130', '303', 'Nº', '¶'];
+        const COLS = 10, ROWS = 6;
+        const spans = [];
+        for (let r = 0; r < ROWS; r++) {
+          for (let c = 0; c < COLS; c++) {
+            const s = document.createElement('span');
+            s.textContent = glyphs[(r * COLS + c) % glyphs.length];
+            s.style.left = ((c + 0.5) / COLS * 100) + '%';
+            s.style.top = ((r + 0.5) / ROWS * 100) + '%';
+            glyphHost.appendChild(s);
+            spans.push(s);
+          }
+        }
+        gsap.fromTo(spans,
+          {
+            x: () => gsap.utils.random(-70, 70),
+            y: () => gsap.utils.random(-70, 70),
+            rotation: () => gsap.utils.random(-45, 45),
+            opacity: 0
+          },
+          {
+            x: 0, y: 0, rotation: 0, opacity: 0.08,
+            duration: 1.4, ease: 'power2.out',
+            stagger: { each: 0.015, from: 'random' },
+            delay: 0.9
+          }
+        );
+      }
+
+      /* 3 · Scroll reveals — grouped stagger + generic */
+      const allReveals = Array.from(document.querySelectorAll('.reveal'));
+      const handled = new Set();
+
+      const groupSelectors = ['.problem-grid', '.country-grid', '.pricing-grid'];
+      groupSelectors.forEach(sel => {
+        document.querySelectorAll(sel).forEach(grid => {
+          const items = Array.from(grid.querySelectorAll('.reveal'));
+          if (!items.length) return;
+          items.forEach(i => handled.add(i));
+          gsap.set(items, { y: 40, scale: 0.98 });
+          gsap.to(items, {
+            y: 0, opacity: 1, scale: 1,
+            duration: 0.7, ease: 'power3.out', stagger: 0.08,
+            scrollTrigger: { trigger: grid, start: 'top 85%' },
+            clearProps: 'transform'
+          });
+        });
+      });
+
+      /* 4 · Journey timeline — line draw (scrub) + dot pops */
+      const track = document.querySelector('.timeline-track');
+      if (track) {
+        const stages = Array.from(track.querySelectorAll('.stage'));
+        stages.forEach(s => handled.add(s));
+
+        // Dashed line draws with scroll (desktop pseudo-element via CSS var)
+        gsap.fromTo(track, { '--lp': 0 }, {
+          '--lp': 1, ease: 'none',
+          scrollTrigger: { trigger: track, start: 'top 85%', end: 'top 40%', scrub: 0.6 }
+        });
+
+        // Stage content fade + dot pop-in sequence
+        gsap.set(stages, { opacity: 0, y: 24 });
+        gsap.set(track.querySelectorAll('.stage-dot'), { scale: 0 });
+        ScrollTrigger.create({
+          trigger: track, start: 'top 80%', once: true,
+          onEnter: () => {
+            gsap.to(stages, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.15 });
+            gsap.to(track.querySelectorAll('.stage-dot'), {
+              scale: 1, duration: 0.55, ease: 'back.out(2)', stagger: 0.15, delay: 0.1
+            });
+          }
+        });
+      }
+
+      // Generic reveals — everything not grouped above
+      allReveals.filter(el => !handled.has(el)).forEach(el => {
+        gsap.set(el, { y: 40, scale: 0.98 });
+        gsap.to(el, {
+          y: 0, opacity: 1, scale: 1,
+          duration: 0.7, ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 85%' },
+          clearProps: 'transform'
+        });
+      });
+
+      /* 5 · Price count-up on pricing enter */
+      document.querySelectorAll('.price-amount').forEach(el => {
+        const raw = el.textContent.trim();
+        const target = parseFloat(raw);
+        if (isNaN(target)) return;
+        const decimals = raw.includes('.') ? (raw.split('.')[1] || '').length : 0;
+        const state = { v: 0 };
+        ScrollTrigger.create({
+          trigger: el, start: 'top 88%', once: true,
+          onEnter: () => {
+            gsap.to(state, {
+              v: target, duration: 1.2, ease: 'power2.out',
+              onUpdate: () => { el.textContent = state.v.toFixed(decimals); },
+              onComplete: () => { el.textContent = raw; }
+            });
+          }
+        });
+      });
+
+      /* 6 · Logo-mark pulse when pricing enters view */
+      ScrollTrigger.create({
+        trigger: '#pricing', start: 'top 70%', once: true,
+        onEnter: () => {
+          gsap.fromTo('.logo-mark', { scale: 1 }, {
+            scale: 1.18, duration: 0.28, ease: 'power2.out', yoyo: true, repeat: 1
+          });
         }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+      /* 7 · Cursor accent dot (fine pointers only) */
+      const dot = document.getElementById('cursorDot');
+      if (dot && finePointer) {
+        const xTo = gsap.quickTo(dot, 'x', { duration: 0.35, ease: 'power3' });
+        const yTo = gsap.quickTo(dot, 'y', { duration: 0.35, ease: 'power3' });
+        let shown = false;
+        window.addEventListener('mousemove', (e) => {
+          if (!shown) { gsap.to(dot, { opacity: 0.85, duration: 0.3 }); shown = true; }
+          xTo(e.clientX); yTo(e.clientY);
+        }, { passive: true });
+        const hoverables = 'a, button, .price-card, .problem-card, .country-card, .faq-item summary, .cal-deadline';
+        document.querySelectorAll(hoverables).forEach(el => {
+          el.addEventListener('mouseenter', () => gsap.to(dot, { scale: 2.4, opacity: 0.35, duration: 0.25 }));
+          el.addEventListener('mouseleave', () => gsap.to(dot, { scale: 1, opacity: 0.85, duration: 0.25 }));
+        });
+        document.addEventListener('mouseleave', () => { gsap.to(dot, { opacity: 0, duration: 0.3 }); shown = false; });
+      }
+    }
+
+    // ── Boot ─────────────────────────────────────────────
+    window.addEventListener('load', () => {
+      if (window.lucide) window.lucide.createIcons();
+
+      const gsapReady = window.gsap && window.ScrollTrigger;
+      const animate = gsapReady && !prefersReduced && !isMobileVp;
+
+      initFaq(!!(gsapReady && !prefersReduced));
+
+      if (animate) {
+        try {
+          initGsap();
+        } catch (err) {
+          console.error('GSAP init failed, falling back:', err);
+          document.body.classList.remove('gsap-on');
+          revealFallback();
+        }
+      } else {
+        revealFallback();
+      }
+    });
   </script>
 
    <!-- Widget del chat (añade esto) -->
@@ -2411,5 +2732,65 @@
 
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"954466b653bd4db0bdbe2301fd5e50af","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 <script src="/auth-modal.js" defer></script>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CHANGELOG (this redesign pass)
+
+     (a) ANIMATIONS ADDED (GSAP 3 + ScrollTrigger via cdnjs, defer):
+       1. Hero split-text: H1 word-by-word reveal (stagger 0.06s,
+          y:30→0, power3.out), sub-headline delayed entrance,
+          badge drops from above.
+       2. Browser frame 3D entrance (rotationY 15→0, scale .95→1),
+          floating chips pop-in (scale 0→1, back.out) after frame.
+       3. Chat mockup messages re-sequenced into the GSAP timeline
+          (held until frame lands), replacing raw CSS delays.
+       4. Bureaucracy glyph field in hero background: €/%/IVA/036/
+          130/303/×/§ glyphs scatter chaotically then organize into
+          a clean 10×6 grid. Max opacity 0.08, pointer-events none.
+       5. ScrollTrigger reveals replace IntersectionObserver:
+          grouped stagger (0.08s) for problem/country/pricing cards,
+          y:40→0 + scale .98→1, start 'top 85%'. Generic reveals for
+          everything else. IO kept as fallback (no GSAP / mobile /
+          reduced motion).
+       6. Journey timeline: dashed line draws left→right with scrub
+          (CSS var --lp on ::before), 5 stage dots pop sequentially
+          (scale 0→1, back.out(2)) with stage content fade.
+       7. Price count-up: .price-amount animates 0→value on viewport
+          entry (1.2s, power2.out), decimals respected, original
+          string restored on complete.
+       8. Pricing hover: translateY(-6px) + shadow-lg + price-tag
+          tilt (-3deg). Featured cards pulse a slow 4s terracotta
+          glow (CSS keyframes, gated to body.gsap-on).
+       9. FAQ height animation on open/close (GSAP height auto
+          tween on <details>, native toggle preserved as fallback).
+      10. Logo-mark scale pulse when #pricing enters viewport.
+      11. Cursor accent dot (12px, quickTo lag follow), grows over
+          links/buttons/cards. Fine pointers only; hidden on touch,
+          mobile, and prefers-reduced-motion.
+      All GSAP animation is skipped under prefers-reduced-motion
+      and on viewports <768px (IO fallback keeps reveals working).
+
+     (b) INTEGRATIONS PRESERVED LITERALLY:
+       - /spanishtax-chatbot.js, /cookie-banner.js, /auth-modal.js
+       - Cloudflare Insights beacon (untouched, incl. integrity)
+       - IDs: nav, navLinks, hamburger, navOverlay
+       - Anchors: #how-it-works, #for-your-country, #pricing,
+         #faq, #about
+       - window.STXAuth.openSignIn() / openSignUp() handlers
+       - All 4 Stripe Payment Links (buy.stripe.com/...)
+       - All copy, pricing, FAQ, founder text, meta/OG tags,
+         FotowebV3.jpg, and every internal route
+       - .reveal class semantics (now GSAP-driven with IO fallback)
+
+     (c) BUGS FIXED:
+       1. .final-cta secondary button: malformed anchor rebuilt as
+          a single <a href="/free-guide.html" class="btn-outline">
+          Download free DNV guide</a> (removed orphan </a>).
+       2. Footer Company column: removed duplicate Templates and
+          Free Guide links (both remain once under Product).
+       3. .footer-bottom CSS: closed the color declaration with ';'
+          and removed stray whitespace before '}'.
+       4. Minor: trailing '·' after 'Madrid' in .founder-role.
+     ═══════════════════════════════════════════════════════════ -->
 </body>
 </html>

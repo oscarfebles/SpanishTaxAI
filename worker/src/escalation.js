@@ -165,7 +165,7 @@ export function detectEscalation(message) {
  *   - Added `support_email` field for async escalation
  *   - Renamed pro_review → pro_audit (DNV Pro Audit)
  *   - Renamed premium → premium_concierge (Premium Concierge)
- *   - Updated descriptions to reflect Oscar-only async review (no external asesor)
+ *   - Updated descriptions to reflect async review (no external asesor)
  */
 export function getProductDetails(productKey) {
   const products = {

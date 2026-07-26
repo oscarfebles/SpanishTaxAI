@@ -49,7 +49,56 @@ export async function handleChat(request, env, ctx) {
   }
   const safeHistory = Array.isArray(history) ? history.slice(-20) : []; // last 10 turns max
 
-  // ─── 2. Rate limit check (per IP) ────────────────────────────────────
+  // ─── 2a. Auth check — only PAID users skip gating ───────────────
+  let isAuthenticated = false;
+  let isPaidUser = false;
+  let userEmail = null;
+  var authHeader = request.headers.get('authorization') || '';
+
+  if (authHeader.startsWith('Bearer ')) {
+    try {
+      var token = authHeader.slice(7);
+      var authRes = await fetch(env.SUPABASE_URL + '/auth/v1/user', {
+        headers: {
+          'apikey': env.SUPABASE_SERVICE_ROLE_KEY,
+          'Authorization': 'Bearer ' + token,
+        },
+      });
+      if (authRes.ok) {
+        isAuthenticated = true;
+        var userData = await authRes.json();
+        userEmail = (userData.email || '').toLowerCase().trim();
+
+        // Admin bypass
+        var adminEmails = (env.ADMIN_EMAILS || '').split(',').map(function(e) { return e.trim().toLowerCase(); });
+        if (adminEmails.includes(userEmail)) {
+          isPaidUser = true;
+        } else {
+          // Check customers table for paid tier
+          var custRes = await fetch(
+            env.SUPABASE_URL + '/rest/v1/customers?email=eq.' + encodeURIComponent(userEmail) + '&select=tier,status',
+            {
+              headers: {
+                'apikey': env.SUPABASE_SERVICE_ROLE_KEY,
+                'Authorization': 'Bearer ' + env.SUPABASE_SERVICE_ROLE_KEY,
+              },
+            }
+          );
+          if (custRes.ok) {
+            var customers = await custRes.json();
+            if (customers.length > 0 && customers[0].status === 'active') {
+              var paidTiers = ['dnv_pack', 'dnv_audit', 'pro', 'premium', 'admin'];
+              isPaidUser = paidTiers.includes(customers[0].tier);
+            }
+          }
+        }
+      }
+    } catch (err) {
+      console.error('Auth verification failed:', err);
+    }
+  }
+
+  // ─── 2b. Rate limit check (per IP) ─────────────────────────────────
   const clientIp = request.headers.get('cf-connecting-ip') || 'unknown';
   const rateCheck = await checkRateLimit(env, clientIp);
   if (!rateCheck.allowed) {
@@ -62,129 +111,117 @@ export async function handleChat(request, env, ctx) {
   }
 
   // ─── 3. Session turn count check (gating logic v1.1) ─────────────────
-  // Gating model: 3 anonymous → email gate at turn 3 → 3 more with email → paywall at turn 7
-  //
-  // Logic:
-  //   turn 1-3 (no email): respond normally; at turn 3, prompt for email
-  //   turn 4+ (no email): hard paywall, no Claude call
-  //   turn 1-6 (with email): respond normally
-  //   turn 7+ (with email): hard paywall, no Claude call
-  //
-  // Email unlock: if user provides email IN this message (e.g. on turn 4),
-  // we treat them as email-captured immediately and allow the response.
-  // We also write the email synchronously to Supabase BEFORE the paywall check,
-  // so subsequent turns see the email and don't trigger paywall.
-  const turnCount = await countSessionTurns(env, session_id);
-  const turnNumber = turnCount + 1;
-  let emailAlreadyCaptured = await hasEmailCaptured(env, session_id);
+  // Authenticated users skip this entire block.
+  // Anonymous gating: 3 turns → email gate → 3 more → paywall
+  let turnNumber = 0;
+  let emailAlreadyCaptured = false;
+  let emailInCurrentMessage = null;
 
-  // Check if user provided email IN this current message
-  const emailInCurrentMessage = EMAIL_RE.exec(message)?.[0] || null;
-  if (emailInCurrentMessage && !emailAlreadyCaptured) {
-    // Persist the email synchronously so the gate immediately reflects it
-    // (subsequent turns will see this email via hasEmailCaptured)
-    try {
-      await logTurn(env, {
+  if (!isPaidUser) {
+    const turnCount = await countSessionTurns(env, session_id);
+    turnNumber = turnCount + 1;
+    emailAlreadyCaptured = await hasEmailCaptured(env, session_id);
+
+    emailInCurrentMessage = EMAIL_RE.exec(message)?.[0] || null;
+    if (emailInCurrentMessage && !emailAlreadyCaptured) {
+      try {
+        await logTurn(env, {
+          session_id,
+          turn_number: turnNumber,
+          user_message: '[EMAIL_CAPTURE_EVENT]',
+          assistant_response: null,
+          chunks_retrieved: [],
+          escalation_triggered: false,
+          escalation_reason: 'email_provided',
+          email_captured: emailInCurrentMessage,
+          user_language_detected: null,
+          response_time_ms: 0,
+          input_tokens: 0,
+          output_tokens: 0,
+          ip_country: request.headers.get('cf-ipcountry') || null,
+          user_agent: request.headers.get('user-agent') || null,
+        });
+        emailAlreadyCaptured = true;
+      } catch (err) {
+        console.error('Failed to persist email capture:', err);
+      }
+    }
+
+    const anonymousLimit = parseInt(env.ANONYMOUS_TURN_LIMIT || '3', 10);
+    const withEmailLimit = parseInt(env.WITH_EMAIL_TURN_LIMIT || '8', 10);
+
+    const paywallTriggered =
+      (!emailAlreadyCaptured && turnNumber > anonymousLimit) ||
+      (emailAlreadyCaptured && turnNumber > withEmailLimit);
+
+    if (paywallTriggered) {
+      const paywallPayload = {
+        type: 'paywall',
+        message: "You've reached the limit of your free messages.",
+        reason: emailAlreadyCaptured ? 'limit_with_email' : 'limit_anonymous',
+        tiers: [
+          {
+            id: 'dnv_pack',
+            name: 'DNV Application Pack',
+            price: '€199',
+            billing: 'one-time',
+            tagline: 'Self-serve roadmap, templates, document checklist',
+            url: 'https://buy.stripe.com/28EcN51KZdtialN88Wbwk05',
+            recommended: false,
+          },
+          {
+            id: 'dnv_audit',
+            name: 'DNV Pro Audit',
+            price: '€499',
+            billing: 'one-time',
+            tagline: 'Complete async review of your application package',
+            url: 'https://buy.stripe.com/7sYfZhfBP4WMeC3ah4bwk04',
+            recommended: true,
+          },
+          {
+            id: 'pro',
+            name: 'Spanish Resident Pro',
+            price: '€14.50',
+            billing: '/month (founding rate)',
+            tagline: 'Ongoing autónomo tax compliance + chatbot priority',
+            url: 'https://buy.stripe.com/14A8wP0GV3SIctVbl8bwk03',
+            recommended: false,
+          },
+          {
+            id: 'premium',
+            name: 'Premium Concierge',
+            price: '€49.50',
+            billing: '/month (founding rate)',
+            tagline: 'Async quarterly review + WhatsApp/Telegram priority',
+            url: 'https://buy.stripe.com/cNi14n61fexmeC3ah4bwk01',
+            recommended: false,
+          },
+        ],
+        footer: 'Already have a plan? Sign in at spanishtaxai.com/login',
+      };
+
+      ctx.waitUntil(logTurn(env, {
         session_id,
         turn_number: turnNumber,
-        user_message: '[EMAIL_CAPTURE_EVENT]',
-        assistant_response: null,
+        user_message: message,
+        assistant_response: '[PAYWALL_TRIGGERED]',
         chunks_retrieved: [],
         escalation_triggered: false,
-        escalation_reason: 'email_provided',
-        email_captured: emailInCurrentMessage,
-        user_language_detected: null,
-        response_time_ms: 0,
+        escalation_reason: paywallPayload.reason,
+        email_captured: null,
+        user_language_detected: detectLanguage(message),
+        response_time_ms: Date.now() - startTime,
         input_tokens: 0,
         output_tokens: 0,
         ip_country: request.headers.get('cf-ipcountry') || null,
         user_agent: request.headers.get('user-agent') || null,
+      }));
+
+      return new Response(JSON.stringify(paywallPayload), {
+        status: 402,
+        headers: { 'content-type': 'application/json' },
       });
-      // Flip the flag for the rest of this request
-      emailAlreadyCaptured = true;
-    } catch (err) {
-      console.error('Failed to persist email capture:', err);
-      // Continue anyway — best-effort
     }
-  }
-
-  const anonymousLimit = parseInt(env.ANONYMOUS_TURN_LIMIT || '3', 10);     // 3 turns anonymous
-  const withEmailLimit = parseInt(env.WITH_EMAIL_TURN_LIMIT || '6', 10);    // 6 turns with email (total)
-
-  // Hard paywall check: if user has hit their limit, return paywall payload (NO Claude call)
-  const paywallTriggered =
-    (!emailAlreadyCaptured && turnNumber > anonymousLimit) ||
-    (emailAlreadyCaptured && turnNumber > withEmailLimit);
-
-  if (paywallTriggered) {
-    // Return special paywall response (widget detects type and renders tier cards)
-    const paywallPayload = {
-      type: 'paywall',
-      message: "You've reached the limit of your free messages.",
-      reason: emailAlreadyCaptured ? 'limit_with_email' : 'limit_anonymous',
-      tiers: [
-        {
-          id: 'dnv_pack',
-          name: 'DNV Application Pack',
-          price: '€199',
-          billing: 'one-time',
-          tagline: 'Self-serve roadmap, templates, document checklist',
-          url: 'https://buy.stripe.com/28EcN51KZdtialN88Wbwk05',
-          recommended: false,
-        },
-        {
-          id: 'dnv_audit',
-          name: 'DNV Pro Audit',
-          price: '€499',
-          billing: 'one-time',
-          tagline: "Oscar's full async review of your application package",
-          url: 'https://buy.stripe.com/7sYfZhfBP4WMeC3ah4bwk04',
-          recommended: true,
-        },
-        {
-          id: 'pro',
-          name: 'Spanish Resident Pro',
-          price: '€14.50',
-          billing: '/month (founding rate)',
-          tagline: 'Ongoing autónomo tax compliance + chatbot priority',
-          url: 'https://buy.stripe.com/14A8wP0GV3SIctVbl8bwk03',
-          recommended: false,
-        },
-        {
-          id: 'premium',
-          name: 'Premium Concierge',
-          price: '€49.50',
-          billing: '/month (founding rate)',
-          tagline: "Oscar's async quarterly review + WhatsApp/Telegram priority",
-          url: 'https://buy.stripe.com/cNi14n61fexmeC3ah4bwk01',
-          recommended: false,
-        },
-      ],
-      footer: 'Already have a plan? Sign in at spanishtaxai.com/login',
-    };
-
-    // Log the paywall hit (fire-and-forget, doesn't block response)
-    ctx.waitUntil(logTurn(env, {
-      session_id,
-      turn_number: turnNumber,
-      user_message: message,
-      assistant_response: '[PAYWALL_TRIGGERED]',
-      chunks_retrieved: [],
-      escalation_triggered: false,
-      escalation_reason: paywallPayload.reason,
-      email_captured: null,
-      user_language_detected: detectLanguage(message),
-      response_time_ms: Date.now() - startTime,
-      input_tokens: 0,
-      output_tokens: 0,
-      ip_country: request.headers.get('cf-ipcountry') || null,
-      user_agent: request.headers.get('user-agent') || null,
-    }));
-
-    return new Response(JSON.stringify(paywallPayload), {
-      status: 402, // Payment Required (semantically perfect)
-      headers: { 'content-type': 'application/json' },
-    });
   }
 
   // ─── 4. Language + escalation detection ──────────────────────────────
@@ -279,3 +316,4 @@ function jsonError(status, code, message, extraHeaders = {}) {
     },
   );
 }
+

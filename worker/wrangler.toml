@@ -8,17 +8,23 @@ compatibility_flags = ["nodejs_compat"]
 binding = "RATE_LIMIT"
 id = "940a9910528044548371ac26a1edc463"
 
+# ─── Cron Triggers ────────────────────────────────────────────────────────
+# Runs daily at 8:00 UTC (10:00 Madrid) — nurture email sequence
+[triggers]
+crons = ["0 8 * * *"]
+
 # ─── Non-secret variables ─────────────────────────────────────────────────
 [vars]
 ALLOWED_ORIGINS = "https://spanishtaxai.com,https://www.spanishtaxai.com,http://localhost:3000"
 ANTHROPIC_MODEL = "claude-sonnet-4-6"
 VOYAGE_MODEL = "voyage-3-large"
 RATE_LIMIT_PER_MIN = "10"
-
-# Gating model v1.1: 3 anonymous → email gate at turn 3 → 3 more with email → paywall at turn 7
 ANONYMOUS_TURN_LIMIT = "3"
 WITH_EMAIL_TURN_LIMIT = "8"
 EMAIL_CAPTURE_TURN = "3"
+ADMIN_EMAILS = "oscargonzalezfebles@gmail.com"
+SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4b2VwcXdiYWxoZHd3Ynlja3NhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA4NjQ1NDAsImV4cCI6MjA5NjQ0MDU0MH0.MRO1t5kZIfIw8HORTjEYvU_TUeri7ovXKSHKHRxnJJQ"
+
 
 # ─── Secrets (NOT defined here) ───────────────────────────────────────────
 # Already set via Cloudflare Dashboard UI:
@@ -26,3 +32,6 @@ EMAIL_CAPTURE_TURN = "3"
 #   SUPABASE_URL
 #   SUPABASE_SERVICE_ROLE_KEY
 #   VOYAGE_API_KEY
+#   STRIPE_WEBHOOK_SECRET
+#   RESEND_API_KEY
+
